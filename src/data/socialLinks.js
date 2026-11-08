@@ -9,8 +9,8 @@ export const socialLinks = {
   status: "Available for Projects & Opportunities",
   isAvailable: true,
   email: "nash.escabarte.dev@gmail.com",
-  github: "https://github.com/nashescabarte",
-  githubUsername: "nashescabarte",
+  github: "https://github.com/kenntott",
+  githubUsername: "kenntott",
   linkedin: "https://linkedin.com/in/nash-escabarte",
   facebook: "https://facebook.com", // Optional, configured
   resumePath: "/resume.pdf",

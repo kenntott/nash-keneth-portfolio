@@ -118,7 +118,7 @@ nash-portfolio/
 ### 2. Installation
 Clone the repository and install dependencies:
 ```bash
-git clone https://github.com/nashescabarte/nash-portfolio.git
+git clone https://github.com/kenntott/nash-portfolio.git
 cd nash-portfolio
 npm install
 ```

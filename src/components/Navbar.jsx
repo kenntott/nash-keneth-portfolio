@@ -99,7 +99,7 @@ export const Navbar = () => {
                   isDark ? "text-white" : "text-[#0F172A]"
                 }`}
               >
-                Nash Kenneth<span className="text-[#8B5CF6]">.</span>
+                {socialLinks.name}<span className="text-[#8B5CF6]">.</span>
               </span>
               <span className={`text-[10px] font-mono tracking-wider uppercase whitespace-nowrap ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
                 Full-Stack Dev

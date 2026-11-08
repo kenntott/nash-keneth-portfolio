@@ -1,6 +1,6 @@
 export const socialLinks = {
   greeting: "Hello, I'm",
-  name: "Nash Kenneth",
+  name: "Nash Keneth",
   fullName: "Nash Keneth Q. Barzo",
   monogram: "NK",
   title: "Aspiring Full-Stack Web Developer",
@@ -12,7 +12,7 @@ export const socialLinks = {
   github: "https://github.com/kenntott",
   githubUsername: "kenntott",
   facebook: "https://www.facebook.com/share/1AFFXqztJw/",
-  facebookUsername: "Nash Kenneth",
+  facebookUsername: "Nash Keneth",
   instagram: "https://www.instagram.com/nshkenn?rpxt=Y2djMHFzOWpyOXZ1",
   instagramUsername: "@nshkenn",
   resumePath: "/Nash_Keneth_Barzo_CV.pdf",

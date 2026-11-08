@@ -400,7 +400,7 @@ export const Contact = () => {
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Hello Nash Kenneth, let's discuss building an application or system..."
+                    placeholder={`Hello ${socialLinks.name}, let's discuss building an application or system...`}
                     disabled={status === 'loading'}
                     className={`w-full px-5 py-3.5 rounded-2xl border text-sm transition-all focus:outline-none focus:ring-2 resize-none ${
                       errors.message

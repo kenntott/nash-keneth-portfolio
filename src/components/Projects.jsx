@@ -13,17 +13,17 @@ export const Projects = () => {
   const [activeModalProject, setActiveModalProject] = useState(null);
 
   const filters = [
-    { id: "all", label: "All Work" },
-    { id: "info-systems", label: "Information Systems" },
-    { id: "management", label: "Business Management / POS" },
-    { id: "community", label: "Governance & Security" },
+    { id: "all", label: "All Projects" },
+    { id: "pos", label: "POS & Business Systems" },
+    { id: "inventory", label: "Inventory & Mill System" },
+    { id: "governance", label: "Community Governance" },
   ];
 
   const filteredProjects = projects.filter((p) => {
     if (selectedFilter === "all") return true;
-    if (selectedFilter === "info-systems") return p.category.includes("Information System");
-    if (selectedFilter === "management") return p.category.includes("Management") || p.category.includes("POS");
-    if (selectedFilter === "community") return p.category.includes("Governance") || p.category.includes("Security");
+    if (selectedFilter === "pos") return p.id === "desinio-koleksyon" || p.category.includes("POS");
+    if (selectedFilter === "inventory") return p.id === "matinong-rice-mill" || p.category.includes("Inventory");
+    if (selectedFilter === "governance") return p.id === "barangay-kinilis-portal" || p.category.includes("Governance");
     return true;
   });
 

@@ -9,7 +9,7 @@ import { socialLinks } from '../data/socialLinks';
 const FALLBACK_REPOS = [
   {
     name: "desinio-koleksyon-pos",
-    description: "Printing Services Management & POS System with job costing, billing, and queue tracking.",
+    description: "Printing Services Management & POS System with dynamic job costing, billing, and queue tracking.",
     language: "JavaScript",
     languageColor: "#F7DF1E",
     stargazers_count: 14,
@@ -17,17 +17,17 @@ const FALLBACK_REPOS = [
     html_url: socialLinks.github,
   },
   {
-    name: "ricemill-inventory-mgmt",
-    description: "Rice Mill By-Product Utilization, delayed receivable ledger, and inventory automation.",
+    name: "matinong-rice-mill-system",
+    description: "Matinong Rice Mill by-product utilization, delayed receivable ledger, and inventory automation.",
     language: "PHP / React",
     languageColor: "#777BB4",
-    stargazers_count: 9,
+    stargazers_count: 11,
     forks_count: 3,
     html_url: socialLinks.github,
   },
   {
     name: "barangay-kinilis-portal",
-    description: "Digital governance portal for community clearance requests, notices, and resident tracking.",
+    description: "Digital governance portal for community clearance requests, incident logs, and public notices.",
     language: "JavaScript",
     languageColor: "#61DAFB",
     stargazers_count: 18,
@@ -35,12 +35,12 @@ const FALLBACK_REPOS = [
     html_url: socialLinks.github,
   },
   {
-    name: "nexus-hub-digital-hq",
-    description: "Enterprise workplace platform with RBAC security matrix, audit logs, and record access control.",
-    language: "JavaScript",
+    name: "nash-developer-portfolio",
+    description: "Modern, responsive personal developer portfolio with Adelina design, dual-mode avatar switcher, and dark/light themes.",
+    language: "React",
     languageColor: "#A855F7",
-    stargazers_count: 12,
-    forks_count: 3,
+    stargazers_count: 22,
+    forks_count: 7,
     html_url: socialLinks.github,
   },
 ];

@@ -8,8 +8,8 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
   const { isDark } = useTheme();
   const [imageError, setImageError] = useState(false);
 
-  // Asymmetrical card layout alternating between span-1 and span-2 for Adelina editorial style
-  const isFeatured = index === 0 || index === 3;
+  // Asymmetrical card layout: First card is prominent featured showcase, followed by dual-column pair
+  const isFeatured = index === 0;
 
   return (
     <motion.div

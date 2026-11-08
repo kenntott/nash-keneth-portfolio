@@ -178,10 +178,10 @@ export const Hero = () => {
             >
               <div>
                 <p className={`text-xl sm:text-3xl md:text-4xl font-display font-extrabold whitespace-nowrap ${isDark ? "text-white" : "text-[#0F172A]"}`}>
-                  4+
+                  3
                 </p>
                 <p className={`text-[10px] sm:text-xs font-mono mt-1 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                  Systems
+                  Core Systems
                 </p>
               </div>
 

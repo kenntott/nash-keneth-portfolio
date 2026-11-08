@@ -83,7 +83,7 @@ export const Skills = () => {
           </div>
 
           <h2
-            className={`text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight mb-4 ${
+            className={`text-[clamp(1.9rem,6vw,3.75rem)] font-display font-extrabold tracking-tight mb-4 break-words ${
               isDark ? "text-white" : "text-[#0F172A]"
             }`}
           >
@@ -153,7 +153,7 @@ export const Skills = () => {
               </div>
 
               {/* Skills Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-5">
                 {cat.skills.map((skill, sIdx) => {
                   const Icon = iconMap[skill.icon] || Code2;
                   return (
@@ -161,27 +161,27 @@ export const Skills = () => {
                       key={skill.name}
                       whileHover={{ y: -6, rotate: sIdx % 2 === 0 ? 1 : -1 }}
                       transition={{ duration: 0.2 }}
-                      className={`p-5 rounded-3xl border transition-all duration-300 flex flex-col items-center text-center justify-between group ${
+                      className={`p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all duration-300 flex flex-col items-center text-center justify-between group ${
                         isDark
                           ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/60 hover:shadow-glow-purple-sm hover:bg-[#18182B]"
                           : "bg-white border-[#E4E4F2] hover:border-[#7C3AED]/50 hover:shadow-card-light shadow-sm"
                       }`}
                     >
                       <div
-                        className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${
+                        className={`w-11 h-11 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 transition-transform duration-300 group-hover:scale-110 ${
                           isDark
                             ? "bg-[#0E0E18] border border-[#242338] group-hover:border-[#8B5CF6]/50"
                             : "bg-violet-50/60 border border-violet-100 group-hover:border-violet-300"
                         }`}
                       >
                         <Icon
-                          className="w-7 h-7 transition-transform duration-300 group-hover:rotate-6"
+                          className="w-5 h-5 sm:w-7 sm:h-7 transition-transform duration-300 group-hover:rotate-6"
                           style={{ color: skill.color || '#8B5CF6' }}
                         />
                       </div>
 
                       <h4
-                        className={`text-sm font-heading font-bold transition-colors ${
+                        className={`text-xs sm:text-sm font-heading font-bold transition-colors break-words max-w-full ${
                           isDark ? "text-white group-hover:text-[#C084FC]" : "text-[#0F172A] group-hover:text-[#7C3AED]"
                         }`}
                       >
@@ -189,7 +189,7 @@ export const Skills = () => {
                       </h4>
 
                       <span
-                        className={`text-[10px] font-mono mt-2 px-2.5 py-0.5 rounded-full border ${
+                        className={`text-[9px] sm:text-[10px] font-mono mt-2 px-2 sm:px-2.5 py-0.5 rounded-full border ${
                           isDark
                             ? "bg-[#07070B] text-[#9E9EB8] border-[#242338]"
                             : "bg-slate-50 text-[#64748B] border-[#E4E4F2]"

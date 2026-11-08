@@ -59,24 +59,24 @@ export const ProjectModal = ({ project, onClose }) => {
         >
           {/* Sticky Header with Title and Close */}
           <div
-            className={`sticky top-0 z-30 flex items-center justify-between p-6 sm:p-7 border-b backdrop-blur-xl ${
+            className={`sticky top-0 z-30 flex items-center justify-between p-4 sm:p-7 border-b backdrop-blur-xl ${
               isDark
                 ? "bg-[#0E0E18]/90 border-[#242338]"
                 : "bg-white/90 border-[#E4E4F2]"
             }`}
           >
-            <div>
+            <div className="pr-3 max-w-[calc(100%-48px)]">
               <div className="flex items-center gap-2 mb-1">
                 <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" animate={false} />
                 <span
-                  className={`text-xs font-mono font-bold uppercase tracking-wider ${
+                  className={`text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider ${
                     isDark ? "text-[#C084FC]" : "text-[#7C3AED]"
                   }`}
                 >
                   {project.category}
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-display font-extrabold tracking-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-extrabold tracking-tight break-words">
                 {project.fullTitle || project.title}
               </h2>
             </div>
@@ -85,7 +85,7 @@ export const ProjectModal = ({ project, onClose }) => {
               onClick={onClose}
               type="button"
               aria-label="Close modal"
-              className={`p-2.5 rounded-2xl border transition-colors ${
+              className={`p-2 sm:p-2.5 rounded-2xl border transition-colors flex-shrink-0 ${
                 isDark
                   ? "bg-[#131322] border-[#242338] text-[#9E9EB8] hover:text-white hover:border-[#8B5CF6]"
                   : "bg-slate-100 border-[#E4E4F2] text-[#64748B] hover:text-[#0F172A] hover:border-[#7C3AED]"
@@ -96,7 +96,7 @@ export const ProjectModal = ({ project, onClose }) => {
           </div>
 
           {/* Modal Content */}
-          <div className="p-6 sm:p-10 space-y-9">
+          <div className="p-4 sm:p-8 md:p-10 space-y-6 sm:space-y-9">
             
             {/* Visual Screenshot / Preview Banner */}
             <div className="rounded-3xl overflow-hidden border aspect-[16/9] w-full bg-slate-900 relative shadow-xl">

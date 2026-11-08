@@ -10,12 +10,17 @@ export const ProfileCard = ({ variant = "full" }) => {
   const [imageError, setImageError] = useState(false);
   const [fallbackAttempted, setFallbackAttempted] = useState(false);
 
-  const darkImage = "/images/profile-dark.png";
-  const lightImage = "/images/profile-light.png";
+  // Exact mapped personal profile photos
+  const darkImage = "/images/nash1.jpg";
+  const lightImage = "/images/nash2.jpg";
 
   let currentSrc = isDark ? darkImage : lightImage;
-  if (imageError && !fallbackAttempted) {
-    currentSrc = isDark ? lightImage : darkImage;
+  if (imageError) {
+    if (!fallbackAttempted) {
+      currentSrc = isDark ? lightImage : darkImage;
+    } else {
+      currentSrc = isDark ? "/images/profile-dark.png" : "/images/profile-light.png";
+    }
   }
 
   const handleImageError = () => {
@@ -27,35 +32,35 @@ export const ProfileCard = ({ variant = "full" }) => {
   };
 
   return (
-    <div className="relative group">
+    <div className="relative group w-full max-w-[380px] mx-auto">
       
-      {/* Decorative Starbursts around the profile */}
-      <div className="absolute -top-4 -left-4 z-20 pointer-events-none">
-        <Starburst className="w-8 h-8 text-[#C084FC] drop-shadow-[0_0_12px_rgba(192,132,252,0.8)]" rotate={true} />
+      {/* Decorative Starbursts around the profile (constrained on mobile to prevent overflow) */}
+      <div className="absolute -top-3 left-0 sm:-left-3 z-20 pointer-events-none">
+        <Starburst className="w-6 h-6 sm:w-8 sm:h-8 text-[#C084FC] drop-shadow-[0_0_12px_rgba(192,132,252,0.8)]" rotate={true} />
       </div>
 
-      <div className="absolute -bottom-5 -right-3 z-20 pointer-events-none">
-        <Starburst className="w-6 h-6 text-[#EC4899] drop-shadow-[0_0_10px_rgba(236,72,153,0.8)]" animate={true} delay={1} />
+      <div className="absolute -bottom-3 right-0 sm:-right-2 z-20 pointer-events-none">
+        <Starburst className="w-5 h-5 sm:w-6 sm:h-6 text-[#EC4899] drop-shadow-[0_0_10px_rgba(236,72,153,0.8)]" animate={true} delay={1} />
       </div>
 
       {/* Floating Sticker 1: Top Right */}
       <motion.div
-        animate={{ y: [-4, 4, -4], rotate: [2, 5, 2] }}
+        animate={{ y: [-3, 3, -3], rotate: [2, 4, 2] }}
         transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
-        className={`absolute -top-5 right-2 z-30 px-3.5 py-1.5 rounded-full text-xs font-heading font-bold shadow-lg border backdrop-blur-md ${
+        className={`absolute -top-4 right-1 sm:right-2 z-30 px-3 py-1 rounded-full text-[11px] sm:text-xs font-heading font-bold shadow-lg border backdrop-blur-md ${
           isDark
-            ? "bg-[#18182B]/90 border-[#8B5CF6]/50 text-[#C084FC] shadow-purple-500/20"
+            ? "bg-[#18182B]/95 border-[#8B5CF6]/50 text-[#C084FC] shadow-purple-500/20"
             : "bg-white/95 border-[#7C3AED]/40 text-[#7C3AED] shadow-violet-500/10"
         }`}
       >
         ✦ Full-Stack Developer
       </motion.div>
 
-      {/* Floating Sticker 2: Bottom Left */}
+      {/* Floating Sticker 2: Bottom Left (safely inside bounds on mobile) */}
       <motion.div
-        animate={{ y: [4, -4, 4], rotate: [-4, -1, -4] }}
+        animate={{ y: [3, -3, 3], rotate: [-3, 0, -3] }}
         transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-        className={`absolute -bottom-4 -left-4 z-30 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium shadow-lg border backdrop-blur-md flex items-center gap-1.5 ${
+        className={`absolute -bottom-3 left-1 sm:-left-2 z-30 px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono font-medium shadow-lg border backdrop-blur-md flex items-center gap-1.5 ${
           isDark
             ? "bg-[#18182B]/95 border-[#242338] text-white shadow-black/40"
             : "bg-white/95 border-[#E4E4F2] text-[#0F172A] shadow-slate-200"
@@ -67,7 +72,7 @@ export const ProfileCard = ({ variant = "full" }) => {
 
       {/* Main Profile Container */}
       <div
-        className={`relative rounded-3xl p-6 sm:p-7 border transition-all duration-300 overflow-hidden ${
+        className={`relative rounded-3xl p-5 sm:p-7 border transition-all duration-300 overflow-hidden ${
           isDark
             ? "bg-gradient-to-b from-[#131322] to-[#0A0A10] border-[#242338] shadow-card-dark"
             : "bg-white border-[#E4E4F2] shadow-card-light"
@@ -75,14 +80,14 @@ export const ProfileCard = ({ variant = "full" }) => {
       >
         {/* Ambient Glow */}
         <div
-          className={`absolute -top-20 -right-20 w-52 h-52 rounded-full blur-3xl pointer-events-none transition-opacity duration-500 ${
+          className={`absolute -top-20 -right-20 w-48 h-48 sm:w-52 sm:h-52 rounded-full blur-3xl pointer-events-none transition-opacity duration-500 ${
             isDark ? "bg-[#8B5CF6]/20" : "bg-[#7C3AED]/12"
           }`}
         />
 
         <div className="flex flex-col items-center text-center relative z-10">
           
-          {/* Framed Profile Image */}
+          {/* Framed Profile Image with Smooth Transition and Proper Face Framing */}
           <div className="relative mb-5 group/avatar">
             <div
               className={`absolute -inset-1.5 rounded-3xl blur-md transition duration-500 ${
@@ -93,7 +98,7 @@ export const ProfileCard = ({ variant = "full" }) => {
             />
 
             <div
-              className={`relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border-2 transition-all duration-300 ${
+              className={`relative w-44 h-44 sm:w-48 sm:h-48 md:w-52 md:h-52 rounded-2xl overflow-hidden border-2 transition-all duration-300 ${
                 isDark
                   ? "border-[#8B5CF6]/60 bg-[#0E0E18]"
                   : "border-[#7C3AED]/50 bg-slate-100"
@@ -101,22 +106,22 @@ export const ProfileCard = ({ variant = "full" }) => {
             >
               <AnimatePresence mode="wait">
                 <motion.img
-                  key={isDark ? "dark-avatar" : "light-avatar"}
+                  key={isDark ? "dark-avatar-nash1" : "light-avatar-nash2"}
                   src={currentSrc}
-                  alt={`${socialLinks.fullName} - ${isDark ? "Dark Theme Profile" : "Light Theme Profile"}`}
+                  alt={`${socialLinks.fullName} - ${isDark ? "Dark Theme Profile (nash1)" : "Light Theme Profile (nash2)"}`}
                   onError={handleImageError}
                   initial={{ opacity: 0, scale: 0.94 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.06 }}
+                  exit={{ opacity: 0, scale: 1.04 }}
                   transition={{ duration: 0.35, ease: "easeInOut" }}
-                  className="w-full h-full object-cover object-center select-none"
+                  className="w-full h-full object-cover object-[center_20%] select-none"
                   loading="eager"
                 />
               </AnimatePresence>
 
               {/* Theme Pill in Corner */}
               <div
-                className={`absolute bottom-2 right-2 px-2.5 py-0.5 text-[10px] font-mono font-bold rounded-full border shadow-sm backdrop-blur-md ${
+                className={`absolute bottom-2 right-2 px-2.5 py-0.5 text-[9px] sm:text-[10px] font-mono font-bold rounded-full border shadow-sm backdrop-blur-md ${
                   isDark
                     ? "bg-[#07070B]/85 text-[#C084FC] border-[#8B5CF6]/50"
                     : "bg-white/95 text-[#7C3AED] border-[#7C3AED]/40"

@@ -79,7 +79,7 @@ export const About = () => {
           </div>
 
           <h2
-            className={`text-3xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight leading-tight mb-6 ${
+            className={`text-[clamp(1.85rem,6vw,3.75rem)] font-display font-extrabold tracking-tight leading-tight mb-6 break-words max-w-full ${
               isDark ? "text-white" : "text-[#0F172A]"
             }`}
           >
@@ -107,7 +107,7 @@ export const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 whileHover={{ y: -6 }}
-                className={`relative p-8 sm:p-10 rounded-3xl border transition-all duration-300 flex flex-col justify-between group overflow-hidden ${
+                className={`relative p-6 sm:p-8 md:p-10 rounded-3xl border transition-all duration-300 flex flex-col justify-between group overflow-hidden ${
                   isDark
                     ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/60 hover:shadow-glow-purple-sm hover:bg-[#18182B]"
                     : "bg-white border-[#E4E4F2] hover:border-[#7C3AED]/50 hover:shadow-card-light shadow-sm"

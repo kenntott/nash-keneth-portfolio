@@ -45,7 +45,7 @@ export const Projects = () => {
           </div>
 
           <h2
-            className={`text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight mb-4 ${
+            className={`text-[clamp(1.9rem,6vw,3.75rem)] font-display font-extrabold tracking-tight mb-4 break-words ${
               isDark ? "text-white" : "text-[#0F172A]"
             }`}
           >

@@ -3,19 +3,39 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
     scroll-behavior: smooth;
     font-family: 'Inter', sans-serif;
+  }
+
+  img,
+  video,
+  svg {
+    max-width: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', 'Syne', sans-serif;
     letter-spacing: -0.02em;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .font-display {
     font-family: 'Syne', 'Space Grotesk', sans-serif;
     letter-spacing: -0.03em;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   code, pre, .font-mono {

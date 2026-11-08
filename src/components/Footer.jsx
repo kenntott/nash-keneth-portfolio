@@ -33,7 +33,7 @@ export const Footer = () => {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-[#8B5CF6]/15 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-14 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 pb-10 sm:pb-14 border-b border-white/10">
           
           {/* Brand & Introduction (6 cols) */}
           <div className="md:col-span-6 space-y-5">

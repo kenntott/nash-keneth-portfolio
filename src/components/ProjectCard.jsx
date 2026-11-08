@@ -77,7 +77,7 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
         </div>
 
         {/* Card Body */}
-        <div className="p-7 sm:p-8">
+        <div className="p-5 sm:p-7 md:p-8">
           <div className="mb-3">
             <span
               className={`text-xs font-mono font-bold uppercase tracking-wider ${
@@ -87,7 +87,7 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
               {project.category}
             </span>
             <h3
-              className={`text-2xl sm:text-3xl font-display font-extrabold mt-1 transition-colors leading-tight ${
+              className={`text-xl sm:text-2xl md:text-3xl font-display font-extrabold mt-1 transition-colors leading-tight break-words ${
                 isDark ? "text-white group-hover:text-[#C084FC]" : "text-[#0F172A] group-hover:text-[#7C3AED]"
               }`}
             >
@@ -120,11 +120,11 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
           </div>
 
           {/* Technology Tags */}
-          <div className="flex flex-wrap gap-2 pt-4 border-t border-dashed border-gray-700/20 dark:border-gray-800">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-4 border-t border-dashed border-gray-700/20 dark:border-gray-800">
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className={`text-xs font-mono px-3 py-1 rounded-xl border transition-colors ${
+                className={`text-[11px] sm:text-xs font-mono px-2.5 sm:px-3 py-1 rounded-xl border transition-colors ${
                   isDark
                     ? "bg-[#0E0E18] border-[#242338] text-[#9E9EB8]"
                     : "bg-slate-100 border-[#E4E4F2] text-[#475569]"
@@ -139,7 +139,7 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
 
       {/* Action Footer */}
       <div
-        className={`p-6 border-t flex items-center justify-between gap-3 ${
+        className={`p-4 sm:p-6 border-t flex flex-wrap items-center justify-between gap-2.5 ${
           isDark ? "bg-[#0E0E18]/80 border-[#242338]" : "bg-slate-50/80 border-[#E4E4F2]"
         }`}
       >

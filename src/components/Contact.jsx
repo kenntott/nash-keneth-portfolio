@@ -123,7 +123,7 @@ export const Contact = () => {
               </div>
 
               <h2
-                className={`text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight leading-tight mb-6 ${
+                className={`text-[clamp(1.9rem,6vw,3.75rem)] font-display font-extrabold tracking-tight leading-tight mb-6 break-words ${
                   isDark ? "text-white" : "text-[#0F172A]"
                 }`}
               >
@@ -224,9 +224,9 @@ export const Contact = () => {
           </div>
 
           {/* Right Column: Contact Form (7 cols) */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 w-full">
             <div
-              className={`p-8 sm:p-10 rounded-3xl border relative shadow-xl ${
+              className={`p-6 sm:p-8 md:p-10 rounded-3xl border relative shadow-xl ${
                 isDark
                   ? "bg-[#131322] border-[#242338] shadow-black/50"
                   : "bg-white border-[#E4E4F2] shadow-card-light"

@@ -59,12 +59,12 @@ export const Hero = () => {
               <span className="text-emerald-400 font-semibold">ONLINE</span>
             </motion.div>
 
-            {/* Oversized Adelina Heading */}
+            {/* Oversized Adelina Heading with Clamp & Word Break */}
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className={`text-4xl sm:text-6xl md:text-7xl font-display font-extrabold tracking-tight leading-[1.05] mb-4 ${
+              className={`text-[clamp(2.1rem,7.5vw,4.5rem)] font-display font-extrabold tracking-tight leading-[1.08] mb-4 break-words max-w-full ${
                 isDark ? "text-white" : "text-[#0F172A]"
               }`}
             >
@@ -77,18 +77,18 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex flex-wrap items-center gap-3 mb-6"
+              className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-6 max-w-full"
             >
               <span
-                className={`text-2xl sm:text-3xl md:text-4xl font-display font-bold ${
+                className={`text-xl sm:text-3xl md:text-4xl font-display font-bold break-words ${
                   isDark ? "text-gradient-adelina" : "text-gradient-adelina-light"
                 }`}
               >
                 {socialLinks.title}
               </span>
 
-              <span className="inline-block px-3 py-1 text-xs font-mono font-bold rounded-xl bg-gradient-to-r from-[#8B5CF6]/20 to-[#EC4899]/20 border border-[#8B5CF6]/40 text-[#C084FC] -rotate-2">
-                FULL-STACK & SYSTEMS
+              <span className="inline-block px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-mono font-bold rounded-xl bg-gradient-to-r from-[#8B5CF6]/20 to-[#EC4899]/20 border border-[#8B5CF6]/40 text-[#C084FC] -rotate-1 sm:-rotate-2">
+                FULL-STACK &amp; SYSTEMS
               </span>
             </motion.div>
 
@@ -174,31 +174,31 @@ export const Hero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="grid grid-cols-3 gap-6 sm:gap-10 pt-8 border-t border-gray-700/20 dark:border-gray-800/80 w-full max-w-lg"
+              className="grid grid-cols-3 gap-3 sm:gap-6 md:gap-10 pt-8 border-t border-gray-700/20 dark:border-gray-800/80 w-full max-w-lg"
             >
               <div>
-                <p className={`text-3xl sm:text-4xl font-display font-extrabold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                <p className={`text-2xl sm:text-3xl md:text-4xl font-display font-extrabold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   4+
                 </p>
-                <p className={`text-xs font-mono mt-1 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
+                <p className={`text-[10px] sm:text-xs font-mono mt-1 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
                   Enterprise Systems
                 </p>
               </div>
 
               <div>
-                <p className="text-3xl sm:text-4xl font-display font-extrabold text-gradient-purple">
+                <p className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold text-gradient-purple">
                   100%
                 </p>
-                <p className={`text-xs font-mono mt-1 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
+                <p className={`text-[10px] sm:text-xs font-mono mt-1 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
                   Responsive &amp; Modular
                 </p>
               </div>
 
               <div>
-                <p className={`text-3xl sm:text-4xl font-display font-extrabold ${isDark ? "text-[#38BDF8]" : "text-[#0284C7]"}`}>
+                <p className={`text-2xl sm:text-3xl md:text-4xl font-display font-extrabold ${isDark ? "text-[#38BDF8]" : "text-[#0284C7]"}`}>
                   Full-Stack
                 </p>
-                <p className={`text-xs font-mono mt-1 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
+                <p className={`text-[10px] sm:text-xs font-mono mt-1 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
                   React + DBs + APIs
                 </p>
               </div>
@@ -207,13 +207,13 @@ export const Hero = () => {
           </div>
 
           {/* Right Column: Profile with Floating Tech Icons (5 cols) */}
-          <div className="lg:col-span-5 relative flex flex-col items-center">
+          <div className="lg:col-span-5 relative flex flex-col items-center w-full">
             
             {/* Floating Tech Badge 1: React & JS */}
             <motion.div
-              animate={{ y: [-8, 8, -8], rotate: [-2, 2, -2] }}
+              animate={{ y: [-6, 6, -6], rotate: [-2, 2, -2] }}
               transition={{ repeat: Infinity, duration: 5.5, ease: "easeInOut" }}
-              className={`hidden sm:flex absolute -top-8 -left-8 z-30 items-center gap-2 px-4 py-2 rounded-2xl border backdrop-blur-md shadow-lg ${
+              className={`hidden md:flex absolute -top-6 -left-4 lg:-top-8 lg:-left-8 z-30 items-center gap-2 px-3.5 py-1.5 lg:px-4 lg:py-2 rounded-2xl border backdrop-blur-md shadow-lg ${
                 isDark
                   ? "bg-[#18182B]/95 border-[#242338] text-[#38BDF8] shadow-black/40"
                   : "bg-white/95 border-[#E4E4F2] text-[#0284C7] shadow-slate-200"
@@ -225,9 +225,9 @@ export const Hero = () => {
 
             {/* Floating Tech Badge 2: PostgreSQL & Supabase */}
             <motion.div
-              animate={{ y: [8, -8, 8], rotate: [2, -2, 2] }}
+              animate={{ y: [6, -6, 6], rotate: [2, -2, 2] }}
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-              className={`hidden sm:flex absolute -bottom-6 -right-6 z-30 items-center gap-2 px-4 py-2 rounded-2xl border backdrop-blur-md shadow-lg ${
+              className={`hidden md:flex absolute -bottom-5 -right-4 lg:-bottom-6 lg:-right-6 z-30 items-center gap-2 px-3.5 py-1.5 lg:px-4 lg:py-2 rounded-2xl border backdrop-blur-md shadow-lg ${
                 isDark
                   ? "bg-[#18182B]/95 border-[#242338] text-[#C084FC] shadow-purple-500/10"
                   : "bg-white/95 border-[#E4E4F2] text-[#7C3AED] shadow-violet-500/10"

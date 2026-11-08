@@ -44,7 +44,7 @@ export const Experience = () => {
           </div>
 
           <h2
-            className={`text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight mb-4 ${
+            className={`text-[clamp(1.9rem,6vw,3.75rem)] font-display font-extrabold tracking-tight mb-4 break-words ${
               isDark ? "text-white" : "text-[#0F172A]"
             }`}
           >
@@ -72,7 +72,7 @@ export const Experience = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.08 }}
                 whileHover={{ y: -6 }}
-                className={`p-7 sm:p-8 rounded-3xl border transition-all duration-300 flex flex-col justify-between group relative overflow-hidden ${
+                className={`p-5 sm:p-7 md:p-8 rounded-3xl border transition-all duration-300 flex flex-col justify-between group relative overflow-hidden ${
                   isDark
                     ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/70 hover:shadow-glow-purple-sm hover:bg-[#18182B]"
                     : "bg-white border-[#E4E4F2] hover:border-[#7C3AED]/50 hover:shadow-card-light shadow-sm"

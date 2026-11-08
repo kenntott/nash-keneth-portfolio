@@ -80,29 +80,29 @@ export const GithubShowcase = () => {
         
         {/* Profile Card Header */}
         <div
-          className={`p-8 sm:p-10 rounded-3xl border mb-12 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden ${
+          className={`p-6 sm:p-8 md:p-10 rounded-3xl border mb-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden ${
             isDark
               ? "bg-[#131322] border-[#242338]"
               : "bg-white border-[#E4E4F2] shadow-card-light"
           }`}
         >
-          <div className="flex items-center gap-5">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5">
             <div
-              className={`w-16 h-16 rounded-3xl flex items-center justify-center border transition-all duration-300 ${
+              className={`w-14 h-14 sm:w-16 sm:h-16 rounded-3xl flex items-center justify-center border transition-all duration-300 flex-shrink-0 ${
                 isDark
                   ? "bg-[#0E0E18] border-[#242338] text-white"
                   : "bg-violet-50 border-violet-100 text-[#7C3AED]"
               }`}
             >
-              <Github className="w-8 h-8" />
+              <Github className="w-7 h-7 sm:w-8 sm:h-8" />
             </div>
 
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className={`text-2xl font-display font-extrabold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                <h3 className={`text-xl sm:text-2xl font-display font-extrabold break-words ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   GitHub Repository Activity
                 </h3>
-                <span className="text-xs font-mono font-bold px-3 py-0.5 rounded-full border bg-gradient-to-r from-[#8B5CF6]/15 to-[#EC4899]/15 border-[#8B5CF6]/40 text-[#C084FC]">
+                <span className="text-[11px] sm:text-xs font-mono font-bold px-2.5 sm:px-3 py-0.5 rounded-full border bg-gradient-to-r from-[#8B5CF6]/15 to-[#EC4899]/15 border-[#8B5CF6]/40 text-[#C084FC]">
                   @{socialLinks.githubUsername}
                 </span>
               </div>
@@ -116,7 +116,7 @@ export const GithubShowcase = () => {
             href={socialLinks.github}
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border transition-all duration-200 hover:-translate-y-0.5 ${
+            className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border transition-all duration-200 hover:-translate-y-0.5 ${
               isDark
                 ? "bg-[#0E0E18] border-[#242338] text-white hover:text-[#C084FC] hover:border-[#8B5CF6]"
                 : "bg-slate-50 border-[#E4E4F2] text-[#0F172A] hover:text-[#7C3AED] hover:border-[#7C3AED]/40"
@@ -140,7 +140,7 @@ export const GithubShowcase = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: idx * 0.05 }}
               whileHover={{ y: -4 }}
-              className={`p-7 rounded-3xl border transition-all duration-300 flex flex-col justify-between group ${
+              className={`p-5 sm:p-7 rounded-3xl border transition-all duration-300 flex flex-col justify-between group ${
                 isDark
                   ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/60 hover:shadow-glow-purple-sm hover:bg-[#18182B]"
                   : "bg-white border-[#E4E4F2] hover:border-[#7C3AED]/50 hover:shadow-card-light shadow-sm"
@@ -151,7 +151,7 @@ export const GithubShowcase = () => {
                   <div className="flex items-center gap-2.5">
                     <BookOpen className={`w-4 h-4 ${isDark ? "text-[#C084FC]" : "text-[#7C3AED]"}`} />
                     <h4
-                      className={`text-lg font-display font-bold transition-colors ${
+                      className={`text-base sm:text-lg font-display font-bold transition-colors break-words ${
                         isDark ? "text-white group-hover:text-[#C084FC]" : "text-[#0F172A] group-hover:text-[#7C3AED]"
                       }`}
                     >
@@ -194,36 +194,38 @@ export const GithubShowcase = () => {
 
         {/* Contribution Activity Grid */}
         <div
-          className={`p-6 sm:p-7 rounded-3xl border ${
+          className={`p-5 sm:p-7 rounded-3xl border overflow-hidden ${
             isDark ? "bg-[#0E0E18] border-[#242338]" : "bg-violet-50/40 border-violet-100"
           }`}
         >
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" animate={false} />
-              <span className={`text-xs font-mono font-bold tracking-wider uppercase ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+              <span className={`text-[11px] sm:text-xs font-mono font-bold tracking-wider uppercase ${isDark ? "text-gray-300" : "text-gray-700"}`}>
                 Continuous Git Cadence
               </span>
             </div>
-            <span className="text-[11px] font-mono text-gray-400">Public Commits &amp; Sprints</span>
+            <span className="text-[10px] sm:text-[11px] font-mono text-gray-400">Public Sprints</span>
           </div>
 
-          <div className="flex flex-wrap gap-1 items-center justify-center sm:justify-start overflow-hidden">
-            {activityDays.map((level, i) => (
-              <div
-                key={i}
-                className={`w-2.5 h-2.5 rounded-[2px] transition-colors ${
-                  level === 0
-                    ? isDark ? "bg-[#18182B]" : "bg-slate-200"
-                    : level === 1
-                    ? isDark ? "bg-[#8B5CF6]/30" : "bg-violet-200"
-                    : level === 2
-                    ? isDark ? "bg-[#8B5CF6]/60" : "bg-violet-400"
-                    : isDark ? "bg-[#C084FC]" : "bg-[#7C3AED]"
-                }`}
-                title={`Activity point level: ${level}`}
-              />
-            ))}
+          <div className="overflow-x-auto pb-1 max-w-full">
+            <div className="flex flex-wrap gap-1 items-center justify-start min-w-[280px]">
+              {activityDays.map((level, i) => (
+                <div
+                  key={i}
+                  className={`w-2.5 h-2.5 rounded-[2px] transition-colors ${
+                    level === 0
+                      ? isDark ? "bg-[#18182B]" : "bg-slate-200"
+                      : level === 1
+                      ? isDark ? "bg-[#8B5CF6]/30" : "bg-violet-200"
+                      : level === 2
+                      ? isDark ? "bg-[#8B5CF6]/60" : "bg-violet-400"
+                      : isDark ? "bg-[#C084FC]" : "bg-[#7C3AED]"
+                  }`}
+                  title={`Activity point level: ${level}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
 

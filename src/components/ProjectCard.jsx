@@ -154,14 +154,14 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
 
       {/* Action Footer */}
       <div
-        className={`p-4 sm:p-6 border-t flex flex-wrap items-center justify-between gap-3 ${
+        className={`p-4 sm:p-6 border-t flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3 ${
           isDark ? "bg-[#0E0E18]/80 border-[#242338]" : "bg-slate-50/80 border-[#E4E4F2]"
         }`}
       >
         <button
           onClick={() => onViewDetails(project)}
           type="button"
-          className={`flex-1 inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border transition-all duration-300 hover:-translate-y-0.5 ${
+          className={`w-full sm:flex-1 inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border transition-all duration-300 hover:-translate-y-0.5 ${
             isDark
               ? "bg-[#131322] border-[#242338] text-white hover:border-[#8B5CF6] hover:text-[#C084FC]"
               : "bg-white border-[#E4E4F2] text-[#0F172A] hover:border-[#7C3AED] hover:text-[#7C3AED] shadow-sm"
@@ -177,7 +177,7 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
             href={project.liveDemo}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex-1 inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold text-white transition-all duration-300 shadow-md hover:-translate-y-0.5 ${
+            className={`w-full sm:flex-1 inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold text-white transition-all duration-300 shadow-md hover:-translate-y-0.5 ${
               isDark
                 ? "bg-gradient-to-r from-[#8B5CF6] via-[#7C3AED] to-[#EC4899] hover:shadow-glow-purple"
                 : "bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] hover:bg-[#6D28D9]"

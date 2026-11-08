@@ -240,6 +240,7 @@ export const Navbar = () => {
                   href={socialLinks.github}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
                   className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl border text-sm font-medium ${
                     isDark
                       ? "bg-[#131322] border-[#242338] text-white"
@@ -253,6 +254,7 @@ export const Navbar = () => {
                 <a
                   href={socialLinks.resumePath}
                   download="Nash_Keneth_Barzo_CV.pdf"
+                  onClick={() => setMobileMenuOpen(false)}
                   className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-bold bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white"
                 >
                   <FileDown className="w-4 h-4" />

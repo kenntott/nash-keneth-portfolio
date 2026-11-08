@@ -10,10 +10,11 @@
   }
 
   html,
-  body {
+  body,
+  #root {
     width: 100%;
-    max-width: 100%;
-    overflow-x: clip;
+    max-width: 100vw;
+    overflow-x: hidden;
     scroll-behavior: smooth;
     font-family: 'Inter', sans-serif;
   }

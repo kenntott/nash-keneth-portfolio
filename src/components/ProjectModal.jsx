@@ -263,13 +263,13 @@ export const ProjectModal = ({ project, onClose }) => {
             </div>
 
             {/* Bottom Action Footer */}
-            <div className="pt-6 border-t border-gray-700/20 dark:border-gray-800 flex flex-wrap items-center justify-end gap-3">
+            <div className="pt-6 border-t border-gray-700/20 dark:border-gray-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3">
               {project.liveDemo && (
                 <a
                   href={project.liveDemo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white shadow-md hover:shadow-glow-purple"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white shadow-md hover:shadow-glow-purple"
                 >
                   <ExternalLink className="w-4 h-4" />
                   <span>Open Live Demo</span>
@@ -281,7 +281,7 @@ export const ProjectModal = ({ project, onClose }) => {
                   href={project.sourceCode}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border ${
+                  className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border ${
                     isDark
                       ? "bg-[#131322] border-[#242338] text-white hover:text-[#C084FC] hover:border-[#8B5CF6]"
                       : "bg-white border-[#E4E4F2] text-[#0F172A] hover:text-[#7C3AED]"
@@ -295,7 +295,7 @@ export const ProjectModal = ({ project, onClose }) => {
               <button
                 onClick={onClose}
                 type="button"
-                className={`px-6 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border transition-colors ${
+                className={`w-full sm:w-auto px-6 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border transition-colors ${
                   isDark
                     ? "bg-[#131322] border-[#242338] text-gray-300 hover:text-white"
                     : "bg-slate-100 border-[#E4E4F2] text-gray-700 hover:text-black"

@@ -59,11 +59,11 @@ export const ResumeSection = () => {
             </p>
           </div>
 
-          <div className="flex-shrink-0">
+          <div className="w-full sm:w-auto flex-shrink-0">
             <a
               href={socialLinks.resumePath}
               download="Nash_Keneth_Barzo_CV.pdf"
-              className={`inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl font-heading font-bold text-sm text-white transition-all duration-300 shadow-md hover:-translate-y-1 ${
+              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl font-heading font-bold text-sm text-white transition-all duration-300 shadow-md hover:-translate-y-1 ${
                 isDark
                   ? "bg-gradient-to-r from-[#8B5CF6] via-[#7C3AED] to-[#EC4899] hover:shadow-glow-purple"
                   : "bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] hover:bg-[#6D28D9] hover:shadow-lg"
@@ -77,7 +77,7 @@ export const ResumeSection = () => {
 
         {/* ATS-Clean Resume Container */}
         <div
-          className={`rounded-3xl border p-6 sm:p-10 md:p-12 transition-all duration-300 relative shadow-xl ${
+          className={`rounded-3xl border p-4 sm:p-8 md:p-12 transition-all duration-300 relative shadow-xl overflow-hidden ${
             isDark
               ? "bg-[#0E0E18] border-[#242338] shadow-black/40"
               : "bg-white border-[#E4E4F2] shadow-card-light"
@@ -102,20 +102,20 @@ export const ResumeSection = () => {
               {cvData.personalInfo.title}
             </p>
 
-            <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs sm:text-sm font-mono">
-              <span className={`flex items-center gap-1.5 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                <MapPin className="w-3.5 h-3.5 text-[#8B5CF6]" />
-                {cvData.personalInfo.address}
+            <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs sm:text-sm font-mono max-w-full">
+              <span className={`flex items-center gap-1.5 break-words max-w-full ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
+                <MapPin className="w-3.5 h-3.5 text-[#8B5CF6] flex-shrink-0" />
+                <span className="break-words">{cvData.personalInfo.address}</span>
               </span>
 
               <span className={`hidden sm:inline ${isDark ? "text-gray-700" : "text-gray-300"}`}>•</span>
 
               <a
                 href={`mailto:${cvData.personalInfo.email}`}
-                className="flex items-center gap-1.5 text-[#38BDF8] hover:underline"
+                className="flex items-center gap-1.5 text-[#38BDF8] hover:underline break-all"
               >
-                <Mail className="w-3.5 h-3.5" />
-                {cvData.personalInfo.email}
+                <Mail className="w-3.5 h-3.5 flex-shrink-0" />
+                <span>{cvData.personalInfo.email}</span>
               </a>
 
               <span className={`hidden sm:inline ${isDark ? "text-gray-700" : "text-gray-300"}`}>•</span>
@@ -312,7 +312,7 @@ export const ResumeSection = () => {
                 </div>
               </div>
 
-              <span className="self-start sm:self-auto text-xs font-mono font-bold px-3 py-1 rounded-full border bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
+              <span className="self-start sm:self-auto text-[11px] sm:text-xs font-mono font-bold px-3 py-1 rounded-xl sm:rounded-full border bg-emerald-500/10 text-emerald-400 border-emerald-500/30 max-w-full break-words">
                 {cvData.education.level} • {cvData.education.status}
               </span>
             </div>
@@ -388,7 +388,7 @@ export const ResumeSection = () => {
             <a
               href={socialLinks.resumePath}
               download="Nash_Keneth_Barzo_CV.pdf"
-              className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-heading font-bold text-white transition-all duration-300 shadow-sm hover:-translate-y-0.5 ${
+              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 rounded-2xl text-xs font-heading font-bold text-white transition-all duration-300 shadow-sm hover:-translate-y-0.5 ${
                 isDark
                   ? "bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] hover:shadow-glow-purple"
                   : "bg-[#7C3AED] hover:bg-[#6D28D9]"

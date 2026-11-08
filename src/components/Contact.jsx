@@ -254,7 +254,7 @@ export const Contact = () => {
           {/* Right Column: Contact Form (7 cols) */}
           <div className="lg:col-span-7 w-full">
             <div
-              className={`p-6 sm:p-8 md:p-10 rounded-3xl border relative shadow-xl ${
+              className={`p-4 sm:p-8 md:p-10 rounded-3xl border relative shadow-xl overflow-hidden ${
                 isDark
                   ? "bg-[#131322] border-[#242338] shadow-black/50"
                   : "bg-white border-[#E4E4F2] shadow-card-light"

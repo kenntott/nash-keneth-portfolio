@@ -1,0 +1,58 @@
+export const experienceTimeline = [
+  {
+    id: "exp-1",
+    period: "2024 — Present",
+    title: "Information Systems & Full-Stack Development",
+    role: "System Developer & Architectural Lead",
+    category: "Information Systems",
+    description: "Architecting end-to-end information systems (DesinioKoleksyon, Rice Mill By-Product, Nexus Hub). Leading relational schema designs, role-based security matrices, and API integrations with React and modern backends.",
+    keyPoints: [
+      "Designed full operational workflows for POS, inventory tracking, and business administration.",
+      "Engineered secure database schemas with PostgreSQL and MySQL.",
+      "Integrated real-time data sync, automated PDF report generation, and role-based access control.",
+    ],
+    technologies: ["React.js", "Supabase", "PostgreSQL", "PHP", "MySQL", "Tailwind CSS"],
+  },
+  {
+    id: "exp-2",
+    period: "2023 — 2024",
+    title: "React Application & Frontend Engineering",
+    role: "Frontend Developer",
+    category: "Frontend Development",
+    description: "Deepened expertise in React component architecture, custom hooks, reactive state management, and modern UI libraries. Built performant Single Page Applications with fluid user interactions.",
+    keyPoints: [
+      "Implemented modular reusable UI components reducing code duplication.",
+      "Crafted intuitive user journeys with Tailwind CSS and responsive design principles.",
+      "Integrated RESTful endpoints with comprehensive client-side data validation.",
+    ],
+    technologies: ["React.js", "JavaScript ES6+", "Tailwind CSS", "Framer Motion", "REST APIs"],
+  },
+  {
+    id: "exp-3",
+    period: "2023",
+    title: "Database Modeling & Backend Systems",
+    role: "Database & Backend Developer",
+    category: "Database Integration",
+    description: "Formulated normalized relational database structures, stored procedures, and secure query operations for transactional business platforms.",
+    keyPoints: [
+      "Modelled multi-table relational schemas with referential integrity and indexes.",
+      "Built backend service scripts in PHP and Node.js for data ingestion and report generation.",
+      "Enforced row-level security and authentication rules across multi-tenant user bases.",
+    ],
+    technologies: ["PostgreSQL", "MySQL", "Supabase", "PHP", "Node.js"],
+  },
+  {
+    id: "exp-4",
+    period: "2022 — 2023",
+    title: "Modern Web Foundations & Version Control",
+    role: "Web Developer",
+    category: "Foundations & Git",
+    description: "Mastered core web fundamentals (HTML5, semantic markup, modern CSS3 layouts, JavaScript ES6) and established standard Git/GitHub collaborative workflows.",
+    keyPoints: [
+      "Mastered responsive grid/flexbox layouts and cross-browser consistency.",
+      "Implemented disciplined Git version control with feature branches and pull requests.",
+      "Configured automated continuous deployment pipelines on Vercel and Netlify.",
+    ],
+    technologies: ["HTML5", "CSS3", "JavaScript", "Git", "GitHub", "Vercel", "Netlify"],
+  },
+];

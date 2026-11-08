@@ -35,7 +35,7 @@ export const projects = [
       "Built customizable PDF invoice generation for customer claim slips.",
       "Optimized query performance for high-volume transactions and daily sales reconciliations.",
     ],
-    liveDemo: "",
+    liveDemo: "https://desinio-koleksyon.vercel.app/",
     sourceCode: "",
     architecture: "Client-side SPA (React + Tailwind) communicating with Supabase PostgreSQL via secure Row-Level Security (RLS) policies.",
   },

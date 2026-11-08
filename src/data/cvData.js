@@ -44,6 +44,7 @@ export const cvData = {
       description:
         "Developed a printing shop management and Point of Sale system designed to manage printing orders, cost estimation, payments, production monitoring, and sales reports.",
       technologies: ["React.js", "JavaScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
+      liveUrl: "https://desinio-koleksyon.vercel.app/",
     },
     {
       title: "Rice Mill By-Product Utilization Management System",

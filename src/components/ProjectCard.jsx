@@ -62,17 +62,32 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
             </span>
           </div>
 
-          {/* Status Badge */}
+          {/* Status / Live Badge */}
           <div className="absolute top-4 right-4">
-            <span
-              className={`px-3 py-1 rounded-full text-[11px] font-mono font-semibold backdrop-blur-md border ${
-                isDark
-                  ? "bg-[#07070B]/85 text-emerald-400 border-emerald-500/30"
-                  : "bg-white/95 text-emerald-700 border-emerald-300"
-              }`}
-            >
-              {project.status}
-            </span>
+            {project.liveDemo ? (
+              <a
+                href={project.liveDemo}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-emerald-500 hover:bg-emerald-400 text-white shadow-lg backdrop-blur-md transition-all duration-200 hover:scale-105"
+                title="Visit Live Application on Vercel"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                <span>Live on Vercel</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+            ) : (
+              <span
+                className={`px-3 py-1 rounded-full text-[11px] font-mono font-semibold backdrop-blur-md border ${
+                  isDark
+                    ? "bg-[#07070B]/85 text-emerald-400 border-emerald-500/30"
+                    : "bg-white/95 text-emerald-700 border-emerald-300"
+                }`}
+              >
+                {project.status}
+              </span>
+            )}
           </div>
         </div>
 
@@ -139,41 +154,42 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
 
       {/* Action Footer */}
       <div
-        className={`p-4 sm:p-6 border-t flex flex-wrap items-center justify-between gap-2.5 ${
+        className={`p-4 sm:p-6 border-t flex flex-wrap items-center justify-between gap-3 ${
           isDark ? "bg-[#0E0E18]/80 border-[#242338]" : "bg-slate-50/80 border-[#E4E4F2]"
         }`}
       >
         <button
           onClick={() => onViewDetails(project)}
           type="button"
-          className={`flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border transition-all duration-300 hover:-translate-y-0.5 ${
+          className={`flex-1 inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border transition-all duration-300 hover:-translate-y-0.5 ${
             isDark
-              ? "bg-gradient-to-r from-[#8B5CF6]/20 to-[#EC4899]/20 text-white border-[#8B5CF6]/40 hover:bg-[#8B5CF6] hover:text-white"
-              : "bg-violet-50 text-[#7C3AED] border-violet-300 hover:bg-[#7C3AED] hover:text-white shadow-sm"
+              ? "bg-[#131322] border-[#242338] text-white hover:border-[#8B5CF6] hover:text-[#C084FC]"
+              : "bg-white border-[#E4E4F2] text-[#0F172A] hover:border-[#7C3AED] hover:text-[#7C3AED] shadow-sm"
           }`}
         >
           <Eye className="w-4 h-4" />
-          <span>View Details</span>
+          <span>Case Study</span>
           <ArrowUpRight className="w-3.5 h-3.5" />
         </button>
 
-        {project.liveDemo ? (
+        {project.liveDemo && (
           <a
             href={project.liveDemo}
             target="_blank"
             rel="noopener noreferrer"
-            className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-0.5 ${
+            className={`flex-1 inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold text-white transition-all duration-300 shadow-md hover:-translate-y-0.5 ${
               isDark
-                ? "bg-[#131322] border-[#242338] text-white hover:text-[#C084FC] hover:border-[#8B5CF6]"
-                : "bg-white border-[#E4E4F2] text-[#0F172A] hover:text-[#7C3AED] shadow-sm"
+                ? "bg-gradient-to-r from-[#8B5CF6] via-[#7C3AED] to-[#EC4899] hover:shadow-glow-purple"
+                : "bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] hover:bg-[#6D28D9]"
             }`}
-            title="Live Demo"
+            title="Open Live Application on Vercel"
           >
+            <span>Visit Live App</span>
             <ExternalLink className="w-4 h-4" />
           </a>
-        ) : null}
+        )}
 
-        {project.sourceCode ? (
+        {project.sourceCode && (
           <a
             href={project.sourceCode}
             target="_blank"
@@ -187,7 +203,7 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
           >
             <Github className="w-4 h-4" />
           </a>
-        ) : null}
+        )}
       </div>
     </motion.div>
   );

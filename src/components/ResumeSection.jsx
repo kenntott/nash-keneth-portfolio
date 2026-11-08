@@ -240,9 +240,23 @@ export const ResumeSection = () => {
                   }`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                    <h5 className={`font-display font-bold text-sm sm:text-base ${isDark ? "text-white" : "text-[#0F172A]"}`}>
-                      {proj.title}
-                    </h5>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h5 className={`font-display font-bold text-sm sm:text-base ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                        {proj.title}
+                      </h5>
+                      {proj.liveUrl && (
+                        <a
+                          href={proj.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          <span>Live App</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
+                        </a>
+                      )}
+                    </div>
                     <div className="flex flex-wrap gap-1">
                       {proj.technologies.map((t) => (
                         <span

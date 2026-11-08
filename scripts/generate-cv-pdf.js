@@ -228,6 +228,7 @@ async function createCvPdf() {
       title: "DesinioKoleksyon — Printing Services Management and POS System",
       tech: "React.js, JavaScript, Supabase, PostgreSQL, Tailwind CSS",
       desc: "Developed a printing shop management and Point of Sale system designed to manage printing orders, cost estimation, payments, production monitoring, and sales reports.",
+      liveUrl: "https://desinio-koleksyon.vercel.app/",
     },
     {
       title: "Rice Mill By-Product Utilization Management System",
@@ -252,8 +253,13 @@ async function createCvPdf() {
       y,
       size: 9,
       font: fontBold,
-      color: colorPrimary,
+      color: p.liveUrl ? colorLink : colorPrimary,
     });
+
+    if (p.liveUrl) {
+      const titleWidth = fontBold.widthOfTextAtSize(p.title, 9);
+      addLinkAnnotation(leftMargin, y, titleWidth, 9, p.liveUrl);
+    }
 
     const techText = `[ ${p.tech} ]`;
     const techWidth = fontOblique.widthOfTextAtSize(techText, 7.5);

@@ -1,11 +1,11 @@
 export const socialLinks = {
   greeting: "Hello, I'm",
   name: "Nash Kenneth",
-  fullName: "Nash Kenneth",
+  fullName: "Nash Keneth Q. Barzo",
   monogram: "NK",
-  title: "Full-Stack Developer",
+  title: "Aspiring Full-Stack Web Developer",
   tagline: "I build modern, responsive, and functional web applications, management systems, and digital solutions that turn ideas into real-world impact.",
-  location: "Philippines",
+  location: "Polomolok, South Cotabato, Philippines",
   status: "Available for Projects & Opportunities",
   isAvailable: true,
   email: "barzonashkenneth@gmail.com",
@@ -15,5 +15,5 @@ export const socialLinks = {
   facebookUsername: "Nash Kenneth",
   instagram: "https://www.instagram.com/nshkenn?rpxt=Y2djMHFzOWpyOXZ1",
   instagramUsername: "@nshkenn",
-  resumePath: "/resume.pdf",
+  resumePath: "/Nash_Keneth_Barzo_CV.pdf",
 };

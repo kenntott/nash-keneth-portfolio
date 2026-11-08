@@ -230,7 +230,7 @@ export const ProfileCard = ({ variant = "full" }) => {
 
             <a
               href={socialLinks.resumePath}
-              download="Nash_Kenneth_CV.pdf"
+              download="Nash_Keneth_Barzo_CV.pdf"
               className={`flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold font-heading rounded-xl border transition-all duration-200 hover:-translate-y-0.5 ${
                 isDark
                   ? "bg-[#8B5CF6]/15 text-[#C084FC] border-[#8B5CF6]/40 hover:bg-[#8B5CF6]/25"

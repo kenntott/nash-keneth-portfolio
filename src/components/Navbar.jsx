@@ -12,6 +12,7 @@ const navLinks = [
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
   { name: "Journey", href: "#experience" },
+  { name: "Resume", href: "#resume" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -25,7 +26,7 @@ export const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = ['home', 'about', 'skills', 'projects', 'experience', 'contact'];
+      const sections = ['home', 'about', 'skills', 'projects', 'experience', 'resume', 'contact'];
       const scrollPosition = window.scrollY + 130;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -162,7 +163,7 @@ export const Navbar = () => {
 
             <a
               href={socialLinks.resumePath}
-              download="Nash_Kenneth_CV.pdf"
+              download="Nash_Keneth_Barzo_CV.pdf"
               className={`flex items-center gap-2 px-5 py-2.5 text-xs font-bold font-heading rounded-2xl transition-all duration-300 shadow-sm hover:-translate-y-0.5 ${
                 isDark
                   ? "bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white hover:shadow-glow-purple"
@@ -251,7 +252,7 @@ export const Navbar = () => {
 
                 <a
                   href={socialLinks.resumePath}
-                  download="Nash_Kenneth_CV.pdf"
+                  download="Nash_Keneth_Barzo_CV.pdf"
                   className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-bold bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white"
                 >
                   <FileDown className="w-4 h-4" />

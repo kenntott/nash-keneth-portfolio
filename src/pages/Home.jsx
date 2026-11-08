@@ -5,6 +5,7 @@ import About from '../components/About';
 import Skills from '../components/Skills';
 import Projects from '../components/Projects';
 import Experience from '../components/Experience';
+import ResumeSection from '../components/ResumeSection';
 import GithubShowcase from '../components/GithubShowcase';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
@@ -19,6 +20,7 @@ export const Home = () => {
         <Skills />
         <Projects />
         <Experience />
+        <ResumeSection />
         <GithubShowcase />
         <Contact />
       </main>

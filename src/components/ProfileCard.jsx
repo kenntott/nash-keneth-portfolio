@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Facebook, Instagram, Mail, FileDown, Sparkles, Code2, Database } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
@@ -13,6 +13,14 @@ export const ProfileCard = ({ variant = "full" }) => {
   // Exact mapped personal profile photos
   const darkImage = "/images/nash1.jpg";
   const lightImage = "/images/nash2.jpg";
+
+  useEffect(() => {
+    // Gracefully pre-cache alternate theme photo in memory without triggering Chrome preload warnings
+    const p1 = new Image();
+    p1.src = darkImage;
+    const p2 = new Image();
+    p2.src = lightImage;
+  }, []);
 
   let currentSrc = isDark ? darkImage : lightImage;
   if (imageError) {

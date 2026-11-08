@@ -27,15 +27,19 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', 'Syne', sans-serif;
     letter-spacing: -0.02em;
-    overflow-wrap: break-word;
-    word-break: break-word;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+    -webkit-hyphens: none;
   }
 
   .font-display {
     font-family: 'Syne', 'Space Grotesk', sans-serif;
     letter-spacing: -0.03em;
-    overflow-wrap: break-word;
-    word-break: break-word;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+    -webkit-hyphens: none;
   }
 
   code, pre, .font-mono {

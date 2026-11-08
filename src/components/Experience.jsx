@@ -44,7 +44,7 @@ export const Experience = () => {
           </div>
 
           <h2
-            className={`text-[clamp(1.9rem,6vw,3.75rem)] font-display font-extrabold tracking-tight mb-4 break-words ${
+            className={`text-[clamp(1.5rem,5vw,3.5rem)] font-display font-extrabold tracking-tight mb-4 break-normal ${
               isDark ? "text-white" : "text-[#0F172A]"
             }`}
           >

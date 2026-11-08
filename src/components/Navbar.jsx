@@ -69,36 +69,38 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           
-          {/* Logo / Monogram: NK */}
+          {/* Circular Logo */}
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, '#home')}
             className="flex items-center gap-3 group focus:outline-none"
           >
             <div
-              className={`relative w-11 h-11 rounded-2xl flex items-center justify-center font-display font-extrabold text-lg border transition-all duration-300 group-hover:scale-105 ${
+              className={`relative w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center p-0.5 border-2 transition-all duration-300 group-hover:scale-105 overflow-hidden flex-shrink-0 shadow-md ${
                 isDark
-                  ? "bg-gradient-to-br from-[#18182B] to-[#0E0E18] border-[#242338] text-white group-hover:border-[#8B5CF6] group-hover:shadow-glow-purple-sm"
-                  : "bg-white border-[#E4E4F2] text-[#0F172A] group-hover:border-[#7C3AED] shadow-sm"
+                  ? "border-[#8B5CF6]/70 bg-[#0B0F19] shadow-glow-purple-sm"
+                  : "border-[#7C3AED]/70 bg-white shadow-sm"
               }`}
             >
-              <span className="bg-gradient-to-r from-[#A855F7] via-[#8B5CF6] to-[#EC4899] bg-clip-text text-transparent">
-                {socialLinks.monogram || "NK"}
-              </span>
-              <span className="absolute -top-1 -right-1">
+              <img
+                src="/images/logo.webp"
+                alt="NK Logo"
+                className="w-full h-full object-cover rounded-full"
+              />
+              <span className="absolute -top-1 -right-1 pointer-events-none">
                 <Starburst className="w-2.5 h-2.5 text-[#C084FC]" animate={false} />
               </span>
             </div>
 
             <div className="flex flex-col">
               <span
-                className={`font-display font-bold text-lg tracking-tight transition-colors ${
+                className={`font-display font-bold text-base sm:text-lg tracking-tight transition-colors whitespace-nowrap ${
                   isDark ? "text-white" : "text-[#0F172A]"
                 }`}
               >
                 Nash Kenneth<span className="text-[#8B5CF6]">.</span>
               </span>
-              <span className={`text-[10px] font-mono tracking-wider uppercase ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
+              <span className={`text-[10px] font-mono tracking-wider uppercase whitespace-nowrap ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
                 Full-Stack Dev
               </span>
             </div>

@@ -39,11 +39,13 @@ export const Footer = () => {
           <div className="md:col-span-6 space-y-5">
             <div className="flex items-center gap-3">
               <div
-                className="w-12 h-12 rounded-2xl flex items-center justify-center font-display font-black text-xl border bg-gradient-to-br from-[#18182B] to-[#0E0E18] border-[#8B5CF6]/40 text-white shadow-glow-purple-sm"
+                className="w-12 h-12 rounded-full flex items-center justify-center p-0.5 border-2 border-[#8B5CF6]/70 bg-[#0B0F19] shadow-glow-purple-sm overflow-hidden flex-shrink-0"
               >
-                <span className="bg-gradient-to-r from-[#A855F7] via-[#8B5CF6] to-[#EC4899] bg-clip-text text-transparent">
-                  {socialLinks.monogram || "NK"}
-                </span>
+                <img
+                  src="/images/logo.webp"
+                  alt="NK Logo"
+                  className="w-full h-full object-cover rounded-full"
+                />
               </div>
               <div>
                 <span className="font-display font-extrabold text-2xl tracking-tight text-white">

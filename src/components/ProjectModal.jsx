@@ -76,7 +76,7 @@ export const ProjectModal = ({ project, onClose }) => {
                   {project.category}
                 </span>
               </div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-extrabold tracking-tight break-words">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-extrabold tracking-tight break-normal">
                 {project.fullTitle || project.title}
               </h2>
             </div>

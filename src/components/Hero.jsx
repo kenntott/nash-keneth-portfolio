@@ -59,12 +59,12 @@ export const Hero = () => {
               <span className="text-emerald-400 font-semibold">ONLINE</span>
             </motion.div>
 
-            {/* Oversized Adelina Heading with Clamp & Word Break */}
+            {/* Oversized Adelina Heading with Clamp & Clean Word Wrap */}
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className={`text-[clamp(2.1rem,7.5vw,4.5rem)] font-display font-extrabold tracking-tight leading-[1.08] mb-4 break-words max-w-full ${
+              className={`text-[clamp(1.85rem,6.8vw,4.5rem)] font-display font-extrabold tracking-tight leading-[1.08] mb-4 break-normal max-w-full ${
                 isDark ? "text-white" : "text-[#0F172A]"
               }`}
             >
@@ -80,14 +80,14 @@ export const Hero = () => {
               className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-6 max-w-full"
             >
               <span
-                className={`text-xl sm:text-3xl md:text-4xl font-display font-bold break-words ${
+                className={`text-xl sm:text-3xl md:text-4xl font-display font-bold break-normal ${
                   isDark ? "text-gradient-adelina" : "text-gradient-adelina-light"
                 }`}
               >
                 {socialLinks.title}
               </span>
 
-              <span className="inline-block px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-mono font-bold rounded-xl bg-gradient-to-r from-[#8B5CF6]/20 to-[#EC4899]/20 border border-[#8B5CF6]/40 text-[#C084FC] -rotate-1 sm:-rotate-2">
+              <span className="inline-block px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-mono font-bold rounded-xl bg-gradient-to-r from-[#8B5CF6]/20 to-[#EC4899]/20 border border-[#8B5CF6]/40 text-[#C084FC] -rotate-1 sm:-rotate-2 whitespace-nowrap">
                 FULL-STACK &amp; SYSTEMS
               </span>
             </motion.div>
@@ -174,32 +174,32 @@ export const Hero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="grid grid-cols-3 gap-3 sm:gap-6 md:gap-10 pt-8 border-t border-gray-700/20 dark:border-gray-800/80 w-full max-w-lg"
+              className="grid grid-cols-3 gap-2 sm:gap-6 md:gap-10 pt-8 border-t border-gray-700/20 dark:border-gray-800/80 w-full max-w-lg"
             >
               <div>
-                <p className={`text-2xl sm:text-3xl md:text-4xl font-display font-extrabold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                <p className={`text-xl sm:text-3xl md:text-4xl font-display font-extrabold whitespace-nowrap ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   4+
                 </p>
                 <p className={`text-[10px] sm:text-xs font-mono mt-1 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                  Enterprise Systems
+                  Systems
                 </p>
               </div>
 
               <div>
-                <p className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold text-gradient-purple">
+                <p className="text-xl sm:text-3xl md:text-4xl font-display font-extrabold text-gradient-purple whitespace-nowrap">
                   100%
                 </p>
                 <p className={`text-[10px] sm:text-xs font-mono mt-1 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                  Responsive &amp; Modular
+                  Responsive
                 </p>
               </div>
 
               <div>
-                <p className={`text-2xl sm:text-3xl md:text-4xl font-display font-extrabold ${isDark ? "text-[#38BDF8]" : "text-[#0284C7]"}`}>
+                <p className={`text-xl sm:text-3xl md:text-4xl font-display font-extrabold whitespace-nowrap ${isDark ? "text-[#38BDF8]" : "text-[#0284C7]"}`}>
                   Full-Stack
                 </p>
-                <p className={`text-[10px] sm:text-xs font-mono mt-1 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                  React + DBs + APIs
+                <p className={`text-[10px] sm:text-xs font-mono mt-1 whitespace-nowrap ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
+                  React + DBs
                 </p>
               </div>
             </motion.div>

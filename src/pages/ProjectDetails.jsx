@@ -86,7 +86,7 @@ export const ProjectDetails = () => {
               </span>
             </div>
 
-            <h1 className="text-[clamp(1.9rem,6vw,3.75rem)] font-display font-extrabold tracking-tight mb-6 leading-tight break-words">
+            <h1 className="text-[clamp(1.65rem,5.2vw,3.5rem)] font-display font-extrabold tracking-tight mb-6 leading-tight break-normal">
               {project.fullTitle || project.title}
             </h1>
 

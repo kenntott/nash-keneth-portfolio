@@ -123,7 +123,7 @@ export const Contact = () => {
               </div>
 
               <h2
-                className={`text-[clamp(1.9rem,6vw,3.75rem)] font-display font-extrabold tracking-tight leading-tight mb-6 break-words ${
+                className={`text-[clamp(1.65rem,5.2vw,3.5rem)] font-display font-extrabold tracking-tight leading-tight mb-6 break-normal ${
                   isDark ? "text-white" : "text-[#0F172A]"
                 }`}
               >

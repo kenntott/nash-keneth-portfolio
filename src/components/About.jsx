@@ -79,7 +79,7 @@ export const About = () => {
           </div>
 
           <h2
-            className={`text-[clamp(1.85rem,6vw,3.75rem)] font-display font-extrabold tracking-tight leading-tight mb-6 break-words max-w-full ${
+            className={`text-[clamp(1.65rem,5.2vw,3.75rem)] font-display font-extrabold tracking-tight leading-tight mb-6 break-normal max-w-full ${
               isDark ? "text-white" : "text-[#0F172A]"
             }`}
           >

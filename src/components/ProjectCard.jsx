@@ -87,7 +87,7 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
               {project.category}
             </span>
             <h3
-              className={`text-xl sm:text-2xl md:text-3xl font-display font-extrabold mt-1 transition-colors leading-tight break-words ${
+              className={`text-xl sm:text-2xl md:text-3xl font-display font-extrabold mt-1 transition-colors leading-tight break-normal ${
                 isDark ? "text-white group-hover:text-[#C084FC]" : "text-[#0F172A] group-hover:text-[#7C3AED]"
               }`}
             >

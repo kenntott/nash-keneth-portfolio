@@ -28,7 +28,7 @@ export const NotFound = () => {
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-display font-extrabold mb-3">
+          <h1 className="text-3xl sm:text-4xl font-display font-extrabold mb-3 break-normal">
             PAGE NOT FOUND
           </h1>
 

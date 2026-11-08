@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Facebook, Instagram, Mail, FileDown, Sparkles, Code2, Database } from 'lucide-react';
+import { Github, Facebook, Instagram, Mail, FileDown, Sparkles, Code2, Database, ZoomIn, X } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import { Starburst } from './Starburst';
 import { socialLinks } from '../data/socialLinks';
@@ -9,6 +9,7 @@ export const ProfileCard = ({ variant = "full" }) => {
   const { isDark } = useTheme();
   const [imageError, setImageError] = useState(false);
   const [fallbackAttempted, setFallbackAttempted] = useState(false);
+  const [isZoomed, setIsZoomed] = useState(false);
 
   // Exact mapped personal profile photos
   const darkImage = "/images/nash1.jpg";
@@ -21,6 +22,26 @@ export const ProfileCard = ({ variant = "full" }) => {
     const p2 = new Image();
     p2.src = lightImage;
   }, []);
+
+  // Lock background scroll and listen for Escape key when lightbox is open
+  useEffect(() => {
+    if (!isZoomed) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsZoomed(false);
+      }
+    };
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isZoomed]);
 
   let currentSrc = isDark ? darkImage : lightImage;
   if (imageError) {
@@ -106,11 +127,22 @@ export const ProfileCard = ({ variant = "full" }) => {
             />
 
             <div
-              className={`relative w-44 h-44 sm:w-48 sm:h-48 md:w-52 md:h-52 rounded-2xl overflow-hidden border-2 transition-all duration-300 ${
+              onClick={() => setIsZoomed(true)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setIsZoomed(true);
+                }
+              }}
+              aria-label="Click to zoom in on profile photo"
+              className={`relative w-44 h-44 sm:w-48 sm:h-48 md:w-52 md:h-52 rounded-2xl overflow-hidden border-2 transition-all duration-300 cursor-pointer group/zoom ${
                 isDark
-                  ? "border-[#8B5CF6]/60 bg-[#0E0E18]"
-                  : "border-[#7C3AED]/50 bg-slate-100"
+                  ? "border-[#8B5CF6]/60 bg-[#0E0E18] hover:border-[#C084FC] hover:shadow-[0_0_30px_rgba(139,92,246,0.45)]"
+                  : "border-[#7C3AED]/50 bg-slate-100 hover:border-[#7C3AED] hover:shadow-[0_0_25px_rgba(124,58,237,0.3)]"
               }`}
+              title="Click to zoom in on profile picture"
             >
               <AnimatePresence mode="wait">
                 <motion.img
@@ -122,14 +154,22 @@ export const ProfileCard = ({ variant = "full" }) => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 1.04 }}
                   transition={{ duration: 0.35, ease: "easeInOut" }}
-                  className="w-full h-full object-cover object-[center_20%] select-none"
+                  className="w-full h-full object-cover object-[center_20%] select-none transition-transform duration-500 group-hover/zoom:scale-105"
                   loading="eager"
                 />
               </AnimatePresence>
 
+              {/* Hover Zoom Overlay */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/zoom:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none z-20">
+                <div className="px-3 py-1.5 rounded-full bg-black/85 border border-white/20 text-white text-[11px] font-mono font-bold flex items-center gap-1.5 backdrop-blur-md shadow-lg scale-90 group-hover/zoom:scale-100 transition-transform duration-300">
+                  <ZoomIn className="w-3.5 h-3.5 text-[#C084FC]" />
+                  <span>Click to Zoom</span>
+                </div>
+              </div>
+
               {/* Theme Pill in Corner */}
               <div
-                className={`absolute bottom-2 right-2 px-2.5 py-0.5 text-[9px] sm:text-[10px] font-mono font-bold rounded-full border shadow-sm backdrop-blur-md ${
+                className={`absolute bottom-2 right-2 px-2.5 py-0.5 text-[9px] sm:text-[10px] font-mono font-bold rounded-full border shadow-sm backdrop-blur-md pointer-events-none z-10 ${
                   isDark
                     ? "bg-[#07070B]/85 text-[#C084FC] border-[#8B5CF6]/50"
                     : "bg-white/95 text-[#7C3AED] border-[#7C3AED]/40"
@@ -252,6 +292,74 @@ export const ProfileCard = ({ variant = "full" }) => {
 
         </div>
       </div>
+
+      {/* Full-Screen Click-to-Zoom Lightbox Modal */}
+      <AnimatePresence>
+        {isZoomed && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setIsZoomed(false)}
+            className={`fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 md:p-8 select-none ${
+              isDark ? "bg-black/85 backdrop-blur-md" : "bg-slate-950/80 backdrop-blur-md"
+            }`}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Enlarged profile photo"
+          >
+            {/* Close Button (top-right of screen) */}
+            <button
+              onClick={() => setIsZoomed(false)}
+              type="button"
+              aria-label="Close enlarged photo"
+              className={`absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2.5 sm:p-3 rounded-full border shadow-2xl transition-all duration-200 hover:scale-110 ${
+                isDark
+                  ? "bg-[#131322]/90 border-[#8B5CF6]/50 text-white hover:bg-[#8B5CF6] hover:border-[#C084FC]"
+                  : "bg-white/95 border-violet-200 text-[#0F172A] hover:bg-[#7C3AED] hover:text-white"
+              }`}
+            >
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
+
+            {/* Enlarged Image Card (stops close click propagation) */}
+            <motion.div
+              initial={{ scale: 0.88, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.88, opacity: 0 }}
+              transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              className={`relative max-w-[92vw] sm:max-w-[85vw] md:max-w-[560px] max-h-[88vh] rounded-3xl p-3 sm:p-4 border-2 shadow-2xl flex flex-col items-center justify-center ${
+                isDark
+                  ? "bg-[#0E0E18] border-[#8B5CF6]/70 shadow-[0_0_60px_rgba(139,92,246,0.4)]"
+                  : "bg-white border-[#7C3AED]/60 shadow-[0_0_50px_rgba(124,58,237,0.3)]"
+              }`}
+            >
+              <div className="w-full h-full rounded-2xl overflow-hidden relative bg-black/20 flex items-center justify-center">
+                <img
+                  src={currentSrc}
+                  alt={`${socialLinks.fullName} - Enlarged Profile`}
+                  className="w-full h-auto max-h-[72vh] object-contain rounded-2xl"
+                />
+              </div>
+
+              {/* Bottom Caption Strip */}
+              <div className="w-full pt-3 pb-1 px-2 flex items-center justify-between gap-3 text-xs font-mono">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className={`font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                    {socialLinks.fullName}
+                  </span>
+                </div>
+                <span className={`text-[11px] ${isDark ? "text-[#C084FC]" : "text-[#7C3AED]"}`}>
+                  {isDark ? "Dark Theme Photo (nash1.jpg)" : "Light Theme Photo (nash2.jpg)"}
+                </span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

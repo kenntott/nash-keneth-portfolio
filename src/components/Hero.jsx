@@ -24,7 +24,7 @@ export const Hero = () => {
   const { isDark } = useTheme();
 
   return (
-    <section id="home" className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden bg-mesh-dark dark:bg-mesh-dark">
+    <section id="home" className="scroll-mt-24 relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden bg-mesh-dark dark:bg-mesh-dark">
       
       {/* Background Decorative Gradient Orbs */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] rounded-full blur-[160px] pointer-events-none opacity-40 bg-gradient-to-tr from-[#8B5CF6]/30 via-[#EC4899]/20 to-[#38BDF8]/20" />
@@ -114,6 +114,15 @@ export const Hero = () => {
             >
               <a
                 href="#projects"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.querySelector('#projects');
+                  if (target) {
+                    const navOffset = 80;
+                    const targetPos = target.getBoundingClientRect().top + (window.pageYOffset || window.scrollY || 0) - navOffset;
+                    window.scrollTo({ top: Math.max(0, targetPos), behavior: 'smooth' });
+                  }
+                }}
                 className={`w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-4 rounded-2xl font-heading font-bold text-sm text-white transition-all duration-300 shadow-lg hover:-translate-y-1 ${
                   isDark
                     ? "bg-gradient-to-r from-[#8B5CF6] via-[#7C3AED] to-[#EC4899] hover:shadow-glow-purple"
@@ -126,6 +135,15 @@ export const Hero = () => {
 
               <a
                 href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.querySelector('#contact');
+                  if (target) {
+                    const navOffset = 80;
+                    const targetPos = target.getBoundingClientRect().top + (window.pageYOffset || window.scrollY || 0) - navOffset;
+                    window.scrollTo({ top: Math.max(0, targetPos), behavior: 'smooth' });
+                  }
+                }}
                 className={`w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl font-heading font-bold text-sm border transition-all duration-300 hover:-translate-y-1 ${
                   isDark
                     ? "bg-[#131322] border-[#242338] text-white hover:border-[#8B5CF6] hover:text-[#C084FC]"

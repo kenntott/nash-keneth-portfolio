@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Github, FileDown, ArrowUpRight, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../hooks/useTheme';
@@ -18,6 +19,8 @@ const navLinks = [
 
 export const Navbar = () => {
   const { isDark } = useTheme();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -43,18 +46,72 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (e, href) => {
-    e.preventDefault();
-    setMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      const navOffset = 85;
-      const targetPos = target.getBoundingClientRect().top + window.scrollY - navOffset;
-      window.scrollTo({
-        top: targetPos,
-        behavior: 'smooth'
-      });
+  // Handle direct URL hash landing on mount
+  useEffect(() => {
+    if (window.location.hash) {
+      const hash = window.location.hash;
+      const timer = setTimeout(() => {
+        const target = document.querySelector(hash);
+        if (target) {
+          const navOffset = 80;
+          const currentScroll = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+          const targetPos = target.getBoundingClientRect().top + currentScroll - navOffset;
+          window.scrollTo({
+            top: Math.max(0, targetPos),
+            behavior: 'smooth'
+          });
+          setActiveSection(hash.replace('#', ''));
+        }
+      }, 300);
+      return () => clearTimeout(timer);
     }
+  }, []);
+
+  const handleNavClick = (e, href) => {
+    if (e) {
+      e.preventDefault();
+    }
+    setMobileMenuOpen(false);
+
+    // If navigating from a separate route (e.g., project details page), navigate to home with target hash
+    if (location.pathname !== '/') {
+      navigate(`/${href}`);
+      return;
+    }
+
+    // Update address bar hash smoothly
+    if (window.history.pushState) {
+      window.history.pushState(null, '', href);
+    }
+
+    const scrollToTarget = () => {
+      if (href === '#home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setActiveSection('home');
+        return;
+      }
+
+      const target = document.querySelector(href);
+      if (target) {
+        const navOffset = 80;
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+        const targetPos = target.getBoundingClientRect().top + currentScroll - navOffset;
+
+        window.scrollTo({
+          top: Math.max(0, targetPos),
+          behavior: 'smooth'
+        });
+
+        const sectionId = href.replace('#', '');
+        setActiveSection(sectionId);
+      }
+    };
+
+    // First attempt immediately
+    scrollToTarget();
+
+    // Second attempt after 120ms to ensure mobile drawer collapse & touch release don't cancel smooth scrolling
+    setTimeout(scrollToTarget, 120);
   };
 
   return (
@@ -196,73 +253,85 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Menu Dropdown & Backdrop */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className={`md:hidden border-b overflow-hidden ${
-              isDark
-                ? "bg-[#07070B]/98 border-[#242338] backdrop-blur-2xl"
-                : "bg-white/98 border-[#E4E4F2] backdrop-blur-2xl shadow-xl"
-            }`}
-          >
-            <div className="max-w-7xl mx-auto px-5 pt-4 pb-7 space-y-2">
-              {navLinks.map((link) => {
-                const targetId = link.href.substring(1);
-                const isActive = activeSection === targetId;
-                return (
+          <>
+            {/* Backdrop to close menu when tapping outside */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 top-[68px] bg-black/60 backdrop-blur-sm z-40 md:hidden"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className={`md:hidden border-b overflow-y-auto max-h-[calc(100vh-5rem)] relative z-50 ${
+                isDark
+                  ? "bg-[#07070B]/98 border-[#242338] backdrop-blur-2xl shadow-2xl"
+                  : "bg-white/98 border-[#E4E4F2] backdrop-blur-2xl shadow-xl"
+              }`}
+            >
+              <div className="max-w-7xl mx-auto px-5 pt-4 pb-7 space-y-2">
+                {navLinks.map((link) => {
+                  const targetId = link.href.substring(1);
+                  const isActive = activeSection === targetId;
+                  return (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      onClick={(e) => handleNavClick(e, link.href)}
+                      className={`flex items-center justify-between px-4 py-3 rounded-2xl text-base font-medium transition-all cursor-pointer touch-manipulation select-none active:scale-[0.98] ${
+                        isActive
+                          ? isDark
+                            ? "text-white bg-[#18182B] border-l-4 border-[#8B5CF6]"
+                            : "text-[#7C3AED] bg-violet-50 border-l-4 border-[#7C3AED]"
+                          : isDark
+                          ? "text-[#9E9EB8] hover:text-white hover:bg-[#131322]"
+                          : "text-[#64748B] hover:text-[#0F172A] hover:bg-slate-50"
+                      }`}
+                    >
+                      <span>{link.name}</span>
+                      {isActive && <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" />}
+                    </a>
+                  );
+                })}
+
+                <div className="pt-4 mt-2 border-t border-dashed border-gray-700/30 dark:border-gray-800 flex items-center justify-between gap-3">
                   <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className={`flex items-center justify-between px-4 py-3 rounded-2xl text-base font-medium transition-all ${
-                      isActive
-                        ? isDark
-                          ? "text-white bg-[#18182B] border-l-4 border-[#8B5CF6]"
-                          : "text-[#7C3AED] bg-violet-50 border-l-4 border-[#7C3AED]"
-                        : isDark
-                        ? "text-[#9E9EB8] hover:text-white hover:bg-[#131322]"
-                        : "text-[#64748B] hover:text-[#0F172A] hover:bg-slate-50"
+                    href={socialLinks.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl border text-sm font-medium touch-manipulation cursor-pointer ${
+                      isDark
+                        ? "bg-[#131322] border-[#242338] text-white"
+                        : "bg-slate-50 border-[#E4E4F2] text-[#0F172A]"
                     }`}
                   >
-                    <span>{link.name}</span>
-                    {isActive && <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" />}
+                    <Github className="w-4 h-4" />
+                    <span>GitHub</span>
                   </a>
-                );
-              })}
 
-              <div className="pt-4 mt-2 border-t border-dashed border-gray-700/30 dark:border-gray-800 flex items-center justify-between gap-3">
-                <a
-                  href={socialLinks.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl border text-sm font-medium ${
-                    isDark
-                      ? "bg-[#131322] border-[#242338] text-white"
-                      : "bg-slate-50 border-[#E4E4F2] text-[#0F172A]"
-                  }`}
-                >
-                  <Github className="w-4 h-4" />
-                  <span>GitHub</span>
-                </a>
-
-                <a
-                  href={socialLinks.resumePath}
-                  download="Nash_Keneth_Barzo_CV.pdf"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-bold bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white"
-                >
-                  <FileDown className="w-4 h-4" />
-                  <span>Download CV</span>
-                </a>
+                  <a
+                    href={socialLinks.resumePath}
+                    download="Nash_Keneth_Barzo_CV.pdf"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-bold bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white touch-manipulation cursor-pointer"
+                  >
+                    <FileDown className="w-4 h-4" />
+                    <span>Download CV</span>
+                  </a>
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

@@ -4,15 +4,6 @@ import { useTheme } from '../hooks/useTheme';
 import { Starburst } from './Starburst';
 import { socialLinks } from '../data/socialLinks';
 
-const footerNavLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Journey", href: "#experience" },
-  { name: "Contact", href: "#contact" },
-];
-
 export const Footer = () => {
   const { isDark } = useTheme();
 
@@ -33,10 +24,10 @@ export const Footer = () => {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-[#8B5CF6]/15 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 pb-10 sm:pb-14 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 pb-10 sm:pb-14 border-b border-white/10 items-center">
           
-          {/* Brand & Introduction (6 cols) */}
-          <div className="md:col-span-6 space-y-5">
+          {/* Brand & Introduction (8 cols) */}
+          <div className="md:col-span-8 space-y-5">
             <div className="flex items-center gap-3">
               <div
                 className="w-12 h-12 rounded-full flex items-center justify-center p-0.5 border-2 border-[#8B5CF6]/70 bg-[#0B0F19] shadow-glow-purple-sm overflow-hidden flex-shrink-0"
@@ -58,7 +49,7 @@ export const Footer = () => {
               </div>
             </div>
 
-            <p className="text-sm leading-relaxed max-w-md text-[#9E9EB8]">
+            <p className="text-sm leading-relaxed max-w-lg text-[#9E9EB8]">
               {socialLinks.tagline}
             </p>
 
@@ -107,38 +98,16 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Navigation (3 cols) */}
-          <div className="md:col-span-3">
-            <div className="flex items-center gap-2 mb-4">
-              <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" animate={false} />
-              <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-white">
-                Navigation
-              </h4>
-            </div>
-            <ul className="space-y-2.5 text-sm">
-              {footerNavLinks.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-[#9E9EB8] hover:text-[#C084FC] transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Back to Top & Deployment Note (3 cols) */}
-          <div className="md:col-span-3 flex flex-col justify-between items-start md:items-end">
+          {/* Back to Top & Deployment Note (4 cols) */}
+          <div className="md:col-span-4 flex flex-col justify-between items-start md:items-end space-y-6 md:space-y-4">
             <div>
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-2 mb-2 md:justify-end">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-white">
                   Production Ready
                 </h4>
               </div>
-              <p className="text-xs text-[#9E9EB8]">
+              <p className="text-xs text-[#9E9EB8] md:text-right">
                 Vercel Edge &amp; GitHub Architecture
               </p>
             </div>
@@ -146,7 +115,7 @@ export const Footer = () => {
             <button
               onClick={scrollToTop}
               type="button"
-              className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-heading font-bold border border-white/15 bg-white/5 text-white hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/20 transition-all duration-200 hover:-translate-y-1"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-heading font-bold border border-white/15 bg-white/5 text-white hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/20 transition-all duration-200 hover:-translate-y-1"
             >
               <span>Back to Top</span>
               <ArrowUp className="w-3.5 h-3.5 text-[#C084FC]" />

@@ -1,8 +1,6 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import zlib from 'node:zlib';
 
-// Minimal PNG encoder in pure Node.js
 function crc32(buf) {
   let table = new Uint32Array(256);
   for (let i = 0; i < 256; i++) {
@@ -33,22 +31,20 @@ function makeChunk(type, data) {
 function createPng(width, height, pixelFn) {
   const signature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
   
-  // IHDR
   const ihdr = Buffer.alloc(13);
   ihdr.writeUInt32BE(width, 0);
   ihdr.writeUInt32BE(height, 4);
-  ihdr.writeUInt8(8, 8); // 8-bit depth
-  ihdr.writeUInt8(6, 9); // RGBA
-  ihdr.writeUInt8(0, 10); // compression
-  ihdr.writeUInt8(0, 11); // filter
-  ihdr.writeUInt8(0, 12); // interlace
+  ihdr.writeUInt8(8, 8);
+  ihdr.writeUInt8(6, 9);
+  ihdr.writeUInt8(0, 10);
+  ihdr.writeUInt8(0, 11);
+  ihdr.writeUInt8(0, 12);
   const ihdrChunk = makeChunk('IHDR', ihdr);
 
-  // Raw image data with filter byte 0 at start of each scanline
   const raw = Buffer.alloc(height * (1 + width * 4));
   let offset = 0;
   for (let y = 0; y < height; y++) {
-    raw.writeUInt8(0, offset++); // filter type 0 None
+    raw.writeUInt8(0, offset++);
     for (let x = 0; x < width; x++) {
       const [r, g, b, a] = pixelFn(x, y, width, height);
       raw.writeUInt8(r, offset++);
@@ -65,12 +61,10 @@ function createPng(width, height, pixelFn) {
   return Buffer.concat([signature, ihdrChunk, idatChunk, iendChunk]);
 }
 
-// Ensure public directories
 fs.mkdirSync('public/images', { recursive: true });
 fs.mkdirSync('public/projects', { recursive: true });
-fs.mkdirSync('public/favicon', { recursive: true });
 
-// 1. Generate profile-dark.png (Dark aesthetic, glowing teal/emerald accents, stylish developer silhouette)
+// 1. profile-dark.png (Adelina deep black background with glowing vibrant violet/purple halo & stylish silhouette)
 const profileDark = createPng(512, 512, (x, y, w, h) => {
   const cx = w / 2;
   const cy = h / 2;
@@ -78,51 +72,48 @@ const profileDark = createPng(512, 512, (x, y, w, h) => {
   const dy = (y - cy) / cy;
   const dist = Math.sqrt(dx * dx + dy * dy);
 
-  // Background gradient: #08090C to #161920
-  let r = 8 + (x / w) * 14;
-  let g = 9 + (y / h) * 16;
-  let b = 12 + (dist * 20);
+  // Background: #07070B to #141322
+  let r = 7 + (x / w) * 13;
+  let g = 7 + (y / h) * 12;
+  let b = 11 + (dist * 25);
 
-  // Subtle Emerald radial halo
-  if (dist < 0.75) {
-    const halo = (1 - dist / 0.75);
-    r = Math.min(255, r + 0 * halo * 0.4);
-    g = Math.min(255, g + 229 * halo * 0.4);
-    b = Math.min(255, b + 168 * halo * 0.4);
+  // Vibrant Violet/Purple radial halo
+  if (dist < 0.8) {
+    const halo = (1 - dist / 0.8);
+    r = Math.min(255, r + 139 * halo * 0.55);
+    g = Math.min(255, g + 92 * halo * 0.45);
+    b = Math.min(255, b + 246 * halo * 0.65);
   }
 
   // Developer Avatar Head & Body Silhouette
-  // Head
   const hx = (x - cx) / 80;
   const hy = (y - (cy - 40)) / 95;
   const inHead = (hx * hx + hy * hy) <= 1;
 
-  // Body / Shoulders
   const bx = (x - cx) / 160;
   const by = (y - (cy + 130)) / 100;
   const inBody = (bx * bx + by * by) <= 1 && y >= (cy + 40);
 
-  // Glasses / Tech visor detail
+  // Tech spectacles / glow accent
   const gx = Math.abs(x - cx);
   const gy = Math.abs(y - (cy - 50));
   const inVisor = gy < 10 && gx < 50 && gx > 6;
 
   if (inVisor) {
-    return [0, 229, 168, 255]; // Neon emerald glow
+    return [192, 132, 252, 255]; // Neon lilac glow
   }
 
   if (inHead || inBody) {
-    // Stylish dark slate/obsidian outfit with subtle gradient
     const shadow = (y / h);
-    return [22 + shadow * 15, 25 + shadow * 20, 32 + shadow * 30, 255];
+    return [20 + shadow * 20, 18 + shadow * 18, 36 + shadow * 35, 255];
   }
 
   return [Math.round(r), Math.round(g), Math.round(b), 255];
 });
 fs.writeFileSync('public/images/profile-dark.png', profileDark);
-console.log('Created profile-dark.png');
+console.log('Created Adelina-styled profile-dark.png');
 
-// 2. Generate profile-light.png (Light aesthetic, clean studio lighting, teal/emerald accents)
+// 2. profile-light.png (Clean ivory/studio with vibrant violet/magenta rim highlights)
 const profileLight = createPng(512, 512, (x, y, w, h) => {
   const cx = w / 2;
   const cy = h / 2;
@@ -130,20 +121,19 @@ const profileLight = createPng(512, 512, (x, y, w, h) => {
   const dy = (y - cy) / cy;
   const dist = Math.sqrt(dx * dx + dy * dy);
 
-  // Clean studio background: #F8FAFC to #E2E8F0
-  let r = 248 - (dist * 20);
-  let g = 250 - (dist * 18);
-  let b = 252 - (dist * 14);
+  // Background: #FAFAFD to #ECEAFB
+  let r = 250 - (dist * 14);
+  let g = 250 - (dist * 16);
+  let b = 253 - (dist * 6);
 
-  // Soft emerald halo
-  if (dist < 0.75) {
-    const halo = (1 - dist / 0.75);
-    r = Math.min(255, r - 30 * halo * 0.3);
-    g = Math.min(255, g + 30 * halo * 0.3);
-    b = Math.min(255, b + 10 * halo * 0.3);
+  // Soft lilac/purple halo
+  if (dist < 0.8) {
+    const halo = (1 - dist / 0.8);
+    r = Math.min(255, r - 30 * halo * 0.25);
+    g = Math.min(255, g - 40 * halo * 0.25);
+    b = Math.min(255, b + 20 * halo * 0.25);
   }
 
-  // Developer Silhouette
   const hx = (x - cx) / 80;
   const hy = (y - (cy - 40)) / 95;
   const inHead = (hx * hx + hy * hy) <= 1;
@@ -152,69 +142,63 @@ const profileLight = createPng(512, 512, (x, y, w, h) => {
   const by = (y - (cy + 130)) / 100;
   const inBody = (bx * bx + by * by) <= 1 && y >= (cy + 40);
 
-  // Glasses detail
   const gx = Math.abs(x - cx);
   const gy = Math.abs(y - (cy - 50));
   const inVisor = gy < 10 && gx < 50 && gx > 6;
 
   if (inVisor) {
-    return [5, 150, 105, 255]; // Deep emerald accent
+    return [124, 58, 237, 255]; // Deep violet accent
   }
 
   if (inHead || inBody) {
-    // Light mode profile attire
-    const val = 40 + Math.round((y / h) * 45);
-    return [val, val + 10, val + 25, 255];
+    const val = 30 + Math.round((y / h) * 40);
+    return [val + 5, val, val + 25, 255];
   }
 
   return [Math.round(r), Math.round(g), Math.round(b), 255];
 });
 fs.writeFileSync('public/images/profile-light.png', profileLight);
-console.log('Created profile-light.png');
+console.log('Created Adelina-styled profile-light.png');
 
-// 3. Generate Project Mockup Thumbnails
+// 3. Project Mockups with Adelina vibrant purple and neon accents
 const projectConfigs = [
-  { file: 'public/projects/desinio.png', primary: [0, 229, 168], accent: [97, 218, 251], title: 'POS & PRINT' },
-  { file: 'public/projects/ricemill.png', primary: [245, 158, 11], accent: [16, 185, 129], title: 'RICE MILL' },
-  { file: 'public/projects/barangay.png', primary: [59, 130, 246], accent: [0, 229, 168], title: 'BARANGAY' },
-  { file: 'public/projects/nexushub.png', primary: [168, 85, 247], accent: [97, 218, 251], title: 'NEXUS HQ' },
+  { file: 'public/projects/desinio.png', primary: [139, 92, 246], accent: [236, 72, 153], title: 'DESINIO KOLEKSYON' },
+  { file: 'public/projects/ricemill.png', primary: [56, 189, 248], accent: [139, 92, 246], title: 'RICE MILL' },
+  { file: 'public/projects/barangay.png', primary: [192, 132, 252], accent: [56, 189, 248], title: 'BARANGAY PORTAL' },
+  { file: 'public/projects/nexushub.png', primary: [236, 72, 153], accent: [124, 58, 237], title: 'NEXUS HQ' },
 ];
 
 for (const proj of projectConfigs) {
   const pPng = createPng(640, 360, (x, y, w, h) => {
-    // Base dark canvas
-    let r = 18;
-    let g = 21;
-    let b = 28;
+    let r = 14;
+    let g = 14;
+    let b = 24;
 
-    // Grid lines
     if (x % 32 === 0 || y % 32 === 0) {
-      r += 8; g += 10; b += 14;
+      r += 10; g += 10; b += 18;
     }
 
     // Top window bar
-    if (y < 40) {
-      if (x > 20 && x < 60 && Math.abs(y - 20) < 6) return [239, 68, 68, 255];
-      if (x > 70 && x < 110 && Math.abs(y - 20) < 6) return [245, 158, 11, 255];
-      if (x > 120 && x < 160 && Math.abs(y - 20) < 6) return [16, 185, 129, 255];
-      return [26, 31, 42, 255];
+    if (y < 42) {
+      if (x > 20 && x < 40 && Math.abs(y - 21) < 6) return [239, 68, 68, 255];
+      if (x > 50 && x < 70 && Math.abs(y - 21) < 6) return [245, 158, 11, 255];
+      if (x > 80 && x < 100 && Math.abs(y - 21) < 6) return [16, 185, 129, 255];
+      return [20, 20, 34, 255];
     }
 
-    // Modern dashboard card blocks
-    const inCard1 = x > 40 && x < 280 && y > 60 && y < 320;
-    const inCard2 = x > 300 && x < 600 && y > 60 && y < 175;
-    const inCard3 = x > 300 && x < 600 && y > 195 && y < 320;
+    const inCard1 = x > 35 && x < 265 && y > 60 && y < 325;
+    const inCard2 = x > 285 && x < 605 && y > 60 && y < 180;
+    const inCard3 = x > 285 && x < 605 && y > 200 && y < 325;
 
     if (inCard1 || inCard2 || inCard3) {
-      // Glow boundary
-      if (x === 41 || x === 279 || x === 301 || x === 599 || y === 61 || y === 319 || y === 174 || y === 196) {
+      if (x === 36 || x === 264 || x === 286 || x === 604 || y === 61 || y === 324 || y === 179 || y === 201) {
         return [...proj.primary, 255];
       }
-      return [24, 28, 38, 255];
+      return [18, 18, 30, 255];
     }
 
     return [r, g, b, 255];
   });
   fs.writeFileSync(proj.file, pPng);
-  console.log(`Created ${proj.file}`);
+  console.log(`Updated ${proj.file}`);
 }

@@ -4,51 +4,57 @@ import {
   Code2, 
   Layers, 
   Database, 
-  Server, 
-  ShieldCheck, 
-  Workflow, 
-  GitBranch,
-  CheckCircle2,
-  Cpu
+  GitBranch, 
+  CheckCircle2, 
+  ArrowUpRight,
+  Sparkles,
+  Cpu,
+  Server
 } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
+import { Starburst } from './Starburst';
+import { AnimatedSection } from './AnimatedSection';
 
 const highlightCards = [
   {
     id: "web-dev",
+    number: "01",
     title: "Web Development",
-    subtitle: "React.js & Modern UI",
+    subtitle: "Building modern & responsive web applications",
     icon: Code2,
-    accentColor: "#61DAFB",
-    description: "Crafting modular, clean, and reactive single-page applications with React.js, Tailwind CSS, and custom animations that adapt effortlessly to any screen size.",
-    bullets: ["Component Reusability", "Responsive Grid/Flexbox", "Modern State Management"],
+    gradient: "from-[#8B5CF6] to-[#38BDF8]",
+    description: "Crafting modern, accessible, and reactive single-page applications with React.js, Tailwind CSS, and custom Framer Motion animations that adapt seamlessly to any device.",
+    bullets: ["Modern React Architecture", "Mobile-First Fluid Interfaces", "Clean Component Modularity"],
   },
   {
     id: "info-systems",
-    title: "Information Systems Development",
-    subtitle: "Operations & Workflows",
+    number: "02",
+    title: "Information Systems",
+    subtitle: "Designing & developing management systems",
     icon: Layers,
-    accentColor: "#00E5A8",
-    description: "Architecting end-to-end information systems such as POS, inventory trackers, and municipal portals, converting intricate organizational logic into fluid digital workflows.",
-    bullets: ["Role-Based Dashboards", "Operational Accounting", "Real-Time Status Monitoring"],
+    gradient: "from-[#EC4899] to-[#8B5CF6]",
+    description: "Engineering complete operational information platforms (such as POS, agricultural inventory trackers, and municipal portals), transforming complex business logic into intuitive workflows.",
+    bullets: ["Role-Based Access Dashboards", "Operational Accounting & POS", "Real-Time Transaction Logging"],
   },
   {
     id: "db-management",
+    number: "03",
     title: "Database Management",
-    subtitle: "PostgreSQL & MySQL",
+    subtitle: "Working with SQL & modern database technologies",
     icon: Database,
-    accentColor: "#3ECF8E",
-    description: "Designing normalized relational databases, data schemas, foreign-key constraints, and secure access policies utilizing PostgreSQL, MySQL, and Supabase.",
-    bullets: ["Schema Normalization", "Row-Level Security (RLS)", "Automated Transactions"],
+    gradient: "from-[#38BDF8] to-[#8B5CF6]",
+    description: "Architecting normalized relational schemas, data models, referential constraints, and security policies utilizing PostgreSQL, MySQL, and Supabase.",
+    bullets: ["Relational Schema Normalization", "Row-Level Security (RLS)", "High-Integrity Queries & Triggers"],
   },
   {
     id: "deployment-vcs",
+    number: "04",
     title: "Deployment & Version Control",
-    subtitle: "Git, Vercel & CI/CD",
+    subtitle: "Deploying & maintaining via GitHub & Vercel",
     icon: GitBranch,
-    accentColor: "#A855F7",
-    description: "Employing disciplined Git branching conventions, collaborative GitHub workflows, and zero-configuration production deployments on Vercel and Netlify.",
-    bullets: ["Branching & Pull Requests", "Instant Edge Hosting", "Environment Protection"],
+    gradient: "from-[#C084FC] to-[#EC4899]",
+    description: "Maintaining disciplined Git version control, collaborative branch workflows, and zero-configuration continuous deployments on Vercel and Netlify.",
+    bullets: ["Git Feature Branching", "Instant Edge Hosting on Vercel", "Production Environment Security"],
   },
 ];
 
@@ -56,131 +62,112 @@ export const About = () => {
   const { isDark } = useTheme();
 
   return (
-    <section id="about" className="py-20 md:py-28 relative">
+    <AnimatedSection id="about" className="py-24 md:py-36 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-20">
           <div
-            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium mb-3 border ${
+            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider uppercase mb-4 border ${
               isDark
-                ? "bg-[#161920] border-[#292E38] text-[#00E5A8]"
-                : "bg-emerald-50 border-emerald-200 text-[#059669]"
+                ? "bg-[#131322] border-[#242338] text-[#C084FC]"
+                : "bg-violet-50 border-violet-200 text-[#7C3AED]"
             }`}
           >
-            <Cpu className="w-3.5 h-3.5" />
-            <span>ENGINEERING PHILOSOPHY</span>
+            <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" />
+            <span>ABOUT MY APPROACH</span>
           </div>
 
           <h2
-            className={`text-3xl sm:text-4xl font-extrabold font-heading mb-4 ${
-              isDark ? "text-white" : "text-[#111827]"
+            className={`text-3xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight leading-tight mb-6 ${
+              isDark ? "text-white" : "text-[#0F172A]"
             }`}
           >
-            About Me & My Development Journey
+            TURNING IDEAS INTO <span className="text-gradient-purple italic">DIGITAL SOLUTIONS</span>
           </h2>
 
           <p
-            className={`text-base sm:text-lg leading-relaxed ${
-              isDark ? "text-[#A1A1AA]" : "text-[#64748B]"
+            className={`text-base sm:text-lg md:text-xl leading-relaxed ${
+              isDark ? "text-[#9E9EB8]" : "text-[#475569]"
             }`}
           >
-            I am a dedicated developer focused on frontend engineering and practical information systems.
-            I transform operational bottlenecks into streamlined, intuitive, and secure digital software.
+            I'm a passionate full-stack developer with an interest in modern web technologies and information systems. I enjoy building clean, scalable, and user-friendly applications that solve real problems and create value.
           </p>
         </div>
 
-        {/* Narrative & Focus Area */}
-        <div
-          className={`p-8 md:p-10 rounded-3xl border mb-16 relative overflow-hidden ${
-            isDark
-              ? "bg-[#161920]/70 border-[#292E38] text-[#E4E4E7]"
-              : "bg-white border-[#E2E8F0] text-[#334155] shadow-card-light"
-          }`}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="space-y-4 text-sm sm:text-base leading-relaxed">
-              <p>
-                My passion lies at the intersection of <strong className={isDark ? "text-white" : "text-black"}>clean user interfaces</strong> and <strong className={isDark ? "text-white" : "text-black"}>functional business systems</strong>. Rather than building purely static landing pages, I thrive on engineering applications that solve daily operational problems.
-              </p>
-              <p>
-                From custom printing POS cost-calculators (<em>DesinioKoleksyon</em>) to bulk rice mill agricultural inventory tracking and local digital governance portals (<em>Barangay Kinilis</em>), I focus on building role-based dashboards, secure data inputs, and responsive workflows.
-              </p>
-            </div>
-
-            <div className="space-y-4 text-sm sm:text-base leading-relaxed">
-              <p>
-                I prioritize clean modular React architectures, predictable state management, and reusable components. On the data tier, I integrate relational databases like PostgreSQL and MySQL through Supabase and RESTful APIs, securing records with role-based policies.
-              </p>
-              <p>
-                Every project is managed with disciplined Git version control, organized documentation, and configured for seamless continuous deployment on platforms like Vercel and Netlify.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Four Highlight Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Asymmetrical Adelina 4-Card Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
           {highlightCards.map((card, idx) => {
             const Icon = card.icon;
             return (
               <motion.div
                 key={card.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className={`p-6 rounded-2xl border transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 ${
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                whileHover={{ y: -6 }}
+                className={`relative p-8 sm:p-10 rounded-3xl border transition-all duration-300 flex flex-col justify-between group overflow-hidden ${
                   isDark
-                    ? "bg-[#161920] border-[#292E38] hover:border-[#00E5A8]/50 hover:shadow-card-dark"
-                    : "bg-white border-[#E2E8F0] hover:border-[#059669]/50 hover:shadow-card-light shadow-sm"
+                    ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/60 hover:shadow-glow-purple-sm hover:bg-[#18182B]"
+                    : "bg-white border-[#E4E4F2] hover:border-[#7C3AED]/50 hover:shadow-card-light shadow-sm"
                 }`}
               >
+                {/* Decorative background glow */}
+                <div
+                  className={`absolute -top-16 -right-16 w-36 h-36 rounded-full blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 bg-gradient-to-br ${card.gradient}`}
+                />
+
                 <div>
-                  <div
-                    className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 ${
-                      isDark
-                        ? "bg-[#111318] border border-[#292E38] text-[#00E5A8]"
-                        : "bg-slate-100 border border-[#E2E8F0] text-[#059669]"
-                    }`}
-                  >
-                    <Icon className="w-6 h-6" />
+                  {/* Top Bar with Number and Icon */}
+                  <div className="flex items-center justify-between mb-8">
+                    <div
+                      className={`w-14 h-14 rounded-2xl flex items-center justify-center border transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 ${
+                        isDark
+                          ? "bg-[#0E0E18] border-[#242338] text-[#C084FC] group-hover:border-[#8B5CF6]"
+                          : "bg-violet-50 border-violet-100 text-[#7C3AED] group-hover:border-[#7C3AED]"
+                      }`}
+                    >
+                      <Icon className="w-7 h-7" />
+                    </div>
+
+                    <span
+                      className={`text-3xl sm:text-4xl font-display font-extrabold opacity-30 group-hover:opacity-60 transition-opacity ${
+                        isDark ? "text-white" : "text-[#0F172A]"
+                      }`}
+                    >
+                      {card.number}
+                    </span>
                   </div>
 
+                  {/* Title & Subtitle */}
                   <h3
-                    className={`text-lg font-bold font-heading mb-1 transition-colors ${
-                      isDark ? "text-white" : "text-[#111827]"
+                    className={`text-2xl font-display font-bold mb-2 transition-colors ${
+                      isDark ? "text-white group-hover:text-[#C084FC]" : "text-[#0F172A] group-hover:text-[#7C3AED]"
                     }`}
                   >
                     {card.title}
                   </h3>
 
-                  <p
-                    className={`text-xs font-mono font-medium mb-3 ${
-                      isDark ? "text-[#00E5A8]" : "text-[#059669]"
-                    }`}
-                  >
+                  <p className="text-xs font-mono font-bold uppercase tracking-wider text-[#8B5CF6] mb-4">
                     {card.subtitle}
                   </p>
 
                   <p
-                    className={`text-xs sm:text-sm leading-relaxed mb-6 ${
-                      isDark ? "text-[#A1A1AA]" : "text-[#64748B]"
+                    className={`text-sm sm:text-base leading-relaxed mb-8 ${
+                      isDark ? "text-[#9E9EB8]" : "text-[#64748B]"
                     }`}
                   >
                     {card.description}
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-dashed border-gray-700/30 dark:border-gray-800 space-y-2">
+                {/* Bullets */}
+                <div className="pt-6 border-t border-dashed border-gray-700/20 dark:border-gray-800 space-y-2.5">
                   {card.bullets.map((bullet, bIdx) => (
-                    <div key={bIdx} className="flex items-center gap-2 text-xs">
-                      <CheckCircle2
-                        className={`w-3.5 h-3.5 flex-shrink-0 ${
-                          isDark ? "text-[#00E5A8]" : "text-[#059669]"
-                        }`}
-                      />
-                      <span className={isDark ? "text-[#E4E4E7]" : "text-[#334155]"}>
+                    <div key={bIdx} className="flex items-center gap-2.5 text-xs sm:text-sm">
+                      <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" animate={false} />
+                      <span className={isDark ? "text-gray-300" : "text-gray-700 font-medium"}>
                         {bullet}
                       </span>
                     </div>
@@ -192,7 +179,7 @@ export const About = () => {
         </div>
 
       </div>
-    </section>
+    </AnimatedSection>
   );
 };
 

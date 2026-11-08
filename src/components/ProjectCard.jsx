@@ -1,66 +1,74 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Eye, CheckCircle2, Layers } from 'lucide-react';
+import { ExternalLink, Github, Eye, CheckCircle2, ArrowUpRight } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
+import { Starburst } from './Starburst';
 
-export const ProjectCard = ({ project, onViewDetails }) => {
+export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
   const { isDark } = useTheme();
   const [imageError, setImageError] = useState(false);
 
+  // Asymmetrical card layout alternating between span-1 and span-2 for Adelina editorial style
+  const isFeatured = index === 0 || index === 3;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 25 }}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
-      className={`rounded-3xl border overflow-hidden transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 ${
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className={`rounded-3xl border overflow-hidden transition-all duration-300 flex flex-col justify-between group hover:-translate-y-2 ${
+        isFeatured ? "md:col-span-2 lg:col-span-2" : "col-span-1"
+      } ${
         isDark
-          ? "bg-[#161920] border-[#292E38] hover:border-[#00E5A8]/50 hover:shadow-card-dark"
-          : "bg-white border-[#E2E8F0] hover:border-[#059669]/50 hover:shadow-card-light shadow-sm"
+          ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/70 hover:shadow-glow-purple"
+          : "bg-white border-[#E4E4F2] hover:border-[#7C3AED]/60 hover:shadow-card-light shadow-sm"
       }`}
     >
       <div>
-        {/* Project Thumbnail Image with Category Overlay */}
-        <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-900 border-b border-gray-700/20 dark:border-gray-800">
+        {/* Project Thumbnail Image with Category Overlay & Zoom on Hover */}
+        <div
+          className={`relative overflow-hidden bg-slate-900 border-b border-gray-700/20 dark:border-gray-800 ${
+            isFeatured ? "aspect-[21/9] sm:aspect-[2/1]" : "aspect-[16/10]"
+          }`}
+        >
           {!imageError ? (
             <img
               src={project.thumbnail}
               alt={project.title}
               onError={() => setImageError(true)}
-              className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
               loading="lazy"
             />
           ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-[#111318] to-[#161920]">
-              <Layers className="w-10 h-10 text-[#00E5A8] mb-2" />
-              <p className="font-heading font-bold text-white text-base">{project.title}</p>
-              <p className="text-xs text-[#A1A1AA]">{project.category}</p>
+            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-[#131322] to-[#07070B]">
+              <Starburst className="w-10 h-10 text-[#C084FC] mb-2" />
+              <p className="font-display font-bold text-white text-lg">{project.title}</p>
+              <p className="text-xs text-[#9E9EB8]">{project.category}</p>
             </div>
           )}
 
-          {/* Badge Overlays */}
-          <div className="absolute top-3 left-3 flex flex-wrap gap-2">
+          {/* Category Pill Tag Overlay */}
+          <div className="absolute top-4 left-4 flex flex-wrap gap-2">
             <span
-              className={`px-3 py-1 rounded-full text-[11px] font-mono font-medium backdrop-blur-md shadow-sm border ${
+              className={`px-3.5 py-1 rounded-full text-xs font-mono font-bold tracking-wide backdrop-blur-md shadow-md border flex items-center gap-1.5 ${
                 isDark
-                  ? "bg-[#08090C]/80 text-[#00E5A8] border-[#00E5A8]/30"
-                  : "bg-white/90 text-[#059669] border-[#059669]/30"
+                  ? "bg-[#07070B]/85 text-[#C084FC] border-[#8B5CF6]/40"
+                  : "bg-white/95 text-[#7C3AED] border-[#7C3AED]/30"
               }`}
             >
-              {project.badge}
+              <Starburst className="w-3 h-3 text-[#8B5CF6]" animate={false} />
+              <span>{project.badge}</span>
             </span>
           </div>
 
-          <div className="absolute top-3 right-3">
+          {/* Status Badge */}
+          <div className="absolute top-4 right-4">
             <span
-              className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono backdrop-blur-md border ${
-                project.status.includes("Completed")
-                  ? isDark
-                    ? "bg-emerald-950/80 text-emerald-400 border-emerald-500/30"
-                    : "bg-emerald-50/90 text-emerald-700 border-emerald-300"
-                  : isDark
-                  ? "bg-amber-950/80 text-amber-400 border-amber-500/30"
-                  : "bg-amber-50/90 text-amber-700 border-amber-300"
+              className={`px-3 py-1 rounded-full text-[11px] font-mono font-semibold backdrop-blur-md border ${
+                isDark
+                  ? "bg-[#07070B]/85 text-emerald-400 border-emerald-500/30"
+                  : "bg-white/95 text-emerald-700 border-emerald-300"
               }`}
             >
               {project.status}
@@ -69,18 +77,18 @@ export const ProjectCard = ({ project, onViewDetails }) => {
         </div>
 
         {/* Card Body */}
-        <div className="p-6 md:p-7">
+        <div className="p-7 sm:p-8">
           <div className="mb-3">
             <span
-              className={`text-xs font-mono font-medium uppercase tracking-wider ${
-                isDark ? "text-[#00E5A8]" : "text-[#059669]"
+              className={`text-xs font-mono font-bold uppercase tracking-wider ${
+                isDark ? "text-[#C084FC]" : "text-[#7C3AED]"
               }`}
             >
               {project.category}
             </span>
             <h3
-              className={`text-xl sm:text-2xl font-bold font-heading mt-1 transition-colors ${
-                isDark ? "text-white group-hover:text-[#00E5A8]" : "text-[#111827] group-hover:text-[#059669]"
+              className={`text-2xl sm:text-3xl font-display font-extrabold mt-1 transition-colors leading-tight ${
+                isDark ? "text-white group-hover:text-[#C084FC]" : "text-[#0F172A] group-hover:text-[#7C3AED]"
               }`}
             >
               {project.title}
@@ -88,8 +96,8 @@ export const ProjectCard = ({ project, onViewDetails }) => {
           </div>
 
           <p
-            className={`text-xs sm:text-sm leading-relaxed mb-6 line-clamp-3 ${
-              isDark ? "text-[#A1A1AA]" : "text-[#64748B]"
+            className={`text-sm sm:text-base leading-relaxed mb-6 line-clamp-3 ${
+              isDark ? "text-[#9E9EB8]" : "text-[#64748B]"
             }`}
           >
             {project.description}
@@ -97,32 +105,29 @@ export const ProjectCard = ({ project, onViewDetails }) => {
 
           {/* Key Features Preview */}
           <div className="mb-6 space-y-2">
-            <p className={`text-xs font-mono uppercase tracking-wider ${isDark ? "text-gray-400" : "text-gray-500"}`}>
-              Key Highlights:
-            </p>
             {project.features.slice(0, 3).map((feat, idx) => (
-              <div key={idx} className="flex items-center gap-2 text-xs">
+              <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm">
                 <CheckCircle2
-                  className={`w-3.5 h-3.5 flex-shrink-0 ${
-                    isDark ? "text-[#00E5A8]" : "text-[#059669]"
+                  className={`w-4 h-4 flex-shrink-0 ${
+                    isDark ? "text-[#C084FC]" : "text-[#7C3AED]"
                   }`}
                 />
-                <span className={`line-clamp-1 ${isDark ? "text-[#E4E4E7]" : "text-[#334155]"}`}>
+                <span className={`line-clamp-1 ${isDark ? "text-gray-300" : "text-gray-700 font-medium"}`}>
                   {feat}
                 </span>
               </div>
             ))}
           </div>
 
-          {/* Technology Stack Tags */}
-          <div className="flex flex-wrap gap-1.5 pt-4 border-t border-dashed border-gray-700/30 dark:border-gray-800">
+          {/* Technology Tags */}
+          <div className="flex flex-wrap gap-2 pt-4 border-t border-dashed border-gray-700/20 dark:border-gray-800">
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className={`text-[11px] font-mono px-2.5 py-1 rounded-lg border transition-colors ${
+                className={`text-xs font-mono px-3 py-1 rounded-xl border transition-colors ${
                   isDark
-                    ? "bg-[#111318] border-[#292E38] text-[#A1A1AA]"
-                    : "bg-slate-100 border-[#E2E8F0] text-[#475569]"
+                    ? "bg-[#0E0E18] border-[#242338] text-[#9E9EB8]"
+                    : "bg-slate-100 border-[#E4E4F2] text-[#475569]"
                 }`}
               >
                 {tech}
@@ -132,35 +137,35 @@ export const ProjectCard = ({ project, onViewDetails }) => {
         </div>
       </div>
 
-      {/* Card Action Buttons Footer */}
+      {/* Action Footer */}
       <div
-        className={`p-5 px-6 border-t flex items-center justify-between gap-3 ${
-          isDark ? "bg-[#111318]/50 border-[#292E38]" : "bg-slate-50/50 border-[#E2E8F0]"
+        className={`p-6 border-t flex items-center justify-between gap-3 ${
+          isDark ? "bg-[#0E0E18]/80 border-[#242338]" : "bg-slate-50/80 border-[#E4E4F2]"
         }`}
       >
         <button
           onClick={() => onViewDetails(project)}
           type="button"
-          className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold border transition-all duration-200 hover:-translate-y-0.5 ${
+          className={`flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border transition-all duration-300 hover:-translate-y-0.5 ${
             isDark
-              ? "bg-[#00E5A8]/10 text-[#00E5A8] border-[#00E5A8]/30 hover:bg-[#00E5A8] hover:text-[#08090C]"
-              : "bg-emerald-50 text-[#059669] border-emerald-300 hover:bg-[#059669] hover:text-white"
+              ? "bg-gradient-to-r from-[#8B5CF6]/20 to-[#EC4899]/20 text-white border-[#8B5CF6]/40 hover:bg-[#8B5CF6] hover:text-white"
+              : "bg-violet-50 text-[#7C3AED] border-violet-300 hover:bg-[#7C3AED] hover:text-white shadow-sm"
           }`}
         >
           <Eye className="w-4 h-4" />
           <span>View Details</span>
+          <ArrowUpRight className="w-3.5 h-3.5" />
         </button>
 
-        {/* Live Demo button - ONLY shown if URL exists */}
         {project.liveDemo ? (
           <a
             href={project.liveDemo}
             target="_blank"
             rel="noopener noreferrer"
-            className={`p-2.5 rounded-xl border transition-all duration-200 hover:-translate-y-0.5 ${
+            className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-0.5 ${
               isDark
-                ? "bg-[#161920] border-[#292E38] text-white hover:text-[#00E5A8]"
-                : "bg-white border-[#E2E8F0] text-[#111827] hover:text-[#059669] shadow-sm"
+                ? "bg-[#131322] border-[#242338] text-white hover:text-[#C084FC] hover:border-[#8B5CF6]"
+                : "bg-white border-[#E4E4F2] text-[#0F172A] hover:text-[#7C3AED] shadow-sm"
             }`}
             title="Live Demo"
           >
@@ -168,16 +173,15 @@ export const ProjectCard = ({ project, onViewDetails }) => {
           </a>
         ) : null}
 
-        {/* Source Code button - ONLY shown if URL exists */}
         {project.sourceCode ? (
           <a
             href={project.sourceCode}
             target="_blank"
             rel="noopener noreferrer"
-            className={`p-2.5 rounded-xl border transition-all duration-200 hover:-translate-y-0.5 ${
+            className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-0.5 ${
               isDark
-                ? "bg-[#161920] border-[#292E38] text-white hover:text-[#00E5A8]"
-                : "bg-white border-[#E2E8F0] text-[#111827] hover:text-[#059669] shadow-sm"
+                ? "bg-[#131322] border-[#242338] text-white hover:text-[#C084FC] hover:border-[#8B5CF6]"
+                : "bg-white border-[#E4E4F2] text-[#0F172A] hover:text-[#7C3AED] shadow-sm"
             }`}
             title="Source Code"
           >

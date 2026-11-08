@@ -19,14 +19,15 @@ import {
   CloudUpload, 
   Globe, 
   Workflow, 
-  Figma, 
-  Sparkles,
-  Layers
+  Layers,
+  Zap,
+  Sparkles
 } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
+import { Starburst } from './Starburst';
+import { AnimatedSection } from './AnimatedSection';
 import { skillCategories } from '../data/skills';
 
-// Map icon names from skill data to Lucide React components
 const iconMap = {
   Code2,
   FileCode2,
@@ -46,7 +47,8 @@ const iconMap = {
   CloudUpload,
   Globe,
   Workflow,
-  Figma,
+  Layers,
+  Zap,
   Sparkles,
 };
 
@@ -63,63 +65,42 @@ export const Skills = () => {
     ? skillCategories
     : skillCategories.filter(c => c.id === activeCategory);
 
-  const getLevelBadgeClass = (level) => {
-    switch (level) {
-      case "Experienced":
-        return isDark
-          ? "bg-[#00E5A8]/10 text-[#00E5A8] border-[#00E5A8]/30"
-          : "bg-emerald-50 text-[#059669] border-emerald-200";
-      case "Familiar":
-        return isDark
-          ? "bg-[#61DAFB]/10 text-[#61DAFB] border-[#61DAFB]/30"
-          : "bg-cyan-50 text-[#0891B2] border-cyan-200";
-      case "Currently Learning":
-        return isDark
-          ? "bg-amber-500/10 text-amber-400 border-amber-500/30"
-          : "bg-amber-50 text-amber-600 border-amber-200";
-      default:
-        return isDark
-          ? "bg-gray-800 text-gray-300 border-gray-700"
-          : "bg-gray-100 text-gray-700 border-gray-200";
-    }
-  };
-
   return (
-    <section id="skills" className="py-20 md:py-28 relative">
+    <AnimatedSection id="skills" className="py-24 md:py-36 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16">
           <div
-            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium mb-3 border ${
+            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider uppercase mb-4 border ${
               isDark
-                ? "bg-[#161920] border-[#292E38] text-[#00E5A8]"
-                : "bg-emerald-50 border-emerald-200 text-[#059669]"
+                ? "bg-[#131322] border-[#242338] text-[#C084FC]"
+                : "bg-violet-50 border-violet-200 text-[#7C3AED]"
             }`}
           >
-            <Layers className="w-3.5 h-3.5" />
-            <span>TECH STACK & CAPABILITIES</span>
+            <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" />
+            <span>ARSENAL &amp; CAPABILITIES</span>
           </div>
 
           <h2
-            className={`text-3xl sm:text-4xl font-extrabold font-heading mb-4 ${
-              isDark ? "text-white" : "text-[#111827]"
+            className={`text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight mb-4 ${
+              isDark ? "text-white" : "text-[#0F172A]"
             }`}
           >
-            Technical Skills & Tools
+            SKILLS? <span className="text-gradient-purple italic">I'VE GOT SOME.</span>
           </h2>
 
           <p
-            className={`text-base sm:text-lg leading-relaxed ${
-              isDark ? "text-[#A1A1AA]" : "text-[#64748B]"
+            className={`text-base sm:text-lg md:text-xl leading-relaxed ${
+              isDark ? "text-[#9E9EB8]" : "text-[#64748B]"
             }`}
           >
-            A clear and honest breakdown of my primary development tools, frameworks, and system stacks categorized by proficiency.
+            From modern responsive frontends to relational database schemas and edge deployment pipelines.
           </p>
         </div>
 
-        {/* Category Filter Chips */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+        {/* Filter Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-16">
           {categories.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
@@ -127,14 +108,14 @@ export const Skills = () => {
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 type="button"
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 ${
+                className={`px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-heading font-bold transition-all duration-300 ${
                   isActive
                     ? isDark
-                      ? "bg-[#00E5A8] text-[#08090C] font-semibold shadow-glow-green-sm"
-                      : "bg-[#059669] text-white font-semibold shadow-sm"
+                      ? "bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white shadow-glow-purple-sm scale-105"
+                      : "bg-[#7C3AED] text-white shadow-md scale-105"
                     : isDark
-                    ? "bg-[#161920] border border-[#292E38] text-[#A1A1AA] hover:text-white hover:border-[#00E5A8]/40"
-                    : "bg-white border border-[#E2E8F0] text-[#64748B] hover:text-[#111827] hover:border-[#059669]/40 shadow-sm"
+                    ? "bg-[#131322] border border-[#242338] text-[#9E9EB8] hover:text-white hover:border-[#8B5CF6]/50"
+                    : "bg-white border border-[#E4E4F2] text-[#64748B] hover:text-[#0F172A] hover:border-[#7C3AED]/40 shadow-sm"
                 }`}
               >
                 {cat.title}
@@ -143,104 +124,89 @@ export const Skills = () => {
           })}
         </div>
 
-        {/* Skill Groups */}
-        <div className="space-y-12">
-          {displayedCategories.map((cat) => (
-            <div key={cat.id} className="space-y-5">
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 border-b pb-3 border-gray-700/20 dark:border-gray-800">
-                <h3
-                  className={`text-xl font-bold font-heading ${
-                    isDark ? "text-white" : "text-[#111827]"
-                  }`}
-                >
-                  {cat.title}
-                </h3>
-                <p
-                  className={`text-xs ${
-                    isDark ? "text-[#A1A1AA]" : "text-[#64748B]"
-                  }`}
-                >
-                  {cat.description}
+        {/* Categorized Showcase */}
+        <div className="space-y-16">
+          {displayedCategories.map((cat, cIdx) => (
+            <motion.div
+              key={cat.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: cIdx * 0.1 }}
+              className="space-y-6"
+            >
+              {/* Category Subheading */}
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-4 border-b border-gray-700/20 dark:border-gray-800">
+                <div className="flex items-center gap-3">
+                  <Starburst className="w-4 h-4 text-[#C084FC]" animate={false} />
+                  <h3
+                    className={`text-2xl font-display font-bold ${
+                      isDark ? "text-white" : "text-[#0F172A]"
+                    }`}
+                  >
+                    {cat.title}
+                  </h3>
+                </div>
+                <p className={`text-xs font-mono ${isDark ? "text-[#C084FC]" : "text-[#7C3AED]"}`}>
+                  {cat.subtitle}
                 </p>
               </div>
 
               {/* Skills Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5">
                 {cat.skills.map((skill, sIdx) => {
                   const Icon = iconMap[skill.icon] || Code2;
                   return (
                     <motion.div
                       key={skill.name}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: sIdx * 0.05 }}
-                      whileHover={{ y: -4 }}
-                      className={`p-4 rounded-2xl border transition-all duration-300 flex flex-col justify-between group ${
+                      whileHover={{ y: -6, rotate: sIdx % 2 === 0 ? 1 : -1 }}
+                      transition={{ duration: 0.2 }}
+                      className={`p-5 rounded-3xl border transition-all duration-300 flex flex-col items-center text-center justify-between group ${
                         isDark
-                          ? "bg-[#161920] border-[#292E38] hover:border-[#00E5A8]/50 hover:shadow-card-dark"
-                          : "bg-white border-[#E2E8F0] hover:border-[#059669]/50 hover:shadow-card-light shadow-sm"
+                          ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/60 hover:shadow-glow-purple-sm hover:bg-[#18182B]"
+                          : "bg-white border-[#E4E4F2] hover:border-[#7C3AED]/50 hover:shadow-card-light shadow-sm"
                       }`}
                     >
-                      <div className="flex items-start justify-between mb-4">
-                        <div
-                          className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-colors ${
-                            isDark
-                              ? "bg-[#111318] border-[#292E38] group-hover:border-[#00E5A8]/40"
-                              : "bg-slate-50 border-[#E2E8F0] group-hover:border-[#059669]/40"
-                          }`}
-                        >
-                          <Icon
-                            className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
-                            style={{ color: skill.color || (isDark ? '#00E5A8' : '#059669') }}
-                          />
-                        </div>
-
-                        <span
-                          className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${getLevelBadgeClass(
-                            skill.level
-                          )}`}
-                        >
-                          {skill.level}
-                        </span>
+                      <div
+                        className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${
+                          isDark
+                            ? "bg-[#0E0E18] border border-[#242338] group-hover:border-[#8B5CF6]/50"
+                            : "bg-violet-50/60 border border-violet-100 group-hover:border-violet-300"
+                        }`}
+                      >
+                        <Icon
+                          className="w-7 h-7 transition-transform duration-300 group-hover:rotate-6"
+                          style={{ color: skill.color || '#8B5CF6' }}
+                        />
                       </div>
 
-                      <div>
-                        <h4
-                          className={`text-sm font-semibold mb-1 transition-colors ${
-                            isDark ? "text-white" : "text-[#111827]"
-                          }`}
-                        >
-                          {skill.name}
-                        </h4>
-                      </div>
+                      <h4
+                        className={`text-sm font-heading font-bold transition-colors ${
+                          isDark ? "text-white group-hover:text-[#C084FC]" : "text-[#0F172A] group-hover:text-[#7C3AED]"
+                        }`}
+                      >
+                        {skill.name}
+                      </h4>
+
+                      <span
+                        className={`text-[10px] font-mono mt-2 px-2.5 py-0.5 rounded-full border ${
+                          isDark
+                            ? "bg-[#07070B] text-[#9E9EB8] border-[#242338]"
+                            : "bg-slate-50 text-[#64748B] border-[#E4E4F2]"
+                        }`}
+                      >
+                        {skill.level}
+                      </span>
                     </motion.div>
                   );
                 })}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* Legend */}
-        <div className="mt-12 pt-6 border-t border-gray-700/20 dark:border-gray-800 flex flex-wrap items-center justify-center gap-6 text-xs text-[#A1A1AA]">
-          <span className="font-mono uppercase text-[11px] text-gray-400">Proficiency Key:</span>
-          <div className="flex items-center gap-2">
-            <span className={`w-2.5 h-2.5 rounded-full ${isDark ? "bg-[#00E5A8]" : "bg-[#059669]"}`} />
-            <span>Experienced (Production-proven)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className={`w-2.5 h-2.5 rounded-full ${isDark ? "bg-[#61DAFB]" : "bg-[#0891B2]"}`} />
-            <span>Familiar (Active usage & integration)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-            <span>Currently Learning (Expanding skillset)</span>
-          </div>
-        </div>
-
       </div>
-    </section>
+    </AnimatedSection>
   );
 };
 

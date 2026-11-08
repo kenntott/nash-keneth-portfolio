@@ -11,10 +11,10 @@ export const ThemeToggle = ({ className = "" }) => {
       onClick={toggleTheme}
       type="button"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className={`relative p-2.5 rounded-xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#00E5A8]/50 ${
+      className={`relative p-2.5 rounded-2xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50 ${
         isDark
-          ? "bg-[#161920]/80 border-[#292E38] text-[#00E5A8] hover:border-[#00E5A8]/50 hover:bg-[#161920]"
-          : "bg-white border-[#E2E8F0] text-[#059669] hover:border-[#059669]/50 hover:bg-slate-50 shadow-sm"
+          ? "bg-[#131322]/90 border-[#242338] text-[#C084FC] hover:border-[#8B5CF6]/60 hover:bg-[#18182B] hover:shadow-glow-purple-sm"
+          : "bg-white border-[#E4E4F2] text-[#7C3AED] hover:border-[#7C3AED]/50 hover:bg-violet-50/50 shadow-sm"
       } ${className}`}
       title={isDark ? "Activate Light Mode" : "Activate Dark Mode"}
     >
@@ -28,14 +28,14 @@ export const ThemeToggle = ({ className = "" }) => {
               exit={{ rotate: 90, scale: 0, opacity: 0 }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
             >
-              <Moon className="w-4 h-4 fill-[#00E5A8]/20" />
+              <Moon className="w-4 h-4 fill-[#8B5CF6]/20 text-[#C084FC]" />
             </motion.div>
           ) : (
             <motion.div
               key="sun"
               initial={{ rotate: 90, scale: 0, opacity: 0 }}
               animate={{ rotate: 0, scale: 1, opacity: 1 }}
-              exit={{ rotate: -90, scale: 0, opacity: 0 }}
+              exit={{ rotate: 90, scale: 0, opacity: 0 }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
             >
               <Sun className="w-4 h-4 fill-amber-400 text-amber-500" />

@@ -8,10 +8,12 @@ import {
   Loader2, 
   Github, 
   Linkedin, 
-  MessageSquare,
-  Sparkles
+  Sparkles,
+  ArrowUpRight
 } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
+import { Starburst } from './Starburst';
+import { AnimatedSection } from './AnimatedSection';
 import { socialLinks } from '../data/socialLinks';
 
 export const Contact = () => {
@@ -88,191 +90,165 @@ export const Contact = () => {
           throw new Error(result.message || 'Failed to submit form.');
         }
       } else {
-        // Demonstration simulation when API key is not yet configured in .env
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 900));
         setStatus('success');
         setFormData({ name: '', email: '', subject: '', message: '' });
       }
     } catch (err) {
       setStatus('error');
-      setErrorMessage(err.message || 'Something went wrong. Please try again or reach out directly via email.');
+      setErrorMessage(err.message || 'Something went wrong. Please reach out directly via email.');
     }
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28 relative">
+    <AnimatedSection id="contact" className="py-24 md:py-36 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div
-            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium mb-3 border ${
-              isDark
-                ? "bg-[#161920] border-[#292E38] text-[#00E5A8]"
-                : "bg-emerald-50 border-emerald-200 text-[#059669]"
-            }`}
-          >
-            <MessageSquare className="w-3.5 h-3.5" />
-            <span>LET'S CONNECT</span>
-          </div>
-
-          <h2
-            className={`text-3xl sm:text-4xl font-extrabold font-heading mb-4 ${
-              isDark ? "text-white" : "text-[#111827]"
-            }`}
-          >
-            Let's Build Something Together.
-          </h2>
-
-          <p
-            className={`text-base sm:text-lg leading-relaxed ${
-              isDark ? "text-[#A1A1AA]" : "text-[#64748B]"
-            }`}
-          >
-            Have a project in mind, a collaboration opportunity, or simply want to connect? Feel free to reach out.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start max-w-6xl mx-auto">
+        {/* Adelina Split Layout: Big Typography on Left, Form on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
           
-          {/* Contact Details & Socials (5 cols) */}
-          <div className="lg:col-span-5 space-y-6">
-            <div
-              className={`p-7 rounded-3xl border ${
-                isDark
-                  ? "bg-[#161920] border-[#292E38]"
-                  : "bg-white border-[#E2E8F0] shadow-card-light"
-              }`}
-            >
-              <h3 className={`text-xl font-bold font-heading mb-4 ${isDark ? "text-white" : "text-[#111827]"}`}>
-                Direct Contact Channels
-              </h3>
-              
-              <div className="space-y-4">
-                <a
-                  href={`mailto:${socialLinks.email}`}
-                  className={`flex items-start gap-3.5 p-3.5 rounded-2xl border transition-all duration-200 ${
-                    isDark
-                      ? "bg-[#111318] border-[#292E38] hover:border-[#00E5A8]/50"
-                      : "bg-slate-50 border-[#E2E8F0] hover:border-[#059669]/50"
-                  }`}
-                >
-                  <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
-                      isDark ? "bg-[#08090C] text-[#00E5A8]" : "bg-white text-[#059669] shadow-sm"
-                    }`}
-                  >
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className={`text-xs font-mono uppercase ${isDark ? "text-[#A1A1AA]" : "text-[#64748B]"}`}>
-                      Email Address
-                    </p>
-                    <p className={`text-sm font-semibold mt-0.5 break-all ${isDark ? "text-white" : "text-[#111827]"}`}>
-                      {socialLinks.email}
-                    </p>
-                  </div>
-                </a>
-
-                <a
-                  href={socialLinks.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex items-start gap-3.5 p-3.5 rounded-2xl border transition-all duration-200 ${
-                    isDark
-                      ? "bg-[#111318] border-[#292E38] hover:border-[#00E5A8]/50"
-                      : "bg-slate-50 border-[#E2E8F0] hover:border-[#059669]/50"
-                  }`}
-                >
-                  <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
-                      isDark ? "bg-[#08090C] text-[#00E5A8]" : "bg-white text-[#059669] shadow-sm"
-                    }`}
-                  >
-                    <Github className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className={`text-xs font-mono uppercase ${isDark ? "text-[#A1A1AA]" : "text-[#64748B]"}`}>
-                      GitHub
-                    </p>
-                    <p className={`text-sm font-semibold mt-0.5 ${isDark ? "text-white" : "text-[#111827]"}`}>
-                      @{socialLinks.githubUsername}
-                    </p>
-                  </div>
-                </a>
-
-                <a
-                  href={socialLinks.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex items-start gap-3.5 p-3.5 rounded-2xl border transition-all duration-200 ${
-                    isDark
-                      ? "bg-[#111318] border-[#292E38] hover:border-[#61DAFB]/50"
-                      : "bg-slate-50 border-[#E2E8F0] hover:border-[#0891B2]/50"
-                  }`}
-                >
-                  <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
-                      isDark ? "bg-[#08090C] text-[#61DAFB]" : "bg-white text-[#0891B2] shadow-sm"
-                    }`}
-                  >
-                    <Linkedin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className={`text-xs font-mono uppercase ${isDark ? "text-[#A1A1AA]" : "text-[#64748B]"}`}>
-                      LinkedIn Profile
-                    </p>
-                    <p className={`text-sm font-semibold mt-0.5 ${isDark ? "text-white" : "text-[#111827]"}`}>
-                      Connect on LinkedIn
-                    </p>
-                  </div>
-                </a>
+          {/* Left Column: Big Statement & Direct Channels (5 cols) */}
+          <div className="lg:col-span-5 space-y-8">
+            
+            <div>
+              <div
+                className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider uppercase mb-5 border ${
+                  isDark
+                    ? "bg-[#131322] border-[#242338] text-[#C084FC]"
+                    : "bg-violet-50 border-violet-200 text-[#7C3AED]"
+                }`}
+              >
+                <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" />
+                <span>START A CONVERSATION</span>
               </div>
-            </div>
 
-            {/* Quick response note */}
-            <div
-              className={`p-5 rounded-2xl border ${
-                isDark ? "bg-[#111318] border-[#292E38]" : "bg-slate-50 border-[#E2E8F0]"
-              }`}
-            >
-              <div className="flex items-center gap-2 mb-1.5 text-xs font-mono text-[#00E5A8]">
-                <Sparkles className="w-4 h-4" />
-                <span>RAPID TURNAROUND</span>
-              </div>
-              <p className={`text-xs leading-relaxed ${isDark ? "text-[#A1A1AA]" : "text-[#64748B]"}`}>
-                Typically responding to inquiries within 24 business hours for information system projects, frontend contracts, or engineering collaborations.
+              <h2
+                className={`text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight leading-tight mb-6 ${
+                  isDark ? "text-white" : "text-[#0F172A]"
+                }`}
+              >
+                LET'S BUILD <span className="text-gradient-purple italic block">SOMETHING</span> TOGETHER.
+              </h2>
+
+              <p
+                className={`text-base sm:text-lg leading-relaxed ${
+                  isDark ? "text-[#9E9EB8]" : "text-[#475569]"
+                }`}
+              >
+                Have an information system project, full-stack application idea, or collaboration in mind? Feel free to reach out.
               </p>
             </div>
+
+            {/* Direct Channels */}
+            <div className="space-y-4 pt-2">
+              <a
+                href={`mailto:${socialLinks.email}`}
+                className={`flex items-start gap-4 p-5 rounded-3xl border transition-all duration-300 group hover:-translate-y-1 ${
+                  isDark
+                    ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/60 hover:bg-[#18182B]"
+                    : "bg-white border-[#E4E4F2] hover:border-[#7C3AED]/50 hover:shadow-card-light shadow-sm"
+                }`}
+              >
+                <div
+                  className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-colors ${
+                    isDark ? "bg-[#0E0E18] text-[#C084FC] group-hover:border-[#8B5CF6]" : "bg-violet-50 text-[#7C3AED]"
+                  }`}
+                >
+                  <Mail className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className={`text-xs font-mono font-bold uppercase tracking-wider ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
+                    Direct Email
+                  </p>
+                  <p className={`text-sm sm:text-base font-heading font-bold mt-0.5 break-all ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                    {socialLinks.email}
+                  </p>
+                </div>
+              </a>
+
+              <a
+                href={socialLinks.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-start gap-4 p-5 rounded-3xl border transition-all duration-300 group hover:-translate-y-1 ${
+                  isDark
+                    ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/60 hover:bg-[#18182B]"
+                    : "bg-white border-[#E4E4F2] hover:border-[#7C3AED]/50 hover:shadow-card-light shadow-sm"
+                }`}
+              >
+                <div
+                  className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-colors ${
+                    isDark ? "bg-[#0E0E18] text-[#C084FC]" : "bg-violet-50 text-[#7C3AED]"
+                  }`}
+                >
+                  <Github className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className={`text-xs font-mono font-bold uppercase tracking-wider ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
+                    GitHub
+                  </p>
+                  <p className={`text-sm sm:text-base font-heading font-bold mt-0.5 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                    @{socialLinks.githubUsername}
+                  </p>
+                </div>
+              </a>
+
+              <a
+                href={socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-start gap-4 p-5 rounded-3xl border transition-all duration-300 group hover:-translate-y-1 ${
+                  isDark
+                    ? "bg-[#131322] border-[#242338] hover:border-[#38BDF8]/60 hover:bg-[#18182B]"
+                    : "bg-white border-[#E4E4F2] hover:border-[#0284C7]/50 hover:shadow-card-light shadow-sm"
+                }`}
+              >
+                <div
+                  className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-colors ${
+                    isDark ? "bg-[#0E0E18] text-[#38BDF8]" : "bg-sky-50 text-[#0284C7]"
+                  }`}
+                >
+                  <Linkedin className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className={`text-xs font-mono font-bold uppercase tracking-wider ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
+                    LinkedIn
+                  </p>
+                  <p className={`text-sm sm:text-base font-heading font-bold mt-0.5 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                    Connect with Nash Kenneth
+                  </p>
+                </div>
+              </a>
+            </div>
+
           </div>
 
-          {/* Interactive Contact Form (7 cols) */}
+          {/* Right Column: Contact Form (7 cols) */}
           <div className="lg:col-span-7">
             <div
-              className={`p-7 sm:p-9 rounded-3xl border relative ${
+              className={`p-8 sm:p-10 rounded-3xl border relative shadow-xl ${
                 isDark
-                  ? "bg-[#161920] border-[#292E38]"
-                  : "bg-white border-[#E2E8F0] shadow-card-light"
+                  ? "bg-[#131322] border-[#242338] shadow-black/50"
+                  : "bg-white border-[#E4E4F2] shadow-card-light"
               }`}
             >
-              <h3 className={`text-xl font-bold font-heading mb-6 ${isDark ? "text-white" : "text-[#111827]"}`}>
-                Send a Direct Message
+              <h3 className={`text-2xl font-display font-bold mb-6 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                Send a Message
               </h3>
 
-              {/* Status Notifications */}
               <AnimatePresence>
                 {status === 'success' && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="mb-6 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-start gap-3"
+                    className="mb-6 p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 flex items-start gap-3"
                   >
                     <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <div className="text-xs sm:text-sm">
-                      <p className="font-semibold">Thank you for your message!</p>
+                      <p className="font-bold">Thank you for your message!</p>
                       <p className="text-emerald-300/90 mt-0.5">
-                        Your inquiry has been received. I will get back to you shortly.
+                        Your message has been received. I'll get back to you promptly.
                       </p>
                     </div>
                   </motion.div>
@@ -283,28 +259,27 @@ export const Contact = () => {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="mb-6 p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-start gap-3"
+                    className="mb-6 p-4 rounded-2xl bg-rose-500/15 border border-rose-500/40 text-rose-400 flex items-start gap-3"
                   >
                     <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <div className="text-xs sm:text-sm">
-                      <p className="font-semibold">Submission Error</p>
+                      <p className="font-bold">Notice</p>
                       <p className="text-rose-300/90 mt-0.5">{errorMessage}</p>
                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                {/* Name & Email Row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label
                       htmlFor="name"
-                      className={`block text-xs font-mono font-medium mb-1.5 ${
+                      className={`block text-xs font-mono font-bold uppercase mb-2 ${
                         isDark ? "text-gray-300" : "text-gray-700"
                       }`}
                     >
-                      Full Name *
+                      Name *
                     </label>
                     <input
                       id="name"
@@ -314,25 +289,25 @@ export const Contact = () => {
                       onChange={handleChange}
                       placeholder="Jane Doe"
                       disabled={status === 'loading'}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 ${
+                      className={`w-full px-5 py-3.5 rounded-2xl border text-sm transition-all focus:outline-none focus:ring-2 ${
                         errors.name
-                          ? "border-rose-500 focus:ring-rose-500/30 bg-rose-500/5"
+                          ? "border-rose-500 focus:ring-rose-500/30"
                           : isDark
-                          ? "bg-[#111318] border-[#292E38] text-white focus:border-[#00E5A8] focus:ring-[#00E5A8]/20"
-                          : "bg-slate-50 border-[#E2E8F0] text-gray-900 focus:border-[#059669] focus:ring-[#059669]/20"
+                          ? "bg-[#0E0E18] border-[#242338] text-white focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20"
+                          : "bg-slate-50 border-[#E4E4F2] text-gray-900 focus:border-[#7C3AED] focus:ring-[#7C3AED]/20"
                       }`}
                     />
-                    {errors.name && <p className="text-rose-400 text-xs mt-1">{errors.name}</p>}
+                    {errors.name && <p className="text-rose-400 text-xs mt-1.5">{errors.name}</p>}
                   </div>
 
                   <div>
                     <label
                       htmlFor="email"
-                      className={`block text-xs font-mono font-medium mb-1.5 ${
+                      className={`block text-xs font-mono font-bold uppercase mb-2 ${
                         isDark ? "text-gray-300" : "text-gray-700"
                       }`}
                     >
-                      Email Address *
+                      Email *
                     </label>
                     <input
                       id="email"
@@ -342,23 +317,22 @@ export const Contact = () => {
                       onChange={handleChange}
                       placeholder="jane@example.com"
                       disabled={status === 'loading'}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 ${
+                      className={`w-full px-5 py-3.5 rounded-2xl border text-sm transition-all focus:outline-none focus:ring-2 ${
                         errors.email
-                          ? "border-rose-500 focus:ring-rose-500/30 bg-rose-500/5"
+                          ? "border-rose-500 focus:ring-rose-500/30"
                           : isDark
-                          ? "bg-[#111318] border-[#292E38] text-white focus:border-[#00E5A8] focus:ring-[#00E5A8]/20"
-                          : "bg-slate-50 border-[#E2E8F0] text-gray-900 focus:border-[#059669] focus:ring-[#059669]/20"
+                          ? "bg-[#0E0E18] border-[#242338] text-white focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20"
+                          : "bg-slate-50 border-[#E4E4F2] text-gray-900 focus:border-[#7C3AED] focus:ring-[#7C3AED]/20"
                       }`}
                     />
-                    {errors.email && <p className="text-rose-400 text-xs mt-1">{errors.email}</p>}
+                    {errors.email && <p className="text-rose-400 text-xs mt-1.5">{errors.email}</p>}
                   </div>
                 </div>
 
-                {/* Subject */}
                 <div>
                   <label
                     htmlFor="subject"
-                    className={`block text-xs font-mono font-medium mb-1.5 ${
+                    className={`block text-xs font-mono font-bold uppercase mb-2 ${
                       isDark ? "text-gray-300" : "text-gray-700"
                     }`}
                   >
@@ -370,24 +344,23 @@ export const Contact = () => {
                     type="text"
                     value={formData.subject}
                     onChange={handleChange}
-                    placeholder="Project Inquiry / Opportunity"
+                    placeholder="Project Inquiry / Information System"
                     disabled={status === 'loading'}
-                    className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 ${
+                    className={`w-full px-5 py-3.5 rounded-2xl border text-sm transition-all focus:outline-none focus:ring-2 ${
                       errors.subject
-                        ? "border-rose-500 focus:ring-rose-500/30 bg-rose-500/5"
+                        ? "border-rose-500 focus:ring-rose-500/30"
                         : isDark
-                        ? "bg-[#111318] border-[#292E38] text-white focus:border-[#00E5A8] focus:ring-[#00E5A8]/20"
-                        : "bg-slate-50 border-[#E2E8F0] text-gray-900 focus:border-[#059669] focus:ring-[#059669]/20"
+                        ? "bg-[#0E0E18] border-[#242338] text-white focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20"
+                        : "bg-slate-50 border-[#E4E4F2] text-gray-900 focus:border-[#7C3AED] focus:ring-[#7C3AED]/20"
                     }`}
                   />
-                  {errors.subject && <p className="text-rose-400 text-xs mt-1">{errors.subject}</p>}
+                  {errors.subject && <p className="text-rose-400 text-xs mt-1.5">{errors.subject}</p>}
                 </div>
 
-                {/* Message */}
                 <div>
                   <label
                     htmlFor="message"
-                    className={`block text-xs font-mono font-medium mb-1.5 ${
+                    className={`block text-xs font-mono font-bold uppercase mb-2 ${
                       isDark ? "text-gray-300" : "text-gray-700"
                     }`}
                   >
@@ -399,35 +372,34 @@ export const Contact = () => {
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Hello, I would like to discuss building an information system or frontend application..."
+                    placeholder="Hello Nash Kenneth, let's discuss building an application or system..."
                     disabled={status === 'loading'}
-                    className={`w-full px-4 py-3 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 resize-none ${
+                    className={`w-full px-5 py-3.5 rounded-2xl border text-sm transition-all focus:outline-none focus:ring-2 resize-none ${
                       errors.message
-                        ? "border-rose-500 focus:ring-rose-500/30 bg-rose-500/5"
+                        ? "border-rose-500 focus:ring-rose-500/30"
                         : isDark
-                        ? "bg-[#111318] border-[#292E38] text-white focus:border-[#00E5A8] focus:ring-[#00E5A8]/20"
-                        : "bg-slate-50 border-[#E2E8F0] text-gray-900 focus:border-[#059669] focus:ring-[#059669]/20"
+                        ? "bg-[#0E0E18] border-[#242338] text-white focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20"
+                        : "bg-slate-50 border-[#E4E4F2] text-gray-900 focus:border-[#7C3AED] focus:ring-[#7C3AED]/20"
                     }`}
                   />
-                  {errors.message && <p className="text-rose-400 text-xs mt-1">{errors.message}</p>}
+                  {errors.message && <p className="text-rose-400 text-xs mt-1.5">{errors.message}</p>}
                 </div>
 
-                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className={`w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-300 shadow-sm ${
+                  className={`w-full flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-heading font-bold text-sm text-white transition-all duration-300 shadow-md ${
                     status === 'loading'
-                      ? "opacity-70 cursor-not-allowed bg-gray-600 text-white"
+                      ? "opacity-75 cursor-not-allowed bg-gray-600"
                       : isDark
-                      ? "bg-[#00E5A8] text-[#08090C] hover:bg-[#00E5A8]/90 hover:shadow-glow-green"
-                      : "bg-[#059669] text-white hover:bg-[#047857]"
+                      ? "bg-gradient-to-r from-[#8B5CF6] via-[#7C3AED] to-[#EC4899] hover:shadow-glow-purple"
+                      : "bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] hover:shadow-md"
                   }`}
                 >
                   {status === 'loading' ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Sending Message...</span>
+                      <span>Transmitting Message...</span>
                     </>
                   ) : (
                     <>
@@ -443,7 +415,7 @@ export const Contact = () => {
         </div>
 
       </div>
-    </section>
+    </AnimatedSection>
   );
 };
 

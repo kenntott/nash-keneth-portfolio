@@ -1,8 +1,10 @@
 export const socialLinks = {
-  name: "Nash",
-  fullName: "Nash Escabarte",
-  title: "Frontend Developer | React Developer | Information Systems Developer",
-  tagline: "I build modern, responsive, and functional web applications that transform ideas into practical digital solutions.",
+  greeting: "Hello, I'm",
+  name: "Nash Kenneth",
+  fullName: "Nash Kenneth",
+  monogram: "NK",
+  title: "Full-Stack Developer",
+  tagline: "I build modern, responsive, and functional web applications, management systems, and digital solutions that turn ideas into real-world impact.",
   location: "Philippines",
   status: "Available for Projects & Opportunities",
   isAvailable: true,
@@ -10,5 +12,6 @@ export const socialLinks = {
   github: "https://github.com/nashescabarte",
   githubUsername: "nashescabarte",
   linkedin: "https://linkedin.com/in/nash-escabarte",
+  facebook: "https://facebook.com", // Optional, configured
   resumePath: "/resume.pdf",
 };

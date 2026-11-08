@@ -10,15 +10,15 @@ import {
   Users, 
   Cpu, 
   Sparkles, 
-  CheckCircle2, 
-  FileCode2 
+  CheckCircle2,
+  ArrowUpRight
 } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
+import { Starburst } from './Starburst';
 
 export const ProjectModal = ({ project, onClose }) => {
   const { isDark } = useTheme();
 
-  // Close on ESC key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -42,38 +42,41 @@ export const ProjectModal = ({ project, onClose }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity"
+          className="fixed inset-0 bg-black/85 backdrop-blur-xl transition-opacity"
         />
 
         {/* Modal Container */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          initial={{ opacity: 0, scale: 0.94, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className={`relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl border shadow-2xl z-10 my-auto ${
+          exit={{ opacity: 0, scale: 0.94, y: 24 }}
+          transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+          className={`relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-3xl border shadow-2xl z-10 my-auto ${
             isDark
-              ? "bg-[#111318] border-[#292E38] text-white shadow-black/80"
-              : "bg-white border-[#E2E8F0] text-[#111827] shadow-2xl"
+              ? "bg-[#0E0E18] border-[#242338] text-white shadow-black/80"
+              : "bg-white border-[#E4E4F2] text-[#0F172A] shadow-2xl"
           }`}
         >
-          {/* Modal Header */}
+          {/* Sticky Header with Title and Close */}
           <div
-            className={`sticky top-0 z-20 flex items-center justify-between p-5 sm:p-6 border-b backdrop-blur-md ${
+            className={`sticky top-0 z-30 flex items-center justify-between p-6 sm:p-7 border-b backdrop-blur-xl ${
               isDark
-                ? "bg-[#111318]/90 border-[#292E38]"
-                : "bg-white/90 border-[#E2E8F0]"
+                ? "bg-[#0E0E18]/90 border-[#242338]"
+                : "bg-white/90 border-[#E4E4F2]"
             }`}
           >
             <div>
-              <span
-                className={`text-xs font-mono font-medium uppercase tracking-wider ${
-                  isDark ? "text-[#00E5A8]" : "text-[#059669]"
-                }`}
-              >
-                {project.category}
-              </span>
-              <h2 className="text-xl sm:text-2xl font-bold font-heading">
+              <div className="flex items-center gap-2 mb-1">
+                <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" animate={false} />
+                <span
+                  className={`text-xs font-mono font-bold uppercase tracking-wider ${
+                    isDark ? "text-[#C084FC]" : "text-[#7C3AED]"
+                  }`}
+                >
+                  {project.category}
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-display font-extrabold tracking-tight">
                 {project.fullTitle || project.title}
               </h2>
             </div>
@@ -82,10 +85,10 @@ export const ProjectModal = ({ project, onClose }) => {
               onClick={onClose}
               type="button"
               aria-label="Close modal"
-              className={`p-2 rounded-xl border transition-colors ${
+              className={`p-2.5 rounded-2xl border transition-colors ${
                 isDark
-                  ? "bg-[#161920] border-[#292E38] text-[#A1A1AA] hover:text-white hover:border-[#00E5A8]"
-                  : "bg-slate-100 border-[#E2E8F0] text-[#64748B] hover:text-[#111827] hover:border-[#059669]"
+                  ? "bg-[#131322] border-[#242338] text-[#9E9EB8] hover:text-white hover:border-[#8B5CF6]"
+                  : "bg-slate-100 border-[#E4E4F2] text-[#64748B] hover:text-[#0F172A] hover:border-[#7C3AED]"
               }`}
             >
               <X className="w-5 h-5" />
@@ -93,21 +96,21 @@ export const ProjectModal = ({ project, onClose }) => {
           </div>
 
           {/* Modal Content */}
-          <div className="p-6 sm:p-8 space-y-8">
+          <div className="p-6 sm:p-10 space-y-9">
             
-            {/* Visual Header / Thumbnail Banner */}
-            <div className="rounded-2xl overflow-hidden border aspect-[16/9] w-full bg-slate-900 relative">
+            {/* Visual Screenshot / Preview Banner */}
+            <div className="rounded-3xl overflow-hidden border aspect-[16/9] w-full bg-slate-900 relative shadow-xl">
               <img
                 src={project.thumbnail}
                 alt={project.title}
                 className="w-full h-full object-cover object-top"
               />
-              <div className="absolute bottom-3 left-3 flex gap-2">
+              <div className="absolute bottom-4 left-4 flex gap-2">
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-mono font-medium backdrop-blur-md border ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-bold backdrop-blur-md border ${
                     isDark
-                      ? "bg-[#08090C]/85 text-[#00E5A8] border-[#00E5A8]/40"
-                      : "bg-white/90 text-[#059669] border-[#059669]/40 shadow-sm"
+                      ? "bg-[#07070B]/85 text-[#C084FC] border-[#8B5CF6]/40"
+                      : "bg-white/95 text-[#7C3AED] border-[#7C3AED]/40 shadow-sm"
                   }`}
                 >
                   Status: {project.status}
@@ -115,43 +118,37 @@ export const ProjectModal = ({ project, onClose }) => {
               </div>
             </div>
 
-            {/* Quick Summary / Problem & Objectives */}
+            {/* Problem Statement & Core Objectives */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
-              {/* Problem Statement */}
               <div
-                className={`p-5 rounded-2xl border ${
-                  isDark
-                    ? "bg-[#161920] border-[#292E38]"
-                    : "bg-slate-50 border-[#E2E8F0]"
+                className={`p-6 rounded-3xl border ${
+                  isDark ? "bg-[#131322] border-[#242338]" : "bg-violet-50/40 border-violet-100"
                 }`}
               >
-                <div className="flex items-center gap-2 mb-2 text-rose-500 font-heading font-semibold text-sm">
-                  <AlertCircle className="w-4 h-4" />
-                  <span>Problem Statement</span>
+                <div className="flex items-center gap-2 mb-3 text-rose-500 font-display font-bold text-base">
+                  <AlertCircle className="w-5 h-5" />
+                  <span>Problems Addressed</span>
                 </div>
-                <p className={`text-xs sm:text-sm leading-relaxed ${isDark ? "text-[#A1A1AA]" : "text-[#64748B]"}`}>
+                <p className={`text-sm leading-relaxed ${isDark ? "text-[#9E9EB8]" : "text-[#475569]"}`}>
                   {project.problemStatement}
                 </p>
               </div>
 
-              {/* Objectives */}
               <div
-                className={`p-5 rounded-2xl border ${
-                  isDark
-                    ? "bg-[#161920] border-[#292E38]"
-                    : "bg-slate-50 border-[#E2E8F0]"
+                className={`p-6 rounded-3xl border ${
+                  isDark ? "bg-[#131322] border-[#242338]" : "bg-violet-50/40 border-violet-100"
                 }`}
               >
-                <div className="flex items-center gap-2 mb-2 text-emerald-500 font-heading font-semibold text-sm">
-                  <Target className="w-4 h-4" />
-                  <span>Core Objectives</span>
+                <div className="flex items-center gap-2 mb-3 text-[#C084FC] font-display font-bold text-base">
+                  <Target className="w-5 h-5 text-[#8B5CF6]" />
+                  <span>Purpose &amp; Objectives</span>
                 </div>
-                <ul className="space-y-1.5">
+                <ul className="space-y-2">
                   {project.objectives?.map((obj, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs sm:text-sm">
-                      <span className="text-[#00E5A8] mt-1 font-bold">•</span>
-                      <span className={isDark ? "text-[#E4E4E7]" : "text-[#334155]"}>{obj}</span>
+                    <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm">
+                      <Starburst className="w-3.5 h-3.5 text-[#8B5CF6] mt-0.5" animate={false} />
+                      <span className={isDark ? "text-gray-300" : "text-gray-700 font-medium"}>{obj}</span>
                     </li>
                   ))}
                 </ul>
@@ -159,35 +156,33 @@ export const ProjectModal = ({ project, onClose }) => {
 
             </div>
 
-            {/* In-depth Overview */}
+            {/* Project Overview */}
             <div>
-              <h3 className="text-lg font-bold font-heading mb-2 flex items-center gap-2">
-                <Layers className="w-5 h-5 text-[#00E5A8]" />
-                <span>Project Overview & Operational Scope</span>
+              <h3 className="text-xl font-display font-bold mb-3 flex items-center gap-2">
+                <Layers className="w-5 h-5 text-[#8B5CF6]" />
+                <span>Project Overview</span>
               </h3>
-              <p className={`text-sm sm:text-base leading-relaxed ${isDark ? "text-[#A1A1AA]" : "text-[#64748B]"}`}>
+              <p className={`text-sm sm:text-base leading-relaxed ${isDark ? "text-[#9E9EB8]" : "text-[#475569]"}`}>
                 {project.longDescription || project.description}
               </p>
             </div>
 
-            {/* Main Features */}
+            {/* Key Features */}
             <div>
-              <h3 className="text-lg font-bold font-heading mb-3 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-[#61DAFB]" />
-                <span>Key System Features</span>
+              <h3 className="text-xl font-display font-bold mb-4 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-[#EC4899]" />
+                <span>Key Implemented Features</span>
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {project.features.map((feature, idx) => (
                   <div
                     key={idx}
-                    className={`p-3.5 rounded-xl border flex items-center gap-3 ${
-                      isDark
-                        ? "bg-[#161920] border-[#292E38]"
-                        : "bg-slate-50 border-[#E2E8F0]"
+                    className={`p-4 rounded-2xl border flex items-center gap-3 ${
+                      isDark ? "bg-[#131322] border-[#242338]" : "bg-slate-50 border-[#E4E4F2]"
                     }`}
                   >
-                    <CheckCircle2 className="w-4 h-4 text-[#00E5A8] flex-shrink-0" />
-                    <span className={`text-xs sm:text-sm font-medium ${isDark ? "text-white" : "text-[#111827]"}`}>
+                    <CheckCircle2 className="w-5 h-5 text-[#8B5CF6] flex-shrink-0" />
+                    <span className={`text-xs sm:text-sm font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                       {feature}
                     </span>
                   </div>
@@ -198,24 +193,22 @@ export const ProjectModal = ({ project, onClose }) => {
             {/* System Users & Role Breakdown */}
             {project.roles && project.roles.length > 0 && (
               <div>
-                <h3 className="text-lg font-bold font-heading mb-3 flex items-center gap-2">
-                  <Users className="w-5 h-5 text-purple-400" />
-                  <span>System Users & Role-Based Permissions</span>
+                <h3 className="text-xl font-display font-bold mb-4 flex items-center gap-2">
+                  <Users className="w-5 h-5 text-[#38BDF8]" />
+                  <span>Stakeholders &amp; Role-Based Access</span>
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {project.roles.map((r, idx) => (
                     <div
                       key={idx}
-                      className={`p-4 rounded-xl border ${
-                        isDark
-                          ? "bg-[#161920] border-[#292E38]"
-                          : "bg-slate-50 border-[#E2E8F0]"
+                      className={`p-5 rounded-2xl border ${
+                        isDark ? "bg-[#131322] border-[#242338]" : "bg-slate-50 border-[#E4E4F2]"
                       }`}
                     >
-                      <h4 className={`text-sm font-bold mb-1 ${isDark ? "text-[#00E5A8]" : "text-[#059669]"}`}>
+                      <h4 className="text-sm font-bold font-heading mb-1 text-[#8B5CF6]">
                         {r.role}
                       </h4>
-                      <p className={`text-xs leading-relaxed ${isDark ? "text-[#A1A1AA]" : "text-[#64748B]"}`}>
+                      <p className={`text-xs leading-relaxed ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
                         {r.responsibility}
                       </p>
                     </div>
@@ -224,26 +217,24 @@ export const ProjectModal = ({ project, onClose }) => {
               </div>
             )}
 
-            {/* Technical Highlights & Architecture */}
+            {/* Engineering Highlights */}
             <div
-              className={`p-6 rounded-2xl border ${
-                isDark
-                  ? "bg-[#161920] border-[#292E38]"
-                  : "bg-slate-50 border-[#E2E8F0]"
+              className={`p-7 rounded-3xl border ${
+                isDark ? "bg-[#131322] border-[#242338]" : "bg-violet-50/50 border-violet-200"
               }`}
             >
-              <h3 className="text-base font-bold font-heading mb-2 flex items-center gap-2">
-                <Cpu className="w-4 h-4 text-[#00E5A8]" />
-                <span>Architecture & Engineering Highlights</span>
+              <h3 className="text-lg font-display font-bold mb-2 flex items-center gap-2">
+                <Cpu className="w-5 h-5 text-[#C084FC]" />
+                <span>Architecture &amp; Development Highlights</span>
               </h3>
-              <p className={`text-xs sm:text-sm mb-4 ${isDark ? "text-[#A1A1AA]" : "text-[#64748B]"}`}>
+              <p className={`text-xs sm:text-sm mb-4 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
                 {project.architecture}
               </p>
 
               <div className="space-y-2">
                 {project.highlights?.map((hl, i) => (
-                  <div key={i} className="flex items-center gap-2 text-xs sm:text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#00E5A8]" />
+                  <div key={i} className="flex items-center gap-2.5 text-xs sm:text-sm">
+                    <Starburst className="w-3 h-3 text-[#8B5CF6]" animate={false} />
                     <span className={isDark ? "text-gray-300" : "text-gray-700"}>{hl}</span>
                   </div>
                 ))}
@@ -252,17 +243,17 @@ export const ProjectModal = ({ project, onClose }) => {
 
             {/* Tech Stack Pills */}
             <div>
-              <p className={`text-xs font-mono uppercase tracking-wider mb-2.5 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+              <p className="text-xs font-mono font-bold uppercase tracking-wider mb-3 text-gray-500">
                 Applied Technologies:
               </p>
               <div className="flex flex-wrap gap-2">
                 {project.techStack.map((tech) => (
                   <span
                     key={tech}
-                    className={`text-xs font-mono px-3 py-1.5 rounded-xl border font-medium ${
+                    className={`text-xs font-mono px-3.5 py-1.5 rounded-xl border font-bold ${
                       isDark
-                        ? "bg-[#161920] border-[#292E38] text-[#00E5A8]"
-                        : "bg-white border-[#E2E8F0] text-[#059669] shadow-sm"
+                        ? "bg-[#131322] border-[#242338] text-[#C084FC]"
+                        : "bg-white border-[#E4E4F2] text-[#7C3AED] shadow-sm"
                     }`}
                   >
                     {tech}
@@ -271,18 +262,14 @@ export const ProjectModal = ({ project, onClose }) => {
               </div>
             </div>
 
-            {/* Action Bar */}
+            {/* Bottom Action Footer */}
             <div className="pt-6 border-t border-gray-700/20 dark:border-gray-800 flex flex-wrap items-center justify-end gap-3">
               {project.liveDemo && (
                 <a
                   href={project.liveDemo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold ${
-                    isDark
-                      ? "bg-[#00E5A8] text-[#08090C] hover:bg-[#00E5A8]/90"
-                      : "bg-[#059669] text-white hover:bg-[#047857]"
-                  }`}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white shadow-md hover:shadow-glow-purple"
                 >
                   <ExternalLink className="w-4 h-4" />
                   <span>Open Live Demo</span>
@@ -294,10 +281,10 @@ export const ProjectModal = ({ project, onClose }) => {
                   href={project.sourceCode}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold border ${
+                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border ${
                     isDark
-                      ? "bg-[#161920] border-[#292E38] text-white hover:text-[#00E5A8]"
-                      : "bg-white border-[#E2E8F0] text-[#111827] hover:text-[#059669]"
+                      ? "bg-[#131322] border-[#242338] text-white hover:text-[#C084FC] hover:border-[#8B5CF6]"
+                      : "bg-white border-[#E4E4F2] text-[#0F172A] hover:text-[#7C3AED]"
                   }`}
                 >
                   <Github className="w-4 h-4" />
@@ -308,10 +295,10 @@ export const ProjectModal = ({ project, onClose }) => {
               <button
                 onClick={onClose}
                 type="button"
-                className={`px-5 py-2.5 rounded-xl text-xs font-semibold border transition-colors ${
+                className={`px-6 py-3 rounded-2xl text-xs sm:text-sm font-heading font-bold border transition-colors ${
                   isDark
-                    ? "bg-[#161920] border-[#292E38] text-gray-300 hover:text-white"
-                    : "bg-slate-100 border-[#E2E8F0] text-gray-600 hover:text-black"
+                    ? "bg-[#131322] border-[#242338] text-gray-300 hover:text-white"
+                    : "bg-slate-100 border-[#E4E4F2] text-gray-700 hover:text-black"
                 }`}
               >
                 Close Case Study

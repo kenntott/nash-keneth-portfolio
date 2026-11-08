@@ -100,7 +100,7 @@ export const ProjectDetails = () => {
             <img
               src={project.thumbnail}
               alt={project.title}
-              className="w-full h-full object-cover object-top"
+              className="w-full h-full object-cover object-center"
             />
             <div className="absolute bottom-5 left-5 flex gap-2">
               <span

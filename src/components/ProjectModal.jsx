@@ -103,7 +103,7 @@ export const ProjectModal = ({ project, onClose }) => {
               <img
                 src={project.thumbnail}
                 alt={project.title}
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-center"
               />
               <div className="absolute bottom-4 left-4 flex gap-2">
                 <span

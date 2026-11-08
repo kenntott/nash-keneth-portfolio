@@ -37,7 +37,7 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
               src={project.thumbnail}
               alt={project.title}
               onError={() => setImageError(true)}
-              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
               loading="lazy"
             />
           ) : (

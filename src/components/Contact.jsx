@@ -108,8 +108,8 @@ export const Contact = () => {
         {/* Adelina Split Layout: Big Typography on Left, Form on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
           
-          {/* Left Column: Big Statement & Direct Channels (5 cols) */}
-          <div className="lg:col-span-5 space-y-8">
+          {/* Left Column: Big Statement & Direct Channels (6 cols) */}
+          <div className="lg:col-span-6 space-y-8">
             
             <div>
               <div
@@ -124,11 +124,11 @@ export const Contact = () => {
               </div>
 
               <h2
-                className={`text-[clamp(1.65rem,5.2vw,3.5rem)] font-display font-extrabold tracking-tight leading-tight mb-6 break-normal ${
+                className={`text-[clamp(1.75rem,3.8vw,3.2rem)] font-display font-extrabold tracking-tight leading-[1.1] mb-6 break-normal max-w-full ${
                   isDark ? "text-white" : "text-[#0F172A]"
                 }`}
               >
-                LET'S BUILD <span className="text-gradient-purple italic block">SOMETHING</span> TOGETHER.
+                LET'S BUILD <span className="text-gradient-purple italic block pr-2">SOMETHING</span> TOGETHER.
               </h2>
 
               <p
@@ -251,8 +251,8 @@ export const Contact = () => {
 
           </div>
 
-          {/* Right Column: Contact Form (7 cols) */}
-          <div className="lg:col-span-7 w-full">
+          {/* Right Column: Contact Form (6 cols) */}
+          <div className="lg:col-span-6 w-full">
             <div
               className={`p-4 sm:p-8 md:p-10 rounded-3xl border relative shadow-xl overflow-hidden ${
                 isDark

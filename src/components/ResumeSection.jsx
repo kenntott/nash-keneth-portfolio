@@ -47,7 +47,7 @@ export const ResumeSection = () => {
                 isDark ? "text-white" : "text-[#0F172A]"
               }`}
             >
-              PROFESSIONAL <span className="text-gradient-purple italic">CV &amp; RESUME.</span>
+              PROFESSIONAL <span className="text-gradient-purple italic pr-2">CV &amp; RESUME.</span>
             </h2>
 
             <p

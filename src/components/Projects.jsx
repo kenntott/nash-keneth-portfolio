@@ -49,7 +49,7 @@ export const Projects = () => {
               isDark ? "text-white" : "text-[#0F172A]"
             }`}
           >
-            MY WORK, <span className="text-gradient-purple italic">MY PROJECTS.</span>
+            MY WORK, <span className="text-gradient-purple italic pr-2">MY PROJECTS.</span>
           </h2>
 
           <p

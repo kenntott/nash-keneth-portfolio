@@ -48,7 +48,7 @@ export const Experience = () => {
               isDark ? "text-white" : "text-[#0F172A]"
             }`}
           >
-            MY DEVELOPMENT <span className="text-gradient-purple italic">JOURNEY.</span>
+            MY DEVELOPMENT <span className="text-gradient-purple italic pr-2">JOURNEY.</span>
           </h2>
 
           <p

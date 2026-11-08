@@ -87,7 +87,7 @@ export const Skills = () => {
               isDark ? "text-white" : "text-[#0F172A]"
             }`}
           >
-            SKILLS? <span className="text-gradient-purple italic">I'VE GOT SOME.</span>
+            SKILLS? <span className="text-gradient-purple italic pr-2">I'VE GOT SOME.</span>
           </h2>
 
           <p

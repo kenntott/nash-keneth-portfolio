@@ -83,7 +83,7 @@ export const About = () => {
               isDark ? "text-white" : "text-[#0F172A]"
             }`}
           >
-            TURNING IDEAS INTO <span className="text-gradient-purple italic">DIGITAL SOLUTIONS</span>
+            TURNING IDEAS INTO <span className="text-gradient-purple italic pr-2">DIGITAL SOLUTIONS</span>
           </h2>
 
           <p

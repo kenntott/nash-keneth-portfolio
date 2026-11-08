@@ -1,3 +1,5 @@
+import desinioImg from '../assets/projects/desinio.jpg';
+
 export const projects = [
   {
     id: "desinio-koleksyon",
@@ -7,7 +9,7 @@ export const projects = [
     badge: "Information System",
     status: "Completed",
     isFeatured: true,
-    thumbnail: "/projects/desinio.png",
+    thumbnail: desinioImg,
     description: "A web-based printing shop management and point-of-sale system designed to streamline customized printing orders, cost estimation, billing, payment recording, production monitoring, and operational sales reporting.",
     longDescription: "DesinioKoleksyon addresses the operational bottlenecks of custom printing businesses. It bridges the gap between client quotation requests and physical production shop-floor tracking by automating dimensional cost calculations, payment receipts, order queue stages, and daily sales auditing.",
     features: [

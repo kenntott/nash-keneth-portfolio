@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Github, Linkedin, Mail, Heart, Sparkles } from 'lucide-react';
+import { ArrowUp, Github, Facebook, Instagram, Mail, Heart, Sparkles } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import { Starburst } from './Starburst';
 import { socialLinks } from '../data/socialLinks';
@@ -75,14 +75,25 @@ export const Footer = () => {
               </a>
 
               <a
-                href={socialLinks.linkedin}
+                href={socialLinks.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="LinkedIn Profile"
-                className="p-3 rounded-2xl border border-white/10 bg-white/5 text-gray-300 hover:text-[#38BDF8] hover:border-[#38BDF8]/60 hover:bg-[#38BDF8]/20 transition-all duration-200 hover:-translate-y-1"
-                title="LinkedIn"
+                aria-label="Facebook Profile"
+                className="p-3 rounded-2xl border border-white/10 bg-white/5 text-gray-300 hover:text-[#3B82F6] hover:border-[#3B82F6]/60 hover:bg-[#3B82F6]/20 transition-all duration-200 hover:-translate-y-1"
+                title="Facebook"
               >
-                <Linkedin className="w-4 h-4" />
+                <Facebook className="w-4 h-4" />
+              </a>
+
+              <a
+                href={socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram Profile"
+                className="p-3 rounded-2xl border border-white/10 bg-white/5 text-gray-300 hover:text-[#EC4899] hover:border-[#EC4899]/60 hover:bg-[#EC4899]/20 transition-all duration-200 hover:-translate-y-1"
+                title="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
               </a>
 
               <a

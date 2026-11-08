@@ -4,7 +4,8 @@ import {
   ArrowRight, 
   Github, 
   Mail, 
-  Linkedin, 
+  Facebook,
+  Instagram, 
   Code2, 
   Database, 
   Layers, 
@@ -153,18 +154,33 @@ export const Hero = () => {
                 </a>
 
                 <a
-                  href={socialLinks.linkedin}
+                  href={socialLinks.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="LinkedIn"
+                  aria-label="Facebook"
                   className={`p-3.5 rounded-2xl border transition-all duration-200 hover:-translate-y-1 ${
                     isDark
-                      ? "bg-[#131322] border-[#242338] text-[#9E9EB8] hover:text-[#38BDF8] hover:border-[#38BDF8]/50"
-                      : "bg-white border-[#E4E4F2] text-[#64748B] hover:text-[#0284C7] hover:border-[#0284C7]/50 shadow-sm"
+                      ? "bg-[#131322] border-[#242338] text-[#9E9EB8] hover:text-[#3B82F6] hover:border-[#3B82F6]/50"
+                      : "bg-white border-[#E4E4F2] text-[#64748B] hover:text-[#2563EB] hover:border-[#2563EB]/50 shadow-sm"
                   }`}
-                  title="LinkedIn Profile"
+                  title="Facebook"
                 >
-                  <Linkedin className="w-4 h-4" />
+                  <Facebook className="w-4 h-4" />
+                </a>
+
+                <a
+                  href={socialLinks.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className={`p-3.5 rounded-2xl border transition-all duration-200 hover:-translate-y-1 ${
+                    isDark
+                      ? "bg-[#131322] border-[#242338] text-[#9E9EB8] hover:text-[#EC4899] hover:border-[#EC4899]/50"
+                      : "bg-white border-[#E4E4F2] text-[#64748B] hover:text-[#DB2777] hover:border-[#DB2777]/50 shadow-sm"
+                  }`}
+                  title="Instagram"
+                >
+                  <Instagram className="w-4 h-4" />
                 </a>
               </div>
             </motion.div>

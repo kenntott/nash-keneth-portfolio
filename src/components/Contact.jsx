@@ -7,7 +7,8 @@ import {
   AlertCircle, 
   Loader2, 
   Github, 
-  Linkedin, 
+  Facebook,
+  Instagram, 
   Sparkles,
   ArrowUpRight
 } from 'lucide-react';
@@ -194,28 +195,55 @@ export const Contact = () => {
               </a>
 
               <a
-                href={socialLinks.linkedin}
+                href={socialLinks.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-start gap-4 p-5 rounded-3xl border transition-all duration-300 group hover:-translate-y-1 ${
                   isDark
-                    ? "bg-[#131322] border-[#242338] hover:border-[#38BDF8]/60 hover:bg-[#18182B]"
-                    : "bg-white border-[#E4E4F2] hover:border-[#0284C7]/50 hover:shadow-card-light shadow-sm"
+                    ? "bg-[#131322] border-[#242338] hover:border-[#3B82F6]/60 hover:bg-[#18182B]"
+                    : "bg-white border-[#E4E4F2] hover:border-[#2563EB]/50 hover:shadow-card-light shadow-sm"
                 }`}
               >
                 <div
                   className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-colors ${
-                    isDark ? "bg-[#0E0E18] text-[#38BDF8]" : "bg-sky-50 text-[#0284C7]"
+                    isDark ? "bg-[#0E0E18] text-[#3B82F6]" : "bg-blue-50 text-[#2563EB]"
                   }`}
                 >
-                  <Linkedin className="w-5 h-5" />
+                  <Facebook className="w-5 h-5" />
                 </div>
                 <div>
                   <p className={`text-xs font-mono font-bold uppercase tracking-wider ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                    LinkedIn
+                    Facebook
                   </p>
                   <p className={`text-sm sm:text-base font-heading font-bold mt-0.5 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
-                    Connect with Nash Kenneth
+                    {socialLinks.facebookUsername}
+                  </p>
+                </div>
+              </a>
+
+              <a
+                href={socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-start gap-4 p-5 rounded-3xl border transition-all duration-300 group hover:-translate-y-1 ${
+                  isDark
+                    ? "bg-[#131322] border-[#242338] hover:border-[#EC4899]/60 hover:bg-[#18182B]"
+                    : "bg-white border-[#E4E4F2] hover:border-[#DB2777]/50 hover:shadow-card-light shadow-sm"
+                }`}
+              >
+                <div
+                  className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-colors ${
+                    isDark ? "bg-[#0E0E18] text-[#EC4899]" : "bg-pink-50 text-[#DB2777]"
+                  }`}
+                >
+                  <Instagram className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className={`text-xs font-mono font-bold uppercase tracking-wider ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
+                    Instagram
+                  </p>
+                  <p className={`text-sm sm:text-base font-heading font-bold mt-0.5 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                    {socialLinks.instagramUsername}
                   </p>
                 </div>
               </a>

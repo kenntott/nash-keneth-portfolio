@@ -11,7 +11,9 @@ export const socialLinks = {
   email: "nash.escabarte.dev@gmail.com",
   github: "https://github.com/kenntott",
   githubUsername: "kenntott",
-  linkedin: "https://linkedin.com/in/nash-escabarte",
-  facebook: "https://facebook.com", // Optional, configured
+  facebook: "https://facebook.com",
+  facebookUsername: "Nash Kenneth",
+  instagram: "https://instagram.com",
+  instagramUsername: "@nashkenneth",
   resumePath: "/resume.pdf",
 };

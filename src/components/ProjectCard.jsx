@@ -8,8 +8,8 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
   const { isDark } = useTheme();
   const [imageError, setImageError] = useState(false);
 
-  // Asymmetrical card layout: First card is prominent featured showcase, followed by dual-column pair
-  const isFeatured = index === 0;
+  // Both showcase projects are presented with the prominent showcase card layout and aspect ratio
+  const isFeatured = project.isFeatured !== false;
 
   return (
     <motion.div
@@ -18,7 +18,7 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className={`rounded-3xl border overflow-hidden transition-all duration-300 flex flex-col justify-between group hover:-translate-y-2 ${
-        isFeatured ? "md:col-span-2 lg:col-span-2" : "col-span-1"
+        isFeatured ? "col-span-1 md:col-span-2 lg:col-span-2" : "col-span-1"
       } ${
         isDark
           ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/70 hover:shadow-glow-purple"
@@ -119,8 +119,8 @@ export const ProjectCard = ({ project, onViewDetails, index = 0 }) => {
           </p>
 
           {/* Key Features Preview */}
-          <div className="mb-6 space-y-2">
-            {project.features.slice(0, 3).map((feat, idx) => (
+          <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
+            {project.features.map((feat, idx) => (
               <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm">
                 <CheckCircle2
                   className={`w-4 h-4 flex-shrink-0 ${

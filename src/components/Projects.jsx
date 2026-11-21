@@ -15,17 +15,17 @@ export const Projects = () => {
   const filters = [
     { id: "all", label: "All Projects" },
     { id: "pos", label: "POS & Business Systems" },
-    { id: "inventory", label: "Inventory & Mill System" },
-    { id: "governance", label: "Community Governance" },
+    { id: "governance", label: "Digital Governance Portal" },
   ];
 
-  const filteredProjects = projects.filter((p) => {
-    if (selectedFilter === "all") return true;
-    if (selectedFilter === "pos") return p.id === "desinio-koleksyon" || p.category.includes("POS");
-    if (selectedFilter === "inventory") return p.id === "matinong-rice-mill" || p.category.includes("Inventory");
-    if (selectedFilter === "governance") return p.id === "barangay-kinilis-portal" || p.category.includes("Governance");
-    return true;
-  });
+  const filteredProjects = projects
+    .filter((p) => p.showInProjects !== false)
+    .filter((p) => {
+      if (selectedFilter === "all") return true;
+      if (selectedFilter === "pos") return p.id === "desinio-koleksyon" || p.category.includes("POS");
+      if (selectedFilter === "governance") return p.id === "barangay-kinilis-portal" || p.category.includes("Governance");
+      return true;
+    });
 
   return (
     <AnimatedSection id="projects" className="py-24 md:py-36 relative">

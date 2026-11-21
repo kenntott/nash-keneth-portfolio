@@ -57,6 +57,7 @@ export const cvData = {
       description:
         "Developed a web-based governance portal designed to improve barangay services, digital transactions, complaint tracking, and communication between residents and administrators.",
       technologies: ["React.js", "JavaScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
+      liveUrl: "https://barangay-kinilis-digital-governance.vercel.app/",
     },
     {
       title: "Nexus Hub — Digital HQ System",

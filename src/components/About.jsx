@@ -9,24 +9,31 @@ export const About = () => {
   const { isDark } = useTheme();
 
   return (
-    <AnimatedSection id="about" className="py-8 lg:py-10 border-b border-[#1c1c1c] relative">
+    <AnimatedSection
+      id="about"
+      className={`py-8 lg:py-10 border-b relative transition-colors duration-200 ${
+        isDark ? "bg-[#080808] border-[#1c1c1c]" : "bg-white border-[#E4E4E7]"
+      }`}
+    >
       <div className="max-w-[1480px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 w-full">
 
         {/* Section Header */}
         <div className="mb-8 sm:mb-12 lg:mb-14">
           <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3">
             <span className="w-6 h-[2px] bg-[#A78BFA]" />
-            <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#A1A1AA]">
+            <span className={`text-xs font-mono font-bold tracking-widest uppercase ${
+              isDark ? "text-[#A1A1AA]" : "text-[#71717A]"
+            }`}>
               ABOUT ME
             </span>
           </div>
 
           <h2
             className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-extrabold tracking-tight ${
-              isDark ? "text-white" : "text-[#09090B]"
+              isDark ? "text-white" : "text-[#171717]"
             }`}
           >
-            Beyond the code<span className="text-[#A78BFA]">.</span>
+            Beyond the code<span className={isDark ? "text-[#A78BFA]" : "text-[#7C3AED]"}>.</span>
           </h2>
         </div>
 
@@ -53,31 +60,35 @@ export const About = () => {
 
             {/* Development Interests */}
             <div
-              className={`p-6 rounded-2xl border ${
-                isDark ? "bg-[#141414] border-[#262626]" : "bg-white border-[#E4E4E7] shadow-sm"
+              className={`p-6 rounded-2xl border transition-colors ${
+                isDark ? "bg-[#141414] border-[#262626]" : "bg-[#F8F9FB] border-[#E4E4E7] shadow-sm"
               }`}
             >
               <div className="flex items-center gap-2.5 mb-3">
-                <Compass className="w-4 h-4 text-[#A78BFA]" />
-                <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-white">
+                <Compass className={`w-4 h-4 ${isDark ? "text-[#A78BFA]" : "text-[#7C3AED]"}`} />
+                <h3 className={`text-sm font-mono font-bold uppercase tracking-wider ${
+                  isDark ? "text-white" : "text-[#171717]"
+                }`}>
                   Development Interests
                 </h3>
               </div>
-              <ul className="space-y-2 text-xs sm:text-sm text-[#A1A1AA]">
+              <ul className={`space-y-2 text-xs sm:text-sm ${
+                isDark ? "text-[#A1A1AA]" : "text-[#52525B]"
+              }`}>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#A78BFA]" />
+                  <span className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#A78BFA]" : "bg-[#7C3AED]"}`} />
                   <span>Full-Stack Web Engineering &amp; RESTful APIs</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#A78BFA]" />
+                  <span className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#A78BFA]" : "bg-[#7C3AED]"}`} />
                   <span>Relational Database Modeling (PostgreSQL &amp; MySQL)</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#A78BFA]" />
+                  <span className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#A78BFA]" : "bg-[#7C3AED]"}`} />
                   <span>Modern Component Architecture &amp; Responsive UI/UX</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#A78BFA]" />
+                  <span className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#A78BFA]" : "bg-[#7C3AED]"}`} />
                   <span>Interactive Real-Time &amp; 3D Graphics Development</span>
                 </li>
               </ul>
@@ -90,25 +101,37 @@ export const About = () => {
             {/* Education Card */}
             <div
               className={`p-6 rounded-2xl border transition-all ${
-                isDark ? "bg-[#141414] border-[#262626]" : "bg-white border-[#E4E4E7] shadow-sm"
+                isDark ? "bg-[#141414] border-[#262626]" : "bg-[#F8F9FB] border-[#E4E4E7] shadow-sm"
               }`}
             >
               <div className="flex items-center gap-2.5 mb-3">
-                <GraduationCap className="w-5 h-5 text-[#A78BFA]" />
-                <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-white">
+                <GraduationCap className={`w-5 h-5 ${isDark ? "text-[#A78BFA]" : "text-[#7C3AED]"}`} />
+                <h3 className={`text-sm font-mono font-bold uppercase tracking-wider ${
+                  isDark ? "text-white" : "text-[#171717]"
+                }`}>
                   Formal Education
                 </h3>
               </div>
 
               <div className="space-y-1">
-                <h4 className="text-lg font-display font-bold text-white">
+                <h4 className={`text-lg font-display font-bold ${
+                  isDark ? "text-white" : "text-[#171717]"
+                }`}>
                   {cvData.education.institution}
                 </h4>
-                <p className="text-sm font-medium text-[#A78BFA]">
+                <p className={`text-sm font-medium ${
+                  isDark ? "text-[#A78BFA]" : "text-[#7C3AED]"
+                }`}>
                   {cvData.education.degree}
                 </p>
-                <div className="flex items-center gap-3 pt-2 text-xs font-mono text-[#A1A1AA]">
-                  <span className="px-2.5 py-0.5 rounded bg-[#101010] border border-[#262626]">
+                <div className={`flex items-center gap-3 pt-2 text-xs font-mono ${
+                  isDark ? "text-[#A1A1AA]" : "text-[#71717A]"
+                }`}>
+                  <span className={`px-2.5 py-0.5 rounded border ${
+                    isDark
+                      ? "bg-[#101010] border-[#262626] text-[#A1A1AA]"
+                      : "bg-white border-[#E4E4E7] text-[#27272A] shadow-sm"
+                  }`}>
                     {cvData.education.level}
                   </span>
                   <span>{cvData.education.status}</span>
@@ -119,17 +142,21 @@ export const About = () => {
             {/* Personal & Career Goals Card */}
             <div
               className={`p-6 rounded-2xl border transition-all ${
-                isDark ? "bg-[#141414] border-[#262626]" : "bg-white border-[#E4E4E7] shadow-sm"
+                isDark ? "bg-[#141414] border-[#262626]" : "bg-[#F8F9FB] border-[#E4E4E7] shadow-sm"
               }`}
             >
               <div className="flex items-center gap-2.5 mb-3">
                 <Target className="w-5 h-5 text-[#22C55E]" />
-                <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-white">
+                <h3 className={`text-sm font-mono font-bold uppercase tracking-wider ${
+                  isDark ? "text-white" : "text-[#171717]"
+                }`}>
                   Personal &amp; Career Goals
                 </h3>
               </div>
 
-              <p className={`text-xs sm:text-sm leading-relaxed ${isDark ? "text-[#A1A1AA]" : "text-[#52525B]"}`}>
+              <p className={`text-xs sm:text-sm leading-relaxed ${
+                isDark ? "text-[#A1A1AA]" : "text-[#52525B]"
+              }`}>
                 To pursue opportunities in web development where I can apply my technical knowledge, gain professional experience, contribute to meaningful real-world software projects, and continually grow into an exceptional Full-Stack Web Developer.
               </p>
             </div>

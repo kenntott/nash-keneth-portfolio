@@ -71,7 +71,7 @@ export const Skills = () => {
     },
     {
       name: "GitHub",
-      icon: <Github className="w-5 h-5 text-white" />
+      icon: <Github className={`w-5 h-5 ${isDark ? "text-white" : "text-[#171717]"}`} />
     }
   ];
 
@@ -79,8 +79,8 @@ export const Skills = () => {
     <section
       id="skills"
       className={`border-b ${
-        isDark ? "bg-[#080808] border-[#1c1c1c]" : "bg-[#FAFAFA] border-[#E4E4E7]"
-      } py-3.5 lg:py-4 transition-colors`}
+        isDark ? "bg-[#080808] border-[#1c1c1c]" : "bg-[#F8F9FB] border-[#E4E4E7]"
+      } py-3.5 lg:py-4 transition-colors duration-200`}
     >
       <div className="max-w-[1480px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 w-full">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-6">
@@ -89,12 +89,16 @@ export const Skills = () => {
           <div className="flex flex-col items-start min-w-[180px] sm:min-w-[200px]">
             <div className="flex items-center gap-2 mb-1">
               <span className="w-6 h-[2px] bg-[#A78BFA] inline-block" />
-              <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#A1A1AA]">
+              <span className={`text-[11px] font-mono font-bold tracking-widest uppercase ${
+                isDark ? "text-[#A1A1AA]" : "text-[#71717A]"
+              }`}>
                 TECH STACK
               </span>
             </div>
-            <h2 className="text-lg sm:text-xl font-sans font-black text-white tracking-tight">
-              Tools I work with<span className="text-[#A78BFA]">.</span>
+            <h2 className={`text-lg sm:text-xl font-sans font-black tracking-tight ${
+              isDark ? "text-white" : "text-[#171717]"
+            }`}>
+              Tools I work with<span className={isDark ? "text-[#A78BFA]" : "text-[#7C3AED]"}>.</span>
             </h2>
           </div>
 
@@ -105,7 +109,7 @@ export const Skills = () => {
                 key={tech.name}
                 className="flex flex-col items-center justify-center group cursor-default"
               >
-                {/* Dark squircle container */}
+                {/* Squircle container */}
                 <div
                   className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl border flex items-center justify-center p-2 transition-all duration-200 group-hover:-translate-y-0.5 ${
                     isDark
@@ -117,7 +121,11 @@ export const Skills = () => {
                 </div>
 
                 {/* Technology Name */}
-                <span className="text-[10px] font-mono text-[#A1A1AA] group-hover:text-white mt-1 font-medium text-center transition-colors truncate max-w-[68px]">
+                <span className={`text-[10px] font-mono mt-1 font-medium text-center transition-colors truncate max-w-[68px] ${
+                  isDark
+                    ? "text-[#A1A1AA] group-hover:text-white"
+                    : "text-[#52525B] group-hover:text-black"
+                }`}>
                   {tech.name}
                 </span>
               </div>

@@ -41,22 +41,32 @@ export const AllProjectsModal = ({ isOpen, onClose, onSelectProject }) => {
           } p-4 sm:p-8 shadow-2xl z-10`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 sm:pb-5 border-b border-[#222222] mb-5 sm:mb-6">
+          <div className={`flex items-center justify-between pb-4 sm:pb-5 border-b mb-5 sm:mb-6 ${
+            isDark ? "border-[#222222]" : "border-[#E4E4E7]"
+          }`}>
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <span className="w-5 h-[2px] bg-[#A78BFA]" />
-                <span className="text-[11px] font-mono tracking-widest uppercase text-[#A1A1AA]">
+                <span className={`text-[11px] font-mono tracking-widest uppercase ${
+                  isDark ? "text-[#A1A1AA]" : "text-[#71717A]"
+                }`}>
                   PORTFOLIO ARCHIVE
                 </span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-display font-extrabold tracking-tight">
+              <h2 className={`text-xl sm:text-2xl font-display font-extrabold tracking-tight ${
+                isDark ? "text-white" : "text-[#171717]"
+              }`}>
                 All Projects & Applications
               </h2>
             </div>
             <button
               onClick={onClose}
               type="button"
-              className="p-2 rounded-lg border border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white transition-colors"
+              className={`p-2 rounded-lg border transition-colors ${
+                isDark
+                  ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white"
+                  : "border-[#E4E4E7] bg-[#F4F4F5] text-[#71717A] hover:text-black"
+              }`}
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -70,20 +80,29 @@ export const AllProjectsModal = ({ isOpen, onClose, onSelectProject }) => {
               { id: 'business', label: 'POS & Business Systems' },
               { id: 'governance', label: 'Digital Governance' },
               { id: 'interactive', label: '3D & Arcade Games' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setFilter(tab.id)}
-                type="button"
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
-                  filter === tab.id
-                    ? "bg-white text-black font-semibold"
-                    : "border border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+            ].map((tab) => {
+              const active = filter === tab.id;
+              let tabClasses = "";
+              if (active) {
+                tabClasses = isDark
+                  ? "bg-white text-black font-semibold"
+                  : "bg-[#171717] text-white font-semibold";
+              } else {
+                tabClasses = isDark
+                  ? "border border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white"
+                  : "border border-[#E4E4E7] bg-[#F4F4F5] text-[#52525B] hover:text-black";
+              }
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setFilter(tab.id)}
+                  type="button"
+                  className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${tabClasses}`}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
 
           {/* Grid of Projects */}
@@ -91,7 +110,11 @@ export const AllProjectsModal = ({ isOpen, onClose, onSelectProject }) => {
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
-                className="rounded-xl border border-[#222222] bg-[#141414] overflow-hidden flex flex-col justify-between hover:border-[#383838] transition-colors"
+                className={`rounded-xl border overflow-hidden flex flex-col justify-between transition-colors ${
+                  isDark
+                    ? "border-[#222222] bg-[#141414] hover:border-[#383838]"
+                    : "border-[#E4E4E7] bg-[#FFFFFF] hover:border-[#D4D4D8] shadow-sm"
+                }`}
               >
                 <div className="aspect-[16/9] w-full overflow-hidden bg-[#0d0d0d] relative">
                   <img
@@ -106,18 +129,26 @@ export const AllProjectsModal = ({ isOpen, onClose, onSelectProject }) => {
 
                 <div className="p-4 flex flex-col flex-grow justify-between">
                   <div>
-                    <h3 className="text-base font-display font-bold text-white mb-0.5">
+                    <h3 className={`text-base font-display font-bold mb-0.5 ${
+                      isDark ? "text-white" : "text-[#171717]"
+                    }`}>
                       {project.title}
                     </h3>
-                    <p className="text-xs font-mono text-[#A1A1AA] mb-2">
+                    <p className={`text-xs font-mono mb-2 ${
+                      isDark ? "text-[#A1A1AA]" : "text-[#71717A]"
+                    }`}>
                       {project.subtitle || project.category}
                     </p>
-                    <p className="text-xs text-[#71717A] leading-relaxed line-clamp-2 mb-3">
+                    <p className={`text-xs leading-relaxed line-clamp-2 mb-3 ${
+                      isDark ? "text-[#71717A]" : "text-[#52525B]"
+                    }`}>
                       {project.description}
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-[#1f1f1f]">
+                  <div className={`flex items-center justify-between pt-3 border-t ${
+                    isDark ? "border-[#1f1f1f]" : "border-[#E4E4E7]"
+                  }`}>
                     <button
                       onClick={() => {
                         onClose();
@@ -136,7 +167,11 @@ export const AllProjectsModal = ({ isOpen, onClose, onSelectProject }) => {
                           href={project.sourceCode}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-1.5 rounded-md border border-[#262626] bg-[#0d0d0d] text-[#A1A1AA] hover:text-white"
+                          className={`p-1.5 rounded-md border transition-colors ${
+                            isDark
+                              ? "border-[#262626] bg-[#0d0d0d] text-[#A1A1AA] hover:text-white"
+                              : "border-[#E4E4E7] bg-[#F4F4F5] text-[#52525B] hover:text-black"
+                          }`}
                           title="Source Code"
                         >
                           <Github className="w-3.5 h-3.5" />
@@ -147,7 +182,11 @@ export const AllProjectsModal = ({ isOpen, onClose, onSelectProject }) => {
                           href={project.liveDemo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono bg-white text-black font-semibold hover:bg-zinc-200"
+                          className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-semibold transition-colors ${
+                            isDark
+                              ? "bg-white text-black hover:bg-zinc-200"
+                              : "bg-[#171717] text-white hover:bg-[#27272A]"
+                          }`}
                         >
                           <span>Live Demo</span>
                           <ExternalLink className="w-3 h-3" />

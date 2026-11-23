@@ -2,6 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
+:root,
+:root[data-theme="dark"],
+.dark {
+  --bg-primary: #080808;
+  --bg-secondary: #101010;
+  --bg-card: #141414;
+  --bg-elevated: #1A1A1A;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #A1A1AA;
+  --text-muted: #71717A;
+
+  --border-color: #262626;
+  --accent-color: #A78BFA;
+  --accent-hover: #C4B5FD;
+
+  --button-bg: #FFFFFF;
+  --button-text: #080808;
+
+  --icon-bg: #141414;
+  --icon-color: #FFFFFF;
+}
+
+:root[data-theme="light"],
+html:not(.dark) {
+  --bg-primary: #F8F9FB;
+  --bg-secondary: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-elevated: #F1F3F5;
+
+  --text-primary: #171717;
+  --text-secondary: #52525B;
+  --text-muted: #71717A;
+
+  --border-color: #E4E4E7;
+  --accent-color: #8B5CF6;
+  --accent-hover: #7C3AED;
+
+  --button-bg: #171717;
+  --button-text: #FFFFFF;
+
+  --icon-bg: #FFFFFF;
+  --icon-color: #27272A;
+}
+
 @layer base {
   *,
   *::before,
@@ -27,6 +72,9 @@
     min-height: 100vh;
     overflow-x: clip;
     font-family: 'Inter', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   #root {

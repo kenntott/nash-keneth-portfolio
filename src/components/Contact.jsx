@@ -109,15 +109,20 @@ export const Contact = () => {
   };
 
   return (
-    <AnimatedSection id="contact" className="py-8 lg:py-10 border-b border-[#1c1c1c] relative">
+    <AnimatedSection
+      id="contact"
+      className={`py-8 lg:py-10 border-b relative transition-colors duration-200 ${
+        isDark ? "bg-[#080808] border-[#1c1c1c]" : "bg-white border-[#E4E4E7]"
+      }`}
+    >
       <div className="max-w-[1480px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 w-full">
 
         {/* Contact Showcase Card */}
         <div
-          className={`p-5 sm:p-10 md:p-14 rounded-2xl sm:rounded-3xl border mb-8 sm:mb-16 ${
+          className={`p-5 sm:p-10 md:p-14 rounded-2xl sm:rounded-3xl border mb-8 sm:mb-16 transition-colors ${
             isDark
               ? "bg-[#101010] border-[#262626] shadow-card-dark"
-              : "bg-white border-[#E4E4E7] shadow-card-light"
+              : "bg-[#F8F9FB] border-[#E4E4E7] shadow-sm"
           }`}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
@@ -127,18 +132,20 @@ export const Contact = () => {
               <div>
                 <div className="flex items-center gap-2.5 mb-2 sm:mb-3">
                   <span className="w-6 h-[2px] bg-[#A78BFA]" />
-                  <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#A1A1AA]">
+                  <span className={`text-xs font-mono font-bold tracking-widest uppercase ${
+                    isDark ? "text-[#A1A1AA]" : "text-[#71717A]"
+                  }`}>
                     LET'S CONNECT
                   </span>
                 </div>
 
                 <h2
                   className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-extrabold tracking-tight leading-tight ${
-                    isDark ? "text-white" : "text-[#09090B]"
+                    isDark ? "text-white" : "text-[#171717]"
                   }`}
                 >
                   Have an idea? <br />
-                  <span className="text-[#A78BFA]">Let's build it.</span>
+                  <span className={isDark ? "text-[#A78BFA]" : "text-[#7C3AED]"}>Let's build it.</span>
                 </h2>
               </div>
 
@@ -152,13 +159,15 @@ export const Contact = () => {
 
               {/* Direct Email Address */}
               <div className="pt-1 sm:pt-2">
-                <p className="text-xs font-mono text-[#A1A1AA] uppercase tracking-wider mb-1">
+                <p className={`text-xs font-mono uppercase tracking-wider mb-1 ${
+                  isDark ? "text-[#A1A1AA]" : "text-[#71717A]"
+                }`}>
                   Direct Email
                 </p>
                 <a
                   href={`mailto:${socialLinks.email}`}
                   className={`text-sm sm:text-base font-mono font-semibold transition-colors break-all ${
-                    isDark ? "text-white hover:text-[#A78BFA]" : "text-black hover:text-[#7C3AED]"
+                    isDark ? "text-white hover:text-[#A78BFA]" : "text-[#171717] hover:text-[#7C3AED]"
                   }`}
                 >
                   {socialLinks.email}
@@ -167,7 +176,9 @@ export const Contact = () => {
 
               {/* Social Channels Row */}
               <div className="pt-4">
-                <p className="text-xs font-mono text-[#A1A1AA] uppercase tracking-wider mb-3">
+                <p className={`text-xs font-mono uppercase tracking-wider mb-3 ${
+                  isDark ? "text-[#A1A1AA]" : "text-[#71717A]"
+                }`}>
                   Social Channels
                 </p>
                 <div className="flex items-center gap-2.5">
@@ -179,7 +190,7 @@ export const Contact = () => {
                       className={`p-3 rounded-full border transition-all ${
                         isDark
                           ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
-                          : "border-[#E4E4E7] bg-white text-[#71717A] hover:text-black hover:border-[#A1A1AA]"
+                          : "border-[#E4E4E7] bg-white text-[#27272A] hover:text-black hover:border-[#A1A1AA] shadow-sm"
                       }`}
                       title="GitHub"
                       aria-label="GitHub"
@@ -196,7 +207,7 @@ export const Contact = () => {
                       className={`p-3 rounded-full border transition-all ${
                         isDark
                           ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
-                          : "border-[#E4E4E7] bg-white text-[#71717A] hover:text-black hover:border-[#A1A1AA]"
+                          : "border-[#E4E4E7] bg-white text-[#27272A] hover:text-black hover:border-[#A1A1AA] shadow-sm"
                       }`}
                       title="Facebook"
                       aria-label="Facebook"
@@ -213,7 +224,7 @@ export const Contact = () => {
                       className={`p-3 rounded-full border transition-all ${
                         isDark
                           ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
-                          : "border-[#E4E4E7] bg-white text-[#71717A] hover:text-black hover:border-[#A1A1AA]"
+                          : "border-[#E4E4E7] bg-white text-[#27272A] hover:text-black hover:border-[#A1A1AA] shadow-sm"
                       }`}
                       title="LinkedIn"
                       aria-label="LinkedIn"
@@ -230,7 +241,7 @@ export const Contact = () => {
                       className={`p-3 rounded-full border transition-all ${
                         isDark
                           ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
-                          : "border-[#E4E4E7] bg-white text-[#71717A] hover:text-black hover:border-[#A1A1AA]"
+                          : "border-[#E4E4E7] bg-white text-[#27272A] hover:text-black hover:border-[#A1A1AA] shadow-sm"
                       }`}
                       title="Instagram"
                       aria-label="Instagram"
@@ -244,7 +255,7 @@ export const Contact = () => {
                     className={`p-3 rounded-full border transition-all ${
                       isDark
                         ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
-                        : "border-[#E4E4E7] bg-white text-[#71717A] hover:text-black hover:border-[#A1A1AA]"
+                        : "border-[#E4E4E7] bg-white text-[#27272A] hover:text-black hover:border-[#A1A1AA] shadow-sm"
                     }`}
                     title="Send Email"
                     aria-label="Send Email"
@@ -263,7 +274,9 @@ export const Contact = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Name Input */}
                   <div>
-                    <label className="block text-xs font-mono font-medium text-[#A1A1AA] mb-1.5 uppercase">
+                    <label className={`block text-xs font-mono font-medium mb-1.5 uppercase ${
+                      isDark ? "text-[#A1A1AA]" : "text-[#52525B]"
+                    }`}>
                       Your Name
                     </label>
                     <input
@@ -274,10 +287,10 @@ export const Contact = () => {
                       placeholder="e.g. John Doe"
                       className={`w-full px-4 py-3 rounded-xl border text-sm transition-colors outline-none ${
                         errors.name
-                          ? "border-red-500 bg-red-500/10 text-white"
+                          ? isDark ? "border-red-500 bg-red-500/10 text-white" : "border-red-500 bg-red-50 text-red-900"
                           : isDark
-                          ? "bg-[#141414] border-[#262626] text-white focus:border-[#A78BFA]"
-                          : "bg-white border-[#E4E4E7] text-black focus:border-[#7C3AED]"
+                          ? "bg-[#141414] border-[#262626] text-white focus:border-[#A78BFA] placeholder-[#71717A]"
+                          : "bg-white border-[#E4E4E7] text-[#171717] focus:border-[#7C3AED] placeholder-[#A1A1AA] shadow-sm"
                       }`}
                     />
                     {errors.name && (
@@ -287,7 +300,9 @@ export const Contact = () => {
 
                   {/* Email Input */}
                   <div>
-                    <label className="block text-xs font-mono font-medium text-[#A1A1AA] mb-1.5 uppercase">
+                    <label className={`block text-xs font-mono font-medium mb-1.5 uppercase ${
+                      isDark ? "text-[#A1A1AA]" : "text-[#52525B]"
+                    }`}>
                       Email Address
                     </label>
                     <input
@@ -298,10 +313,10 @@ export const Contact = () => {
                       placeholder="e.g. john@example.com"
                       className={`w-full px-4 py-3 rounded-xl border text-sm transition-colors outline-none ${
                         errors.email
-                          ? "border-red-500 bg-red-500/10 text-white"
+                          ? isDark ? "border-red-500 bg-red-500/10 text-white" : "border-red-500 bg-red-50 text-red-900"
                           : isDark
-                          ? "bg-[#141414] border-[#262626] text-white focus:border-[#A78BFA]"
-                          : "bg-white border-[#E4E4E7] text-black focus:border-[#7C3AED]"
+                          ? "bg-[#141414] border-[#262626] text-white focus:border-[#A78BFA] placeholder-[#71717A]"
+                          : "bg-white border-[#E4E4E7] text-[#171717] focus:border-[#7C3AED] placeholder-[#A1A1AA] shadow-sm"
                       }`}
                     />
                     {errors.email && (
@@ -312,7 +327,9 @@ export const Contact = () => {
 
                 {/* Subject Input */}
                 <div>
-                  <label className="block text-xs font-mono font-medium text-[#A1A1AA] mb-1.5 uppercase">
+                  <label className={`block text-xs font-mono font-medium mb-1.5 uppercase ${
+                    isDark ? "text-[#A1A1AA]" : "text-[#52525B]"
+                  }`}>
                     Subject
                   </label>
                   <input
@@ -323,10 +340,10 @@ export const Contact = () => {
                     placeholder="Project Inquiry, Collaboration, or Consultation"
                     className={`w-full px-4 py-3 rounded-xl border text-sm transition-colors outline-none ${
                       errors.subject
-                        ? "border-red-500 bg-red-500/10 text-white"
+                        ? isDark ? "border-red-500 bg-red-500/10 text-white" : "border-red-500 bg-red-50 text-red-900"
                         : isDark
-                        ? "bg-[#141414] border-[#262626] text-white focus:border-[#A78BFA]"
-                        : "bg-white border-[#E4E4E7] text-black focus:border-[#7C3AED]"
+                        ? "bg-[#141414] border-[#262626] text-white focus:border-[#A78BFA] placeholder-[#71717A]"
+                        : "bg-white border-[#E4E4E7] text-[#171717] focus:border-[#7C3AED] placeholder-[#A1A1AA] shadow-sm"
                     }`}
                   />
                   {errors.subject && (
@@ -336,7 +353,9 @@ export const Contact = () => {
 
                 {/* Message Input */}
                 <div>
-                  <label className="block text-xs font-mono font-medium text-[#A1A1AA] mb-1.5 uppercase">
+                  <label className={`block text-xs font-mono font-medium mb-1.5 uppercase ${
+                    isDark ? "text-[#A1A1AA]" : "text-[#52525B]"
+                  }`}>
                     Message
                   </label>
                   <textarea
@@ -347,10 +366,10 @@ export const Contact = () => {
                     placeholder="Tell me about your project or what you'd like to build..."
                     className={`w-full px-4 py-3 rounded-xl border text-sm transition-colors outline-none resize-none ${
                       errors.message
-                        ? "border-red-500 bg-red-500/10 text-white"
+                        ? isDark ? "border-red-500 bg-red-500/10 text-white" : "border-red-500 bg-red-50 text-red-900"
                         : isDark
-                        ? "bg-[#141414] border-[#262626] text-white focus:border-[#A78BFA]"
-                        : "bg-white border-[#E4E4E7] text-black focus:border-[#7C3AED]"
+                        ? "bg-[#141414] border-[#262626] text-white focus:border-[#A78BFA] placeholder-[#71717A]"
+                        : "bg-white border-[#E4E4E7] text-[#171717] focus:border-[#7C3AED] placeholder-[#A1A1AA] shadow-sm"
                     }`}
                   />
                   {errors.message && (
@@ -389,10 +408,10 @@ export const Contact = () => {
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-heading font-bold transition-all ${
+                  className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-heading font-bold transition-all shadow-sm ${
                     isDark
                       ? "bg-white text-black hover:bg-[#F4F4F5] disabled:opacity-50"
-                      : "bg-black text-white hover:bg-[#27272A] disabled:opacity-50"
+                      : "bg-[#171717] text-white hover:bg-[#27272A] disabled:opacity-50"
                   }`}
                 >
                   {status === 'loading' ? (

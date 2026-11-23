@@ -180,12 +180,22 @@ export const Navbar = () => {
               className="flex items-center group cursor-pointer min-w-0"
             >
               {/* NK. Monogram badge */}
-              <div className="text-lg sm:text-xl font-display font-black tracking-tight text-white px-2 sm:px-2.5 py-0.5 rounded border border-[#262626] bg-[#141414] group-hover:border-[#A78BFA]/70 transition-colors flex-shrink-0">
-                NK<span className="text-[#A78BFA]">.</span>
+              <div
+                className={`text-lg sm:text-xl font-display font-black tracking-tight px-2 sm:px-2.5 py-0.5 rounded border transition-colors flex-shrink-0 ${
+                  isDark
+                    ? "text-white border-[#262626] bg-[#141414] group-hover:border-[#A78BFA]/70"
+                    : "text-black border-[#E4E4E7] bg-white group-hover:border-[#7C3AED]/70 shadow-sm"
+                }`}
+              >
+                NK<span className={isDark ? "text-[#A78BFA]" : "text-[#7C3AED]"}>.</span>
               </div>
 
               {/* Vertical separator - always visible with proportional spacing */}
-              <div className="h-5 sm:h-6 w-[1px] bg-[#262626] mx-2 sm:mx-3 flex-shrink-0" />
+              <div
+                className={`h-5 sm:h-6 w-[1px] mx-2 sm:mx-3 flex-shrink-0 transition-colors ${
+                  isDark ? "bg-[#262626]" : "bg-[#E4E4E7]"
+                }`}
+              />
 
               {/* Name & Title */}
               <div className="flex flex-col min-w-0">
@@ -318,12 +328,18 @@ export const Navbar = () => {
                   {link.name}
                 </a>
               ))}
-              <div className="pt-3 mt-2 border-t border-[#262626] flex items-center justify-between px-2">
+              <div
+                className={`pt-3 mt-2 border-t flex items-center justify-between px-2 transition-colors ${
+                  isDark ? "border-[#262626]" : "border-[#E4E4E7]"
+                }`}
+              >
                 <a
                   href={socialLinks.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-mono text-[#A1A1AA] hover:text-white flex items-center gap-1.5 py-2"
+                  className={`text-xs font-mono flex items-center gap-1.5 py-2 transition-colors ${
+                    isDark ? "text-[#A1A1AA] hover:text-white" : "text-[#52525B] hover:text-black"
+                  }`}
                 >
                   <Github className="w-4 h-4" />
                   <span>GitHub</span>
@@ -331,7 +347,11 @@ export const Navbar = () => {
                 <a
                   href={socialLinks.resumePath}
                   download="Nash_Keneth_Barzo_CV.pdf"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono bg-white text-black font-semibold min-h-[36px]"
+                  className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-semibold min-h-[36px] transition-colors ${
+                    isDark
+                      ? "bg-white text-black hover:bg-zinc-200"
+                      : "bg-[#171717] text-white hover:bg-[#27272A]"
+                  }`}
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>Download CV</span>

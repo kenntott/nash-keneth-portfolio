@@ -28,8 +28,8 @@ export const Hero = () => {
     <section
       id="home"
       className={`relative pt-[65px] border-b ${
-        isDark ? "bg-[#080808] border-[#1c1c1c]" : "bg-[#FAFAFA] border-[#E4E4E7]"
-      } overflow-hidden`}
+        isDark ? "bg-[#080808] border-[#1c1c1c]" : "bg-[#F8F9FB] border-[#E4E4E7]"
+      } overflow-hidden transition-colors duration-200`}
     >
       <div className="max-w-[1480px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 w-full">
         <div className="min-h-[285px] lg:h-[305px] py-6 sm:py-8 lg:py-0 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-4 relative">
@@ -40,23 +40,31 @@ export const Hero = () => {
             {/* Small Introduction */}
             <div className="flex items-center gap-2 mb-1.5">
               <span className="w-6 h-[2px] bg-[#A78BFA] inline-block" />
-              <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#A1A1AA]">
+              <span className={`text-[11px] font-mono font-bold tracking-widest uppercase ${
+                isDark ? "text-[#A1A1AA]" : "text-[#71717A]"
+              }`}>
                 HELLO, I'M
               </span>
             </div>
 
             {/* Main Heading — Responsive with clamp */}
-            <h1 className="text-[clamp(1.85rem,6.5vw,2.875rem)] lg:text-[46px] font-sans font-black text-white tracking-tight leading-tight lg:leading-none mb-1.5 whitespace-normal sm:whitespace-nowrap break-words">
-              Nash Keneth<span className="text-[#A78BFA]">.</span>
+            <h1 className={`text-[clamp(1.85rem,6.5vw,2.875rem)] lg:text-[46px] font-sans font-black tracking-tight leading-tight lg:leading-none mb-1.5 whitespace-normal sm:whitespace-nowrap break-words ${
+              isDark ? "text-white" : "text-[#171717]"
+            }`}>
+              Nash Keneth<span className={isDark ? "text-[#A78BFA]" : "text-[#7C3AED]"}>.</span>
             </h1>
 
             {/* Professional Subtitle */}
-            <h2 className="text-sm sm:text-base lg:text-xl font-sans font-bold text-white/95 tracking-tight mb-2 break-words">
+            <h2 className={`text-sm sm:text-base lg:text-xl font-sans font-bold tracking-tight mb-2 break-words ${
+              isDark ? "text-white/95" : "text-[#27272A]"
+            }`}>
               Aspiring Full-Stack Web Developer
             </h2>
 
             {/* Narrative Description */}
-            <p className="text-xs sm:text-[13px] text-[#A1A1AA] leading-relaxed max-w-[430px] mb-4">
+            <p className={`text-xs sm:text-[13px] leading-relaxed max-w-[430px] mb-4 ${
+              isDark ? "text-[#A1A1AA]" : "text-[#52525B]"
+            }`}>
               I build modern, responsive, and functional web applications, management systems, and digital solutions that turn ideas into real-world impact.
             </p>
 
@@ -65,7 +73,11 @@ export const Hero = () => {
               <a
                 href="#projects"
                 onClick={handleScrollToProjects}
-                className="px-4 py-2 rounded-full bg-white text-black text-xs font-bold inline-flex items-center gap-2 hover:bg-zinc-200 transition-all duration-200 active:scale-95 shadow-sm"
+                className={`px-4 py-2 rounded-full text-xs font-bold inline-flex items-center gap-2 transition-all duration-200 active:scale-95 shadow-sm ${
+                  isDark
+                    ? "bg-white text-black hover:bg-zinc-200"
+                    : "bg-[#171717] text-white hover:bg-[#27272A]"
+                }`}
               >
                 <span>View My Projects</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -74,7 +86,11 @@ export const Hero = () => {
               <a
                 href="#contact"
                 onClick={handleContactClick}
-                className="text-xs font-semibold text-white underline underline-offset-4 hover:text-[#A78BFA] transition-colors py-1"
+                className={`text-xs font-semibold underline underline-offset-4 transition-colors py-1 ${
+                  isDark
+                    ? "text-white hover:text-[#A78BFA]"
+                    : "text-[#171717] hover:text-[#7C3AED]"
+                }`}
               >
                 Contact Me
               </a>
@@ -99,13 +115,17 @@ export const Hero = () => {
             {/* Availability Indicator */}
             <div className="inline-flex items-center gap-2 mb-1.5">
               <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse flex-shrink-0" />
-              <span className="text-[11px] font-mono font-medium text-white/90 whitespace-nowrap">
+              <span className={`text-[11px] font-mono font-medium whitespace-nowrap ${
+                isDark ? "text-white/90" : "text-[#27272A]"
+              }`}>
                 Available for opportunities
               </span>
             </div>
 
             {/* Subtle Horizontal Divider */}
-            <div className="w-12 h-[1px] bg-[#262626] my-2 sm:my-2.5" />
+            <div className={`w-12 h-[1px] my-2 sm:my-2.5 transition-colors ${
+              isDark ? "bg-[#262626]" : "bg-[#E4E4E7]"
+            }`} />
 
             {/* Social Icons Row */}
             <div className="flex items-center justify-center gap-2 sm:gap-2.5">
@@ -114,7 +134,11 @@ export const Hero = () => {
                   href={socialLinks.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-lg border border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040] flex items-center justify-center transition-colors"
+                  className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-colors ${
+                    isDark
+                      ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
+                      : "border-[#E4E4E7] bg-white text-[#27272A] hover:text-black hover:border-[#A1A1AA] shadow-sm"
+                  }`}
                   title="GitHub"
                   aria-label="GitHub"
                 >
@@ -127,7 +151,11 @@ export const Hero = () => {
                   href={socialLinks.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-lg border border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040] flex items-center justify-center transition-colors"
+                  className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-colors ${
+                    isDark
+                      ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
+                      : "border-[#E4E4E7] bg-white text-[#27272A] hover:text-black hover:border-[#A1A1AA] shadow-sm"
+                  }`}
                   title="Facebook"
                   aria-label="Facebook"
                 >
@@ -140,7 +168,11 @@ export const Hero = () => {
                   href={socialLinks.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-lg border border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040] flex items-center justify-center transition-colors"
+                  className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-colors ${
+                    isDark
+                      ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
+                      : "border-[#E4E4E7] bg-white text-[#27272A] hover:text-black hover:border-[#A1A1AA] shadow-sm"
+                  }`}
                   title="Instagram"
                   aria-label="Instagram"
                 >
@@ -153,7 +185,11 @@ export const Hero = () => {
                   href={socialLinks.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-lg border border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040] flex items-center justify-center transition-colors"
+                  className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-colors ${
+                    isDark
+                      ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
+                      : "border-[#E4E4E7] bg-white text-[#27272A] hover:text-black hover:border-[#A1A1AA] shadow-sm"
+                  }`}
                   title="LinkedIn"
                   aria-label="LinkedIn"
                 >

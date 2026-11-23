@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Mail, 
-  Send, 
-  CheckCircle2, 
-  AlertCircle, 
-  Loader2, 
-  Github, 
+import {
+  Mail,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+  Github,
   Facebook,
-  Instagram, 
-  Sparkles,
-  ArrowUpRight
+  Instagram,
+  Linkedin,
+  ArrowRight
 } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
-import { Starburst } from './Starburst';
 import { AnimatedSection } from './AnimatedSection';
 import { socialLinks } from '../data/socialLinks';
 
@@ -81,365 +80,338 @@ export const Contact = () => {
             email: formData.email,
             subject: formData.subject,
             message: formData.message,
+            from_name: 'Portfolio Contact Form',
           }),
         });
-        const result = await response.json();
-        if (response.ok && result.success !== false) {
+
+        const data = await response.json();
+        if (data.success) {
           setStatus('success');
           setFormData({ name: '', email: '', subject: '', message: '' });
-        } else {
-          throw new Error(result.message || 'Failed to submit form.');
+          return;
         }
-      } else {
-        await new Promise((resolve) => setTimeout(resolve, 900));
-        setStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
       }
+
+      // Fallback: direct mailto trigger with prefilled payload
+      const mailtoUrl = `mailto:${socialLinks.email}?subject=${encodeURIComponent(
+        `[Portfolio Inquiry] ${formData.subject}`
+      )}&body=${encodeURIComponent(
+        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      )}`;
+      window.location.href = mailtoUrl;
+      setStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (err) {
+      console.error('Contact submission error:', err);
       setStatus('error');
-      setErrorMessage(err.message || 'Something went wrong. Please reach out directly via email.');
+      setErrorMessage('Could not send message automatically. Please email directly.');
     }
   };
 
   return (
-    <AnimatedSection id="contact" className="py-24 md:py-36 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Adelina Split Layout: Big Typography on Left, Form on Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
-          
-          {/* Left Column: Big Statement & Direct Channels (6 cols) */}
-          <div className="lg:col-span-6 space-y-8">
-            
-            <div>
-              <div
-                className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider uppercase mb-5 border ${
-                  isDark
-                    ? "bg-[#131322] border-[#242338] text-[#C084FC]"
-                    : "bg-violet-50 border-violet-200 text-[#7C3AED]"
-                }`}
-              >
-                <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" />
-                <span>START A CONVERSATION</span>
+    <AnimatedSection id="contact" className="py-8 lg:py-10 border-b border-[#1c1c1c] relative">
+      <div className="max-w-[1480px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 w-full">
+
+        {/* Contact Showcase Card */}
+        <div
+          className={`p-5 sm:p-10 md:p-14 rounded-2xl sm:rounded-3xl border mb-8 sm:mb-16 ${
+            isDark
+              ? "bg-[#101010] border-[#262626] shadow-card-dark"
+              : "bg-white border-[#E4E4E7] shadow-card-light"
+          }`}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+
+            {/* Left Column: Heading & Social Links (5 cols) */}
+            <div className="lg:col-span-5 space-y-4 sm:space-y-6">
+              <div>
+                <div className="flex items-center gap-2.5 mb-2 sm:mb-3">
+                  <span className="w-6 h-[2px] bg-[#A78BFA]" />
+                  <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#A1A1AA]">
+                    LET'S CONNECT
+                  </span>
+                </div>
+
+                <h2
+                  className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-extrabold tracking-tight leading-tight ${
+                    isDark ? "text-white" : "text-[#09090B]"
+                  }`}
+                >
+                  Have an idea? <br />
+                  <span className="text-[#A78BFA]">Let's build it.</span>
+                </h2>
               </div>
 
-              <h2
-                className={`text-[clamp(1.75rem,3.8vw,3.2rem)] font-display font-extrabold tracking-tight leading-[1.1] mb-6 break-normal max-w-full ${
-                  isDark ? "text-white" : "text-[#0F172A]"
-                }`}
-              >
-                LET'S BUILD <span className="text-gradient-purple italic block pr-2">SOMETHING</span> TOGETHER.
-              </h2>
-
               <p
-                className={`text-base sm:text-lg leading-relaxed ${
-                  isDark ? "text-[#9E9EB8]" : "text-[#475569]"
+                className={`text-sm sm:text-base leading-relaxed ${
+                  isDark ? "text-[#A1A1AA]" : "text-[#52525B]"
                 }`}
               >
-                Have an information system project, full-stack application idea, or collaboration in mind? Feel free to reach out.
+                I'm always interested in learning, collaborating, and building meaningful digital solutions.
               </p>
-            </div>
 
-            {/* Direct Channels */}
-            <div className="space-y-4 pt-2">
-              <a
-                href={`mailto:${socialLinks.email}`}
-                className={`flex items-start gap-4 p-5 rounded-3xl border transition-all duration-300 group hover:-translate-y-1 ${
-                  isDark
-                    ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/60 hover:bg-[#18182B]"
-                    : "bg-white border-[#E4E4F2] hover:border-[#7C3AED]/50 hover:shadow-card-light shadow-sm"
-                }`}
-              >
-                <div
-                  className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-colors ${
-                    isDark ? "bg-[#0E0E18] text-[#C084FC] group-hover:border-[#8B5CF6]" : "bg-violet-50 text-[#7C3AED]"
+              {/* Direct Email Address */}
+              <div className="pt-1 sm:pt-2">
+                <p className="text-xs font-mono text-[#A1A1AA] uppercase tracking-wider mb-1">
+                  Direct Email
+                </p>
+                <a
+                  href={`mailto:${socialLinks.email}`}
+                  className={`text-sm sm:text-base font-mono font-semibold transition-colors break-all ${
+                    isDark ? "text-white hover:text-[#A78BFA]" : "text-black hover:text-[#7C3AED]"
                   }`}
                 >
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className={`text-xs font-mono font-bold uppercase tracking-wider ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                    Direct Email
-                  </p>
-                  <p className={`text-sm sm:text-base font-heading font-bold mt-0.5 break-all ${isDark ? "text-white" : "text-[#0F172A]"}`}>
-                    {socialLinks.email}
-                  </p>
-                </div>
-              </a>
+                  {socialLinks.email}
+                </a>
+              </div>
 
-              <a
-                href={socialLinks.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-start gap-4 p-5 rounded-3xl border transition-all duration-300 group hover:-translate-y-1 ${
-                  isDark
-                    ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/60 hover:bg-[#18182B]"
-                    : "bg-white border-[#E4E4F2] hover:border-[#7C3AED]/50 hover:shadow-card-light shadow-sm"
-                }`}
-              >
-                <div
-                  className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-colors ${
-                    isDark ? "bg-[#0E0E18] text-[#C084FC]" : "bg-violet-50 text-[#7C3AED]"
-                  }`}
-                >
-                  <Github className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className={`text-xs font-mono font-bold uppercase tracking-wider ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                    GitHub
-                  </p>
-                  <p className={`text-sm sm:text-base font-heading font-bold mt-0.5 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
-                    @{socialLinks.githubUsername}
-                  </p>
-                </div>
-              </a>
-
-              <a
-                href={socialLinks.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-start gap-4 p-5 rounded-3xl border transition-all duration-300 group hover:-translate-y-1 ${
-                  isDark
-                    ? "bg-[#131322] border-[#242338] hover:border-[#3B82F6]/60 hover:bg-[#18182B]"
-                    : "bg-white border-[#E4E4F2] hover:border-[#2563EB]/50 hover:shadow-card-light shadow-sm"
-                }`}
-              >
-                <div
-                  className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-colors ${
-                    isDark ? "bg-[#0E0E18] text-[#3B82F6]" : "bg-blue-50 text-[#2563EB]"
-                  }`}
-                >
-                  <Facebook className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className={`text-xs font-mono font-bold uppercase tracking-wider ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                    Facebook
-                  </p>
-                  <p className={`text-sm sm:text-base font-heading font-bold mt-0.5 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
-                    {socialLinks.facebookUsername}
-                  </p>
-                </div>
-              </a>
-
-              <a
-                href={socialLinks.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-start gap-4 p-5 rounded-3xl border transition-all duration-300 group hover:-translate-y-1 ${
-                  isDark
-                    ? "bg-[#131322] border-[#242338] hover:border-[#EC4899]/60 hover:bg-[#18182B]"
-                    : "bg-white border-[#E4E4F2] hover:border-[#DB2777]/50 hover:shadow-card-light shadow-sm"
-                }`}
-              >
-                <div
-                  className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-colors ${
-                    isDark ? "bg-[#0E0E18] text-[#EC4899]" : "bg-pink-50 text-[#DB2777]"
-                  }`}
-                >
-                  <Instagram className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className={`text-xs font-mono font-bold uppercase tracking-wider ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                    Instagram
-                  </p>
-                  <p className={`text-sm sm:text-base font-heading font-bold mt-0.5 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
-                    {socialLinks.instagramUsername}
-                  </p>
-                </div>
-              </a>
-            </div>
-
-          </div>
-
-          {/* Right Column: Contact Form (6 cols) */}
-          <div className="lg:col-span-6 w-full">
-            <div
-              className={`p-4 sm:p-8 md:p-10 rounded-3xl border relative shadow-xl overflow-hidden ${
-                isDark
-                  ? "bg-[#131322] border-[#242338] shadow-black/50"
-                  : "bg-white border-[#E4E4F2] shadow-card-light"
-              }`}
-            >
-              <h3 className={`text-2xl font-display font-bold mb-6 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
-                Send a Message
-              </h3>
-
-              <AnimatePresence>
-                {status === 'success' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="mb-6 p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 flex items-start gap-3"
-                  >
-                    <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                    <div className="text-xs sm:text-sm">
-                      <p className="font-bold">Thank you for your message!</p>
-                      <p className="text-emerald-300/90 mt-0.5">
-                        Your message has been received. I'll get back to you promptly.
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-
-                {status === 'error' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="mb-6 p-4 rounded-2xl bg-rose-500/15 border border-rose-500/40 text-rose-400 flex items-start gap-3"
-                  >
-                    <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                    <div className="text-xs sm:text-sm">
-                      <p className="font-bold">Notice</p>
-                      <p className="text-rose-300/90 mt-0.5">{errorMessage}</p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <form onSubmit={handleSubmit} noValidate className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className={`block text-xs font-mono font-bold uppercase mb-2 ${
-                        isDark ? "text-gray-300" : "text-gray-700"
+              {/* Social Channels Row */}
+              <div className="pt-4">
+                <p className="text-xs font-mono text-[#A1A1AA] uppercase tracking-wider mb-3">
+                  Social Channels
+                </p>
+                <div className="flex items-center gap-2.5">
+                  {socialLinks.github && (
+                    <a
+                      href={socialLinks.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`p-3 rounded-full border transition-all ${
+                        isDark
+                          ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
+                          : "border-[#E4E4E7] bg-white text-[#71717A] hover:text-black hover:border-[#A1A1AA]"
                       }`}
+                      title="GitHub"
+                      aria-label="GitHub"
                     >
-                      Name *
+                      <Github className="w-4 h-4" />
+                    </a>
+                  )}
+
+                  {socialLinks.facebook && (
+                    <a
+                      href={socialLinks.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`p-3 rounded-full border transition-all ${
+                        isDark
+                          ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
+                          : "border-[#E4E4E7] bg-white text-[#71717A] hover:text-black hover:border-[#A1A1AA]"
+                      }`}
+                      title="Facebook"
+                      aria-label="Facebook"
+                    >
+                      <Facebook className="w-4 h-4" />
+                    </a>
+                  )}
+
+                  {socialLinks.linkedin && (
+                    <a
+                      href={socialLinks.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`p-3 rounded-full border transition-all ${
+                        isDark
+                          ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
+                          : "border-[#E4E4E7] bg-white text-[#71717A] hover:text-black hover:border-[#A1A1AA]"
+                      }`}
+                      title="LinkedIn"
+                      aria-label="LinkedIn"
+                    >
+                      <Linkedin className="w-4 h-4" />
+                    </a>
+                  )}
+
+                  {socialLinks.instagram && (
+                    <a
+                      href={socialLinks.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`p-3 rounded-full border transition-all ${
+                        isDark
+                          ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
+                          : "border-[#E4E4E7] bg-white text-[#71717A] hover:text-black hover:border-[#A1A1AA]"
+                      }`}
+                      title="Instagram"
+                      aria-label="Instagram"
+                    >
+                      <Instagram className="w-4 h-4" />
+                    </a>
+                  )}
+
+                  <a
+                    href={`mailto:${socialLinks.email}`}
+                    className={`p-3 rounded-full border transition-all ${
+                      isDark
+                        ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
+                        : "border-[#E4E4E7] bg-white text-[#71717A] hover:text-black hover:border-[#A1A1AA]"
+                    }`}
+                    title="Send Email"
+                    aria-label="Send Email"
+                  >
+                    <Mail className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Right Column: Functional Minimal Form (7 cols) */}
+            <div className="lg:col-span-7">
+              <form onSubmit={handleSubmit} noValidate className="space-y-4">
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Name Input */}
+                  <div>
+                    <label className="block text-xs font-mono font-medium text-[#A1A1AA] mb-1.5 uppercase">
+                      Your Name
                     </label>
                     <input
-                      id="name"
-                      name="name"
                       type="text"
+                      name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Jane Doe"
-                      disabled={status === 'loading'}
-                      className={`w-full px-5 py-3.5 rounded-2xl border text-sm transition-all focus:outline-none focus:ring-2 ${
+                      placeholder="e.g. John Doe"
+                      className={`w-full px-4 py-3 rounded-xl border text-sm transition-colors outline-none ${
                         errors.name
-                          ? "border-rose-500 focus:ring-rose-500/30"
+                          ? "border-red-500 bg-red-500/10 text-white"
                           : isDark
-                          ? "bg-[#0E0E18] border-[#242338] text-white focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20"
-                          : "bg-slate-50 border-[#E4E4F2] text-gray-900 focus:border-[#7C3AED] focus:ring-[#7C3AED]/20"
+                          ? "bg-[#141414] border-[#262626] text-white focus:border-[#A78BFA]"
+                          : "bg-white border-[#E4E4E7] text-black focus:border-[#7C3AED]"
                       }`}
                     />
-                    {errors.name && <p className="text-rose-400 text-xs mt-1.5">{errors.name}</p>}
+                    {errors.name && (
+                      <p className="mt-1 text-xs text-red-400 font-mono">{errors.name}</p>
+                    )}
                   </div>
 
+                  {/* Email Input */}
                   <div>
-                    <label
-                      htmlFor="email"
-                      className={`block text-xs font-mono font-bold uppercase mb-2 ${
-                        isDark ? "text-gray-300" : "text-gray-700"
-                      }`}
-                    >
-                      Email *
+                    <label className="block text-xs font-mono font-medium text-[#A1A1AA] mb-1.5 uppercase">
+                      Email Address
                     </label>
                     <input
-                      id="email"
-                      name="email"
                       type="email"
+                      name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="jane@example.com"
-                      disabled={status === 'loading'}
-                      className={`w-full px-5 py-3.5 rounded-2xl border text-sm transition-all focus:outline-none focus:ring-2 ${
+                      placeholder="e.g. john@example.com"
+                      className={`w-full px-4 py-3 rounded-xl border text-sm transition-colors outline-none ${
                         errors.email
-                          ? "border-rose-500 focus:ring-rose-500/30"
+                          ? "border-red-500 bg-red-500/10 text-white"
                           : isDark
-                          ? "bg-[#0E0E18] border-[#242338] text-white focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20"
-                          : "bg-slate-50 border-[#E4E4F2] text-gray-900 focus:border-[#7C3AED] focus:ring-[#7C3AED]/20"
+                          ? "bg-[#141414] border-[#262626] text-white focus:border-[#A78BFA]"
+                          : "bg-white border-[#E4E4E7] text-black focus:border-[#7C3AED]"
                       }`}
                     />
-                    {errors.email && <p className="text-rose-400 text-xs mt-1.5">{errors.email}</p>}
+                    {errors.email && (
+                      <p className="mt-1 text-xs text-red-400 font-mono">{errors.email}</p>
+                    )}
                   </div>
                 </div>
 
+                {/* Subject Input */}
                 <div>
-                  <label
-                    htmlFor="subject"
-                    className={`block text-xs font-mono font-bold uppercase mb-2 ${
-                      isDark ? "text-gray-300" : "text-gray-700"
-                    }`}
-                  >
-                    Subject *
+                  <label className="block text-xs font-mono font-medium text-[#A1A1AA] mb-1.5 uppercase">
+                    Subject
                   </label>
                   <input
-                    id="subject"
-                    name="subject"
                     type="text"
+                    name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    placeholder="Project Inquiry / Information System"
-                    disabled={status === 'loading'}
-                    className={`w-full px-5 py-3.5 rounded-2xl border text-sm transition-all focus:outline-none focus:ring-2 ${
+                    placeholder="Project Inquiry, Collaboration, or Consultation"
+                    className={`w-full px-4 py-3 rounded-xl border text-sm transition-colors outline-none ${
                       errors.subject
-                        ? "border-rose-500 focus:ring-rose-500/30"
+                        ? "border-red-500 bg-red-500/10 text-white"
                         : isDark
-                        ? "bg-[#0E0E18] border-[#242338] text-white focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20"
-                        : "bg-slate-50 border-[#E4E4F2] text-gray-900 focus:border-[#7C3AED] focus:ring-[#7C3AED]/20"
+                        ? "bg-[#141414] border-[#262626] text-white focus:border-[#A78BFA]"
+                        : "bg-white border-[#E4E4E7] text-black focus:border-[#7C3AED]"
                     }`}
                   />
-                  {errors.subject && <p className="text-rose-400 text-xs mt-1.5">{errors.subject}</p>}
+                  {errors.subject && (
+                    <p className="mt-1 text-xs text-red-400 font-mono">{errors.subject}</p>
+                  )}
                 </div>
 
+                {/* Message Input */}
                 <div>
-                  <label
-                    htmlFor="message"
-                    className={`block text-xs font-mono font-bold uppercase mb-2 ${
-                      isDark ? "text-gray-300" : "text-gray-700"
-                    }`}
-                  >
-                    Message *
+                  <label className="block text-xs font-mono font-medium text-[#A1A1AA] mb-1.5 uppercase">
+                    Message
                   </label>
                   <textarea
-                    id="message"
                     name="message"
-                    rows={5}
+                    rows="4"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder={`Hello ${socialLinks.name}, let's discuss building an application or system...`}
-                    disabled={status === 'loading'}
-                    className={`w-full px-5 py-3.5 rounded-2xl border text-sm transition-all focus:outline-none focus:ring-2 resize-none ${
+                    placeholder="Tell me about your project or what you'd like to build..."
+                    className={`w-full px-4 py-3 rounded-xl border text-sm transition-colors outline-none resize-none ${
                       errors.message
-                        ? "border-rose-500 focus:ring-rose-500/30"
+                        ? "border-red-500 bg-red-500/10 text-white"
                         : isDark
-                        ? "bg-[#0E0E18] border-[#242338] text-white focus:border-[#8B5CF6] focus:ring-[#8B5CF6]/20"
-                        : "bg-slate-50 border-[#E4E4F2] text-gray-900 focus:border-[#7C3AED] focus:ring-[#7C3AED]/20"
+                        ? "bg-[#141414] border-[#262626] text-white focus:border-[#A78BFA]"
+                        : "bg-white border-[#E4E4E7] text-black focus:border-[#7C3AED]"
                     }`}
                   />
-                  {errors.message && <p className="text-rose-400 text-xs mt-1.5">{errors.message}</p>}
+                  {errors.message && (
+                    <p className="mt-1 text-xs text-red-400 font-mono">{errors.message}</p>
+                  )}
                 </div>
 
+                {/* Submit Feedback Notification */}
+                <AnimatePresence>
+                  {status === 'success' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="p-3.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-mono flex items-center gap-2"
+                    >
+                      <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+                      <span>Thank you! Your message was prepared / dispatched successfully.</span>
+                    </motion.div>
+                  )}
+
+                  {status === 'error' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="p-3.5 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-xs font-mono flex items-center gap-2"
+                    >
+                      <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                      <span>{errorMessage}</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className={`w-full flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-heading font-bold text-sm text-white transition-all duration-300 shadow-md ${
-                    status === 'loading'
-                      ? "opacity-75 cursor-not-allowed bg-gray-600"
-                      : isDark
-                      ? "bg-gradient-to-r from-[#8B5CF6] via-[#7C3AED] to-[#EC4899] hover:shadow-glow-purple"
-                      : "bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] hover:shadow-md"
+                  className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-heading font-bold transition-all ${
+                    isDark
+                      ? "bg-white text-black hover:bg-[#F4F4F5] disabled:opacity-50"
+                      : "bg-black text-white hover:bg-[#27272A] disabled:opacity-50"
                   }`}
                 >
                   {status === 'loading' ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Transmitting Message...</span>
+                      <span>Sending...</span>
                     </>
                   ) : (
                     <>
-                      <Send className="w-4 h-4" />
-                      <span>Send Message</span>
+                      <span>Get in Touch</span>
+                      <ArrowRight className="w-4 h-4" />
                     </>
                   )}
                 </button>
+
               </form>
             </div>
-          </div>
 
+          </div>
         </div>
 
       </div>

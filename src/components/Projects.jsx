@@ -1,113 +1,94 @@
 import React, { useState } from 'react';
-import { Briefcase, Sparkles, Filter } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import { projects } from '../data/projects';
 import { ProjectCard } from './ProjectCard';
 import { ProjectModal } from './ProjectModal';
-import { Starburst } from './Starburst';
-import { AnimatedSection } from './AnimatedSection';
+import { AllProjectsModal } from './AllProjectsModal';
 
 export const Projects = () => {
   const { isDark } = useTheme();
-  const [selectedFilter, setSelectedFilter] = useState("all");
   const [activeModalProject, setActiveModalProject] = useState(null);
+  const [showAllModal, setShowAllModal] = useState(false);
 
-  const filters = [
-    { id: "all", label: "All Projects" },
-    { id: "pos", label: "POS & Business Systems" },
-    { id: "governance", label: "Digital Governance Portal" },
-  ];
+  // Featured projects: Card 1 = Barangay Kinilis, Card 2 = DesinioKoleksyon
+  const kinilisProject = projects.find((p) => p.id === 'barangay-kinilis-portal') || projects[1];
+  const desinioProject = projects.find((p) => p.id === 'desinio-koleksyon') || projects[0];
 
-  const filteredProjects = projects
-    .filter((p) => p.showInProjects !== false)
-    .filter((p) => {
-      if (selectedFilter === "all") return true;
-      if (selectedFilter === "pos") return p.id === "desinio-koleksyon" || p.category.includes("POS");
-      if (selectedFilter === "governance") return p.id === "barangay-kinilis-portal" || p.category.includes("Governance");
-      return true;
-    });
+  const featured = [kinilisProject, desinioProject].filter(Boolean);
 
   return (
-    <AnimatedSection id="projects" className="py-24 md:py-36 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16">
-          <div
-            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider uppercase mb-4 border ${
-              isDark
-                ? "bg-[#131322] border-[#242338] text-[#C084FC]"
-                : "bg-violet-50 border-violet-200 text-[#7C3AED]"
-            }`}
-          >
-            <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" />
-            <span>FEATURED CASE STUDIES</span>
+    <section
+      id="projects"
+      className={`border-b ${
+        isDark ? "bg-[#080808] border-[#1c1c1c]" : "bg-[#FAFAFA] border-[#E4E4E7]"
+      } py-4 lg:py-5 transition-colors`}
+    >
+      <div className="max-w-[1480px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 w-full">
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-10">
+
+          {/* Left Column: Introduction (approx 28% width) */}
+          <div className="w-full lg:w-[28%] flex flex-col items-start pt-1">
+
+            {/* Small Label */}
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="w-6 h-[2px] bg-[#A78BFA] inline-block" />
+              <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#A1A1AA]">
+                MY WORK
+              </span>
+            </div>
+
+            {/* Main Heading */}
+            <h2 className="text-xl sm:text-2xl lg:text-[26px] font-sans font-black text-white tracking-tight leading-tight mb-1.5">
+              Things I've built<span className="text-[#A78BFA]">.</span>
+            </h2>
+
+            {/* Description */}
+            <p className="text-xs text-[#A1A1AA] leading-relaxed max-w-xs mb-3">
+              A collection of projects that showcase my skills and passion for development.
+            </p>
+
+            {/* Explore Link */}
+            <button
+              onClick={() => setShowAllModal(true)}
+              type="button"
+              className="text-xs font-mono font-medium text-white hover:text-[#A78BFA] inline-flex items-center gap-1.5 transition-colors cursor-pointer group"
+            >
+              <span>Explore all projects</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#A78BFA] group-hover:translate-x-1 transition-transform" />
+            </button>
+
           </div>
 
-          <h2
-            className={`text-[clamp(1.65rem,5.2vw,3.5rem)] font-display font-extrabold tracking-tight mb-4 break-normal ${
-              isDark ? "text-white" : "text-[#0F172A]"
-            }`}
-          >
-            MY WORK, <span className="text-gradient-purple italic pr-2">MY PROJECTS.</span>
-          </h2>
+          {/* Right Column: 2 Featured Cards in Horizontal Grid (approx 72% width) */}
+          <div className="w-full lg:w-[72%] grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
+            {featured.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onViewDetails={(proj) => setActiveModalProject(proj)}
+              />
+            ))}
+          </div>
 
-          <p
-            className={`text-base sm:text-lg md:text-xl leading-relaxed ${
-              isDark ? "text-[#9E9EB8]" : "text-[#64748B]"
-            }`}
-          >
-            Here are some of the projects I've worked on. Explore the systems and digital solutions I've developed.
-          </p>
         </div>
-
-        {/* Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-16">
-          {filters.map((f) => {
-            const isActive = selectedFilter === f.id;
-            return (
-              <button
-                key={f.id}
-                onClick={() => setSelectedFilter(f.id)}
-                type="button"
-                className={`px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-heading font-bold transition-all duration-300 ${
-                  isActive
-                    ? isDark
-                      ? "bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white shadow-glow-purple-sm scale-105"
-                      : "bg-[#7C3AED] text-white shadow-md scale-105"
-                    : isDark
-                    ? "bg-[#131322] border border-[#242338] text-[#9E9EB8] hover:text-white hover:border-[#8B5CF6]/50"
-                    : "bg-white border border-[#E4E4F2] text-[#64748B] hover:text-[#0F172A] hover:border-[#7C3AED]/40 shadow-sm"
-                }`}
-              >
-                {f.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Asymmetrical Adelina Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {filteredProjects.map((project, idx) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={idx}
-              onViewDetails={(proj) => setActiveModalProject(proj)}
-            />
-          ))}
-        </div>
-
-        {/* Project Details Modal */}
-        {activeModalProject && (
-          <ProjectModal
-            project={activeModalProject}
-            onClose={() => setActiveModalProject(null)}
-          />
-        )}
-
       </div>
-    </AnimatedSection>
+
+      {/* Case Study Details Modal */}
+      {activeModalProject && (
+        <ProjectModal
+          project={activeModalProject}
+          onClose={() => setActiveModalProject(null)}
+        />
+      )}
+
+      {/* Archive / All Projects Modal */}
+      <AllProjectsModal
+        isOpen={showAllModal}
+        onClose={() => setShowAllModal(false)}
+        onSelectProject={(proj) => setActiveModalProject(proj)}
+      />
+    </section>
   );
 };
 

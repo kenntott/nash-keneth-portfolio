@@ -1,279 +1,165 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { 
-  ArrowRight, 
-  Github, 
-  Mail, 
-  Facebook,
-  Instagram, 
-  Code2, 
-  Database, 
-  Layers, 
-  Sparkles, 
-  FileCode2, 
-  Cpu, 
-  Play,
-  Terminal
-} from 'lucide-react';
+import { ArrowRight, Github, Facebook, Instagram, Linkedin } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
-import { Starburst } from './Starburst';
-import { ProfileCard } from './ProfileCard';
 import { socialLinks } from '../data/socialLinks';
 
 export const Hero = () => {
   const { isDark } = useTheme();
 
+  const handleScrollToProjects = (e) => {
+    e.preventDefault();
+    const target = document.getElementById('projects');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+      if (window.history.pushState) window.history.pushState(null, '', '#projects');
+    }
+  };
+
+  const handleContactClick = (e) => {
+    e.preventDefault();
+    const target = document.getElementById('contact');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+      if (window.history.pushState) window.history.pushState(null, '', '#contact');
+    }
+  };
+
   return (
-    <section id="home" className="scroll-mt-24 relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden bg-mesh-dark dark:bg-mesh-dark">
-      
-      {/* Background Decorative Gradient Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] rounded-full blur-[160px] pointer-events-none opacity-40 bg-gradient-to-tr from-[#8B5CF6]/30 via-[#EC4899]/20 to-[#38BDF8]/20" />
-      
-      {/* Starburst floating in hero background */}
-      <div className="absolute top-28 left-[10%] opacity-40 pointer-events-none">
-        <Starburst className="w-10 h-10 text-[#C084FC]" rotate={true} />
-      </div>
-      <div className="absolute bottom-16 right-[8%] opacity-30 pointer-events-none">
-        <Starburst className="w-12 h-12 text-[#EC4899]" animate={true} delay={1.5} />
-      </div>
+    <section
+      id="home"
+      className={`relative pt-[65px] border-b ${
+        isDark ? "bg-[#080808] border-[#1c1c1c]" : "bg-[#FAFAFA] border-[#E4E4E7]"
+      } overflow-hidden`}
+    >
+      <div className="max-w-[1480px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 w-full">
+        <div className="min-h-[285px] lg:h-[305px] py-6 sm:py-8 lg:py-0 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-4 relative">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* Left Column: Expressive Headline & Intro (7 cols) */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
-            
-            {/* Top Pill Tag */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider uppercase mb-6 border shadow-sm ${
-                isDark
-                  ? "bg-[#131322] border-[#242338] text-[#C084FC] shadow-purple-500/10"
-                  : "bg-white border-[#E4E4F2] text-[#7C3AED] shadow-sm"
-              }`}
-            >
-              <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" animate={false} />
-              <span>{socialLinks.greeting || "HELLO, I'M"}</span>
-              <span className="w-1 h-1 rounded-full bg-current opacity-60" />
-              <span className="text-emerald-400 font-semibold">ONLINE</span>
-            </motion.div>
+          {/* Left Column: Introduction & Headline (approx 44% width) */}
+          <div className="w-full lg:w-[44%] flex flex-col items-start z-10">
 
-            {/* Oversized Adelina Heading with Clamp & Clean Word Wrap */}
-            <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className={`text-[clamp(1.85rem,6.8vw,4.5rem)] font-display font-extrabold tracking-tight leading-[1.08] mb-4 break-normal max-w-full ${
-                isDark ? "text-white" : "text-[#0F172A]"
-              }`}
-            >
-              {socialLinks.name.toUpperCase()}
-              <span className="text-[#8B5CF6]">.</span>
-            </motion.h1>
-
-            {/* Professional Subheading with Highlight Tag */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-6 max-w-full"
-            >
-              <span
-                className={`text-xl sm:text-3xl md:text-4xl font-display font-bold break-normal ${
-                  isDark ? "text-gradient-adelina" : "text-gradient-adelina-light"
-                }`}
-              >
-                {socialLinks.title}
+            {/* Small Introduction */}
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="w-6 h-[2px] bg-[#A78BFA] inline-block" />
+              <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#A1A1AA]">
+                HELLO, I'M
               </span>
+            </div>
 
-              <span className="inline-block px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-mono font-bold rounded-xl bg-gradient-to-r from-[#8B5CF6]/20 to-[#EC4899]/20 border border-[#8B5CF6]/40 text-[#C084FC] -rotate-1 sm:-rotate-2 whitespace-nowrap">
-                FULL-STACK &amp; SYSTEMS
-              </span>
-            </motion.div>
+            {/* Main Heading — Responsive with clamp */}
+            <h1 className="text-[clamp(1.85rem,6.5vw,2.875rem)] lg:text-[46px] font-sans font-black text-white tracking-tight leading-tight lg:leading-none mb-1.5 whitespace-normal sm:whitespace-nowrap break-words">
+              Nash Keneth<span className="text-[#A78BFA]">.</span>
+            </h1>
 
-            {/* Tagline / Introduction */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className={`text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mb-8 font-normal ${
-                isDark ? "text-[#9E9EB8]" : "text-[#475569]"
-              }`}
-            >
-              {socialLinks.tagline}
-            </motion.p>
+            {/* Professional Subtitle */}
+            <h2 className="text-sm sm:text-base lg:text-xl font-sans font-bold text-white/95 tracking-tight mb-2 break-words">
+              Aspiring Full-Stack Web Developer
+            </h2>
 
-            {/* Primary Action Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-10"
-            >
+            {/* Narrative Description */}
+            <p className="text-xs sm:text-[13px] text-[#A1A1AA] leading-relaxed max-w-[430px] mb-4">
+              I build modern, responsive, and functional web applications, management systems, and digital solutions that turn ideas into real-world impact.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               <a
                 href="#projects"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const target = document.querySelector('#projects');
-                  if (target) {
-                    const navOffset = 80;
-                    const targetPos = target.getBoundingClientRect().top + (window.pageYOffset || window.scrollY || 0) - navOffset;
-                    window.scrollTo({ top: Math.max(0, targetPos), behavior: 'smooth' });
-                  }
-                }}
-                className={`w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-4 rounded-2xl font-heading font-bold text-sm text-white transition-all duration-300 shadow-lg hover:-translate-y-1 ${
-                  isDark
-                    ? "bg-gradient-to-r from-[#8B5CF6] via-[#7C3AED] to-[#EC4899] hover:shadow-glow-purple"
-                    : "bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] hover:shadow-md"
-                }`}
+                onClick={handleScrollToProjects}
+                className="px-4 py-2 rounded-full bg-white text-black text-xs font-bold inline-flex items-center gap-2 hover:bg-zinc-200 transition-all duration-200 active:scale-95 shadow-sm"
               >
                 <span>View My Projects</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </a>
 
               <a
                 href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const target = document.querySelector('#contact');
-                  if (target) {
-                    const navOffset = 80;
-                    const targetPos = target.getBoundingClientRect().top + (window.pageYOffset || window.scrollY || 0) - navOffset;
-                    window.scrollTo({ top: Math.max(0, targetPos), behavior: 'smooth' });
-                  }
-                }}
-                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl font-heading font-bold text-sm border transition-all duration-300 hover:-translate-y-1 ${
-                  isDark
-                    ? "bg-[#131322] border-[#242338] text-white hover:border-[#8B5CF6] hover:text-[#C084FC]"
-                    : "bg-white border-[#E4E4F2] text-[#0F172A] hover:border-[#7C3AED] hover:text-[#7C3AED] shadow-sm"
-                }`}
+                onClick={handleContactClick}
+                className="text-xs font-semibold text-white underline underline-offset-4 hover:text-[#A78BFA] transition-colors py-1"
               >
-                <Mail className="w-4 h-4" />
-                <span>Contact Me</span>
+                Contact Me
               </a>
+            </div>
 
-              {/* Social shortcuts */}
-              <div className="flex items-center gap-2 pt-2 sm:pt-0">
+          </div>
+
+          {/* Middle: Portrait Image with Diagonal Cut matching IMAGE 1 (approx 42% width) */}
+          <div className="w-full lg:w-[42%] flex items-center justify-center relative my-2 lg:my-0">
+            <div className="relative z-10 w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[390px] flex items-center justify-center">
+              <img
+                src="/images/hero-mockup-portrait.png"
+                alt="Nash Keneth"
+                className="w-full h-auto max-h-[220px] sm:max-h-[260px] lg:max-h-[300px] object-contain object-center"
+              />
+            </div>
+          </div>
+
+          {/* Far Right: Availability & Social Links (approx 14% width) */}
+          <div className="w-full lg:w-[14%] flex flex-col items-center lg:items-start justify-center z-10 pt-2 lg:pt-0">
+
+            {/* Availability Indicator */}
+            <div className="inline-flex items-center gap-2 mb-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse flex-shrink-0" />
+              <span className="text-[11px] font-mono font-medium text-white/90 whitespace-nowrap">
+                Available for opportunities
+              </span>
+            </div>
+
+            {/* Subtle Horizontal Divider */}
+            <div className="w-12 h-[1px] bg-[#262626] my-2 sm:my-2.5" />
+
+            {/* Social Icons Row */}
+            <div className="flex items-center justify-center gap-2 sm:gap-2.5">
+              {socialLinks.github && (
                 <a
                   href={socialLinks.github}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-lg border border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040] flex items-center justify-center transition-colors"
+                  title="GitHub"
                   aria-label="GitHub"
-                  className={`p-3.5 rounded-2xl border transition-all duration-200 hover:-translate-y-1 ${
-                    isDark
-                      ? "bg-[#131322] border-[#242338] text-[#9E9EB8] hover:text-white hover:border-[#8B5CF6]"
-                      : "bg-white border-[#E4E4F2] text-[#64748B] hover:text-[#0F172A] hover:border-[#7C3AED] shadow-sm"
-                  }`}
-                  title="GitHub Profile"
                 >
-                  <Github className="w-4 h-4" />
+                  <Github className="w-3.5 h-3.5" />
                 </a>
+              )}
 
+              {socialLinks.facebook && (
                 <a
                   href={socialLinks.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Facebook"
-                  className={`p-3.5 rounded-2xl border transition-all duration-200 hover:-translate-y-1 ${
-                    isDark
-                      ? "bg-[#131322] border-[#242338] text-[#9E9EB8] hover:text-[#3B82F6] hover:border-[#3B82F6]/50"
-                      : "bg-white border-[#E4E4F2] text-[#64748B] hover:text-[#2563EB] hover:border-[#2563EB]/50 shadow-sm"
-                  }`}
+                  className="w-8 h-8 rounded-lg border border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040] flex items-center justify-center transition-colors"
                   title="Facebook"
+                  aria-label="Facebook"
                 >
-                  <Facebook className="w-4 h-4" />
+                  <Facebook className="w-3.5 h-3.5" />
                 </a>
+              )}
 
+              {socialLinks.instagram && (
                 <a
                   href={socialLinks.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Instagram"
-                  className={`p-3.5 rounded-2xl border transition-all duration-200 hover:-translate-y-1 ${
-                    isDark
-                      ? "bg-[#131322] border-[#242338] text-[#9E9EB8] hover:text-[#EC4899] hover:border-[#EC4899]/50"
-                      : "bg-white border-[#E4E4F2] text-[#64748B] hover:text-[#DB2777] hover:border-[#DB2777]/50 shadow-sm"
-                  }`}
+                  className="w-8 h-8 rounded-lg border border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040] flex items-center justify-center transition-colors"
                   title="Instagram"
+                  aria-label="Instagram"
                 >
-                  <Instagram className="w-4 h-4" />
+                  <Instagram className="w-3.5 h-3.5" />
                 </a>
-              </div>
-            </motion.div>
+              )}
 
-            {/* Quick Metrics Bar */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="grid grid-cols-3 gap-2 sm:gap-6 md:gap-10 pt-8 border-t border-gray-700/20 dark:border-gray-800/80 w-full max-w-lg"
-            >
-              <div>
-                <p className={`text-xl sm:text-3xl md:text-4xl font-display font-extrabold whitespace-nowrap ${isDark ? "text-white" : "text-[#0F172A]"}`}>
-                  3
-                </p>
-                <p className={`text-[10px] sm:text-xs font-mono mt-1 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                  Core Systems
-                </p>
-              </div>
-
-              <div>
-                <p className="text-xl sm:text-3xl md:text-4xl font-display font-extrabold text-gradient-purple whitespace-nowrap">
-                  100%
-                </p>
-                <p className={`text-[10px] sm:text-xs font-mono mt-1 ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                  Responsive
-                </p>
-              </div>
-
-              <div>
-                <p className={`text-xl sm:text-3xl md:text-4xl font-display font-extrabold whitespace-nowrap ${isDark ? "text-[#38BDF8]" : "text-[#0284C7]"}`}>
-                  Full-Stack
-                </p>
-                <p className={`text-[10px] sm:text-xs font-mono mt-1 whitespace-nowrap ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                  React + DBs
-                </p>
-              </div>
-            </motion.div>
-
-          </div>
-
-          {/* Right Column: Profile with Floating Tech Icons (5 cols) */}
-          <div className="lg:col-span-5 relative flex flex-col items-center w-full">
-            
-            {/* Floating Tech Badge 1: React & JS */}
-            <motion.div
-              animate={{ y: [-6, 6, -6], rotate: [-2, 2, -2] }}
-              transition={{ repeat: Infinity, duration: 5.5, ease: "easeInOut" }}
-              className={`hidden md:flex absolute -top-6 -left-4 lg:-top-8 lg:-left-8 z-30 items-center gap-2 px-3.5 py-1.5 lg:px-4 lg:py-2 rounded-2xl border backdrop-blur-md shadow-lg ${
-                isDark
-                  ? "bg-[#18182B]/95 border-[#242338] text-[#38BDF8] shadow-black/40"
-                  : "bg-white/95 border-[#E4E4F2] text-[#0284C7] shadow-slate-200"
-              }`}
-            >
-              <Code2 className="w-4 h-4 text-[#61DAFB]" />
-              <span className="text-xs font-mono font-bold">React.js &amp; JS (ES6+)</span>
-            </motion.div>
-
-            {/* Floating Tech Badge 2: PostgreSQL & Supabase */}
-            <motion.div
-              animate={{ y: [6, -6, 6], rotate: [2, -2, 2] }}
-              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-              className={`hidden md:flex absolute -bottom-5 -right-4 lg:-bottom-6 lg:-right-6 z-30 items-center gap-2 px-3.5 py-1.5 lg:px-4 lg:py-2 rounded-2xl border backdrop-blur-md shadow-lg ${
-                isDark
-                  ? "bg-[#18182B]/95 border-[#242338] text-[#C084FC] shadow-purple-500/10"
-                  : "bg-white/95 border-[#E4E4F2] text-[#7C3AED] shadow-violet-500/10"
-              }`}
-            >
-              <Database className="w-4 h-4 text-[#A855F7]" />
-              <span className="text-xs font-mono font-bold">PostgreSQL &amp; MySQL</span>
-            </motion.div>
-
-            {/* Profile Card Container with Dual-Picture Support */}
-            <div className="w-full max-w-md">
-              <ProfileCard />
+              {socialLinks.linkedin && (
+                <a
+                  href={socialLinks.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-lg border border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040] flex items-center justify-center transition-colors"
+                  title="LinkedIn"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-3.5 h-3.5" />
+                </a>
+              )}
             </div>
 
           </div>

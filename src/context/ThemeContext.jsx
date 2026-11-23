@@ -10,9 +10,7 @@ export const ThemeProvider = ({ children }) => {
       if (saved === 'dark' || saved === 'light') {
         return saved;
       }
-      // 2. Check system preference
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      return prefersDark ? 'dark' : 'light';
+      return 'dark';
     }
     return 'dark';
   });

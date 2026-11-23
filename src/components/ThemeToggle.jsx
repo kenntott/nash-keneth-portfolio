@@ -11,10 +11,10 @@ export const ThemeToggle = ({ className = "" }) => {
       onClick={toggleTheme}
       type="button"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className={`relative p-2.5 rounded-2xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50 ${
+      className={`relative p-2 rounded-full border transition-all duration-200 focus:outline-none ${
         isDark
-          ? "bg-[#131322]/90 border-[#242338] text-[#C084FC] hover:border-[#8B5CF6]/60 hover:bg-[#18182B] hover:shadow-glow-purple-sm"
-          : "bg-white border-[#E4E4F2] text-[#7C3AED] hover:border-[#7C3AED]/50 hover:bg-violet-50/50 shadow-sm"
+          ? "bg-[#141414] border-[#262626] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
+          : "bg-white border-[#E4E4E7] text-[#71717A] hover:text-black hover:border-[#A1A1AA]"
       } ${className}`}
       title={isDark ? "Activate Light Mode" : "Activate Dark Mode"}
     >

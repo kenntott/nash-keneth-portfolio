@@ -6,7 +6,7 @@ export const socialLinks = {
   title: "Aspiring Full-Stack Web Developer",
   tagline: "I build modern, responsive, and functional web applications, management systems, and digital solutions that turn ideas into real-world impact.",
   location: "Polomolok, South Cotabato, Philippines",
-  status: "Available for Projects & Opportunities",
+  status: "Available for opportunities",
   isAvailable: true,
   email: "barzonashkenneth@gmail.com",
   github: "https://github.com/kenntott",
@@ -15,5 +15,6 @@ export const socialLinks = {
   facebookUsername: "Nash Keneth",
   instagram: "https://www.instagram.com/nshkenn?rpxt=Y2djMHFzOWpyOXZ1",
   instagramUsername: "@nshkenn",
+  linkedin: "https://www.linkedin.com/in/nash-keneth-barzo/",
   resumePath: "/Nash_Keneth_Barzo_CV.pdf",
 };

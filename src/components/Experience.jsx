@@ -1,155 +1,118 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Target, 
-  Code2, 
-  Database, 
-  Sparkles, 
-  ShieldCheck, 
-  CloudUpload,
-  ArrowRight
-} from 'lucide-react';
+import { Calendar, Briefcase, GraduationCap } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
-import { Starburst } from './Starburst';
 import { AnimatedSection } from './AnimatedSection';
-import { experienceTimeline } from '../data/experience';
-
-const iconMap = {
-  Target,
-  Code2,
-  Database,
-  Sparkles,
-  ShieldCheck,
-  CloudUpload,
-};
+import { journeyMilestones } from '../data/experience';
 
 export const Experience = () => {
   const { isDark } = useTheme();
 
   return (
-    <AnimatedSection id="experience" className="py-24 md:py-36 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <AnimatedSection id="journey" className="py-8 lg:py-10 border-b border-[#1c1c1c] relative">
+      <div className="max-w-[1480px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 w-full">
         
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-20">
-          <div
-            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider uppercase mb-4 border ${
-              isDark
-                ? "bg-[#131322] border-[#242338] text-[#C084FC]"
-                : "bg-violet-50 border-violet-200 text-[#7C3AED]"
-            }`}
-          >
-            <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" />
-            <span>ENGINEERING PROCESS</span>
+        <div className="mb-8 sm:mb-12 lg:mb-14 max-w-2xl">
+          <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3">
+            <span className="w-6 h-[2px] bg-[#A78BFA]" />
+            <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#A1A1AA]">
+              MY JOURNEY
+            </span>
           </div>
 
           <h2
-            className={`text-[clamp(1.5rem,5vw,3.5rem)] font-display font-extrabold tracking-tight mb-4 break-normal ${
-              isDark ? "text-white" : "text-[#0F172A]"
+            className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-extrabold tracking-tight ${
+              isDark ? "text-white" : "text-[#09090B]"
             }`}
           >
-            MY DEVELOPMENT <span className="text-gradient-purple italic pr-2">JOURNEY.</span>
+            Learning through building<span className="text-[#A78BFA]">.</span>
           </h2>
 
           <p
-            className={`text-base sm:text-lg md:text-xl leading-relaxed ${
-              isDark ? "text-[#9E9EB8]" : "text-[#64748B]"
+            className={`text-sm sm:text-base lg:text-lg mt-2 sm:mt-3 leading-relaxed ${
+              isDark ? "text-[#A1A1AA]" : "text-[#52525B]"
             }`}
           >
-            How I transform project requirements into production-ready web applications and robust information systems.
+            A timeline of milestones, academic progress, and software systems I've developed.
           </p>
         </div>
 
-        {/* Timeline Grid (6 Lifecycle Stages) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {experienceTimeline.map((item, idx) => {
-            const Icon = iconMap[item.icon] || Code2;
-            return (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
-                whileHover={{ y: -6 }}
-                className={`p-5 sm:p-7 md:p-8 rounded-3xl border transition-all duration-300 flex flex-col justify-between group relative overflow-hidden ${
+        {/* Minimalist Vertical Timeline */}
+        <div className="relative border-l border-[#262626] ml-2.5 sm:ml-6 pl-5 sm:pl-10 space-y-8 sm:space-y-12">
+          {journeyMilestones.map((milestone, idx) => (
+            <motion.div
+              key={milestone.id}
+              initial={{ opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: idx * 0.08 }}
+              className="relative group"
+            >
+              {/* Timeline Dot Indicator */}
+              <div className="absolute -left-[27px] sm:-left-[47px] top-1.5 w-3 h-3 rounded-full bg-[#141414] border-2 border-[#A78BFA] group-hover:scale-125 transition-transform" />
+
+              {/* Milestone Content Card */}
+              <div
+                className={`p-4 sm:p-7 rounded-2xl border transition-all duration-300 group-hover:border-[#404040] ${
                   isDark
-                    ? "bg-[#131322] border-[#242338] hover:border-[#8B5CF6]/70 hover:shadow-glow-purple-sm hover:bg-[#18182B]"
-                    : "bg-white border-[#E4E4F2] hover:border-[#7C3AED]/50 hover:shadow-card-light shadow-sm"
+                    ? "bg-[#141414] border-[#262626] shadow-card-dark"
+                    : "bg-white border-[#E4E4E7] shadow-card-light"
                 }`}
               >
-                <div>
-                  {/* Step Badge and Icon */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div
-                      className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all duration-300 group-hover:scale-110 ${
-                        isDark
-                          ? "bg-[#0E0E18] border-[#242338] text-[#C084FC] group-hover:border-[#8B5CF6]"
-                          : "bg-violet-50 border-violet-100 text-[#7C3AED] group-hover:border-[#7C3AED]"
-                      }`}
-                    >
-                      <Icon className="w-6 h-6" />
-                    </div>
-
-                    <span className="text-xs font-mono font-bold px-3 py-1 rounded-full border bg-gradient-to-r from-[#8B5CF6]/15 to-[#EC4899]/15 border-[#8B5CF6]/40 text-[#C084FC]">
-                      STAGE {item.step}
-                    </span>
-                  </div>
-
-                  {/* Title & Role */}
-                  <h3
-                    className={`text-xl sm:text-2xl font-display font-bold mb-1 transition-colors ${
-                      isDark ? "text-white group-hover:text-[#C084FC]" : "text-[#0F172A] group-hover:text-[#7C3AED]"
-                    }`}
-                  >
-                    {item.title}
-                  </h3>
-
-                  <p className="text-xs font-mono font-bold text-[#8B5CF6] mb-3">
-                    {item.role}
-                  </p>
-
-                  <p
-                    className={`text-xs sm:text-sm leading-relaxed mb-6 ${
-                      isDark ? "text-[#9E9EB8]" : "text-[#64748B]"
-                    }`}
-                  >
-                    {item.description}
-                  </p>
+                {/* Period & Institution Tag */}
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                  <span className="text-xs font-mono font-bold text-[#A78BFA]">
+                    {milestone.period}
+                  </span>
+                  <span className="text-xs font-mono text-[#A1A1AA]">
+                    {milestone.institution}
+                  </span>
                 </div>
 
-                {/* Key Deliverables & Tech */}
-                <div>
-                  <div className="space-y-2 pt-4 border-t border-dashed border-gray-700/20 dark:border-gray-800 mb-4">
-                    {item.deliverables?.map((del, dIdx) => (
-                      <div key={dIdx} className="flex items-center gap-2 text-xs">
-                        <Starburst className="w-3 h-3 text-[#8B5CF6]" animate={false} />
-                        <span className={isDark ? "text-gray-300" : "text-gray-700 font-medium"}>
-                          {del}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                {/* Milestone Title */}
+                <h3
+                  className={`text-lg sm:text-xl font-display font-bold mb-3 ${
+                    isDark ? "text-white" : "text-black"
+                  }`}
+                >
+                  {milestone.title}
+                </h3>
 
-                  <div className="flex flex-wrap gap-1.5 pt-3">
-                    {item.technologies.map((tech) => (
+                {/* Description */}
+                <p
+                  className={`text-xs sm:text-sm leading-relaxed mb-4 ${
+                    isDark ? "text-[#A1A1AA]" : "text-[#52525B]"
+                  }`}
+                >
+                  {milestone.description}
+                </p>
+
+                {/* Relevant Project & Technologies */}
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-[#262626]/50">
+                  <span className="text-xs font-mono font-medium text-[#E4E4E7]">
+                    Project: <span className="text-[#A78BFA]">{milestone.project}</span>
+                  </span>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {milestone.tech.map((t) => (
                       <span
-                        key={tech}
-                        className={`text-[10px] font-mono px-2 py-0.5 rounded-md border ${
+                        key={t}
+                        className={`text-[10px] sm:text-[11px] font-mono px-2 py-0.5 rounded border ${
                           isDark
-                            ? "bg-[#07070B] border-[#242338] text-gray-400"
-                            : "bg-slate-100 border-[#E4E4F2] text-gray-600"
+                            ? "bg-[#101010] border-[#262626] text-[#A1A1AA]"
+                            : "bg-[#F4F4F5] border-[#E4E4E7] text-[#52525B]"
                         }`}
                       >
-                        {tech}
+                        {t}
                       </span>
                     ))}
                   </div>
                 </div>
 
-              </motion.div>
-            );
-          })}
+              </div>
+            </motion.div>
+          ))}
         </div>
 
       </div>

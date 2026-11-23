@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Github, FileDown, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Menu, X, Github, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../hooks/useTheme';
 import { ThemeToggle } from './ThemeToggle';
-import { Starburst } from './Starburst';
 import { socialLinks } from '../data/socialLinks';
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Journey", href: "#experience" },
-  { name: "Resume", href: "#resume" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "#home", id: "home" },
+  { name: "About", href: "#about", id: "about" },
+  { name: "Projects", href: "#projects", id: "projects" },
+  { name: "Skills", href: "#skills", id: "skills" },
+  { name: "Journey", href: "#journey", id: "journey" },
+  { name: "Contact", href: "#contact", id: "contact" },
 ];
 
 export const Navbar = () => {
@@ -25,173 +23,211 @@ export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
+  // Active section tracking with IntersectionObserver + edge scroll fallback
   useEffect(() => {
+    const sectionIds = ['home', 'about', 'projects', 'skills', 'journey', 'contact'];
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 15);
 
-      const sections = ['home', 'about', 'skills', 'projects', 'experience', 'resume', 'contact'];
-      const scrollPosition = window.scrollY + 130;
+      // Edge case: Top of page
+      if (window.scrollY < 80) {
+        setActiveSection('home');
+        return;
+      }
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
-        }
+      // Edge case: Bottom of page reached
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
+        setActiveSection('contact');
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // IntersectionObserver to accurately track the active section
+    const visibleRatios = {};
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          visibleRatios[entry.target.id] = entry.intersectionRatio;
+        });
+
+        // Only update via observer if not at extreme top or bottom
+        if (
+          window.scrollY >= 80 &&
+          window.innerHeight + window.scrollY < document.documentElement.scrollHeight - 60
+        ) {
+          let maxRatio = 0;
+          let bestId = null;
+
+          sectionIds.forEach((id) => {
+            const ratio = visibleRatios[id] || 0;
+            if (ratio > maxRatio) {
+              maxRatio = ratio;
+              bestId = id;
+            }
+          });
+
+          if (bestId && maxRatio > 0.05) {
+            setActiveSection(bestId);
+          }
+        }
+      },
+      {
+        root: null,
+        rootMargin: '-70px 0px -40% 0px',
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0]
+      }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
-  // Handle direct URL hash landing on mount
+  // Handle direct landing URL hashes and browser Back / Forward
   useEffect(() => {
-    if (window.location.hash) {
+    const handleHashNavigation = (instant = false) => {
       const hash = window.location.hash;
-      const timer = setTimeout(() => {
-        const target = document.querySelector(hash);
-        if (target) {
-          const navOffset = 80;
-          const currentScroll = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
-          const targetPos = target.getBoundingClientRect().top + currentScroll - navOffset;
-          window.scrollTo({
-            top: Math.max(0, targetPos),
-            behavior: 'smooth'
-          });
-          setActiveSection(hash.replace('#', ''));
-        }
-      }, 300);
-      return () => clearTimeout(timer);
-    }
+      if (!hash) return;
+      const targetId = hash.replace('#', '');
+      const validIds = ['home', 'about', 'projects', 'skills', 'journey', 'contact'];
+      if (!validIds.includes(targetId)) return;
+
+      if (targetId === 'home') {
+        window.scrollTo({ top: 0, behavior: instant ? 'auto' : 'smooth' });
+        setActiveSection('home');
+        return;
+      }
+
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: instant ? 'auto' : 'smooth' });
+        setActiveSection(targetId);
+      }
+    };
+
+    // Immediate jump for direct URL landings and page refresh
+    handleHashNavigation(true);
+    const timer = setTimeout(() => handleHashNavigation(true), 150);
+
+    const onHashChange = () => handleHashNavigation(false);
+    const onPopState = () => handleHashNavigation(true);
+
+    window.addEventListener('hashchange', onHashChange);
+    window.addEventListener('popstate', onPopState);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('hashchange', onHashChange);
+      window.removeEventListener('popstate', onPopState);
+    };
   }, []);
 
   const handleNavClick = (e, href) => {
-    if (e) {
-      e.preventDefault();
-    }
+    if (e) e.preventDefault();
     setMobileMenuOpen(false);
 
-    // If navigating from a separate route (e.g., project details page), navigate to home with target hash
     if (location.pathname !== '/') {
       navigate(`/${href}`);
       return;
     }
 
-    // Update address bar hash smoothly
-    if (window.history.pushState) {
-      window.history.pushState(null, '', href);
+    const targetId = href.replace('#', '');
+
+    if (targetId === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setActiveSection('home');
+      if (window.history.pushState) {
+        window.history.pushState(null, '', '#home');
+      }
+      return;
     }
 
-    const scrollToTarget = () => {
-      if (href === '#home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setActiveSection('home');
-        return;
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+      setActiveSection(targetId);
+      if (window.history.pushState) {
+        window.history.pushState(null, '', href);
       }
-
-      const target = document.querySelector(href);
-      if (target) {
-        const navOffset = 80;
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
-        const targetPos = target.getBoundingClientRect().top + currentScroll - navOffset;
-
-        window.scrollTo({
-          top: Math.max(0, targetPos),
-          behavior: 'smooth'
-        });
-
-        const sectionId = href.replace('#', '');
-        setActiveSection(sectionId);
-      }
-    };
-
-    // First attempt immediately
-    scrollToTarget();
-
-    // Second attempt after 120ms to ensure mobile drawer collapse & touch release don't cancel smooth scrolling
-    setTimeout(scrollToTarget, 120);
+    }
   };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? isDark
-            ? "glass-nav-dark py-3.5 shadow-xl shadow-black/40"
-            : "glass-nav-light py-3.5 shadow-sm"
-          : "bg-transparent py-4 sm:py-5"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 border-b ${
+        isDark
+          ? "bg-[#080808]/95 border-[#1c1c1c] text-white"
+          : "bg-white/95 border-[#E4E4E7] text-black"
+      } backdrop-blur-md`}
     >
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+      <div className="max-w-[1480px] mx-auto px-4 sm:px-6 md:px-6 lg:px-12">
+        <div className="flex items-center justify-between h-[65px] gap-2">
           
-          {/* Circular Logo */}
-          <a
-            href="#home"
-            onClick={(e) => handleNavClick(e, '#home')}
-            className="flex items-center gap-3 group focus:outline-none"
-          >
-            <div
-              className={`relative w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center p-0.5 border-2 transition-all duration-300 group-hover:scale-105 overflow-hidden flex-shrink-0 shadow-md ${
-                isDark
-                  ? "border-[#8B5CF6]/70 bg-[#0B0F19] shadow-glow-purple-sm"
-                  : "border-[#7C3AED]/70 bg-white shadow-sm"
-              }`}
+          {/* Brand Monogram & Name with Vertical Separator */}
+          <div className="flex items-center min-w-0 flex-shrink-0">
+            <a
+              href="#home"
+              onClick={(e) => handleNavClick(e, '#home')}
+              className="flex items-center group cursor-pointer min-w-0"
             >
-              <img
-                src="/images/logo.webp"
-                alt="NK Logo"
-                className="w-full h-full object-cover rounded-full"
-              />
-              <span className="absolute -top-1 -right-1 pointer-events-none">
-                <Starburst className="w-2.5 h-2.5 text-[#C084FC]" animate={false} />
-              </span>
-            </div>
+              {/* NK. Monogram badge */}
+              <div className="text-lg sm:text-xl font-display font-black tracking-tight text-white px-2 sm:px-2.5 py-0.5 rounded border border-[#262626] bg-[#141414] group-hover:border-[#A78BFA]/70 transition-colors flex-shrink-0">
+                NK<span className="text-[#A78BFA]">.</span>
+              </div>
 
-            <div className="flex flex-col">
-              <span
-                className={`font-display font-bold text-base sm:text-lg tracking-tight transition-colors whitespace-nowrap ${
-                  isDark ? "text-white" : "text-[#0F172A]"
-                }`}
-              >
-                {socialLinks.name}<span className="text-[#8B5CF6]">.</span>
-              </span>
-              <span className={`text-[10px] font-mono tracking-wider uppercase whitespace-nowrap ${isDark ? "text-[#9E9EB8]" : "text-[#64748B]"}`}>
-                Full-Stack Dev
-              </span>
-            </div>
-          </a>
+              {/* Vertical separator - always visible with proportional spacing */}
+              <div className="h-5 sm:h-6 w-[1px] bg-[#262626] mx-2 sm:mx-3 flex-shrink-0" />
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+              {/* Name & Title */}
+              <div className="flex flex-col min-w-0">
+                <span className={`text-xs sm:text-sm md:text-base font-display font-bold tracking-tight leading-tight transition-colors truncate ${
+                  isDark ? "text-white group-hover:text-[#A78BFA]" : "text-black group-hover:text-[#7C3AED]"
+                }`}>
+                  Nash Keneth
+                </span>
+                <span className="text-[8px] sm:text-[9px] font-mono tracking-wider sm:tracking-widest uppercase text-[#71717A] leading-tight mt-0.5 truncate">
+                  FULL-STACK DEVELOPER
+                </span>
+              </div>
+            </a>
+          </div>
+
+          {/* Center Navigation Links (Desktop & Tablet) */}
+          <nav className="hidden md:flex items-center gap-3.5 lg:gap-7 xl:gap-8 flex-shrink-0">
             {navLinks.map((link) => {
-              const targetId = link.href.substring(1);
-              const isActive = activeSection === targetId;
+              const isActive = activeSection === link.id;
               return (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  className={`relative py-1 text-xs lg:text-sm font-medium transition-colors flex flex-col items-center whitespace-nowrap ${
                     isActive
                       ? isDark
                         ? "text-white font-semibold"
-                        : "text-[#7C3AED] font-semibold"
+                        : "text-black font-semibold"
                       : isDark
-                      ? "text-[#9E9EB8] hover:text-white hover:bg-[#131322]"
-                      : "text-[#64748B] hover:text-[#0F172A] hover:bg-violet-50/60"
+                      ? "text-[#A1A1AA] hover:text-white"
+                      : "text-[#71717A] hover:text-black"
                   }`}
                 >
                   <span>{link.name}</span>
                   {isActive && (
-                    <motion.div
-                      layoutId="activeNavBadge"
-                      className={`absolute bottom-0.5 left-3 right-3 h-0.5 rounded-full ${
-                        isDark ? "bg-gradient-to-r from-[#A855F7] to-[#EC4899]" : "bg-[#7C3AED]"
+                    <motion.span
+                      layoutId="navIndicator"
+                      className={`absolute -bottom-1 left-0 right-0 h-[2px] rounded-full ${
+                        isDark ? "bg-white" : "bg-black"
                       }`}
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      transition={{ type: "spring", stiffness: 450, damping: 35 }}
                     />
                   )}
                 </a>
@@ -199,52 +235,55 @@ export const Navbar = () => {
             })}
           </nav>
 
-          {/* Desktop Right Actions: GitHub, Theme Toggle, Download CV */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Right Actions (Desktop & Tablet) */}
+          <div className="hidden md:flex items-center gap-2 lg:gap-2.5 flex-shrink-0">
+            {/* GitHub Button */}
             <a
               href={socialLinks.github}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="GitHub Profile"
-              className={`p-2.5 rounded-2xl border transition-all duration-200 hover:-translate-y-0.5 ${
+              className={`w-8 h-8 lg:w-9 lg:h-9 rounded-full border flex items-center justify-center transition-all duration-200 ${
                 isDark
-                  ? "bg-[#131322] border-[#242338] text-[#9E9EB8] hover:text-white hover:border-[#8B5CF6]/50"
-                  : "bg-white border-[#E4E4F2] text-[#64748B] hover:text-[#0F172A] hover:border-[#7C3AED]/40 shadow-sm"
+                  ? "border-[#262626] bg-[#141414] text-[#A1A1AA] hover:text-white hover:border-[#404040]"
+                  : "border-[#E4E4E7] bg-white text-[#71717A] hover:text-black hover:border-[#A1A1AA]"
               }`}
               title="GitHub Profile"
+              aria-label="GitHub Profile"
             >
               <Github className="w-4 h-4" />
             </a>
 
+            {/* Theme Toggle */}
             <ThemeToggle />
 
+            {/* Download CV Pill */}
             <a
               href={socialLinks.resumePath}
               download="Nash_Keneth_Barzo_CV.pdf"
-              className={`flex items-center gap-2 px-5 py-2.5 text-xs font-bold font-heading rounded-2xl transition-all duration-300 shadow-sm hover:-translate-y-0.5 ${
+              className={`inline-flex items-center gap-1.5 lg:gap-2 px-3 lg:px-4 py-1.5 rounded-full text-xs font-mono font-medium border transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap ${
                 isDark
-                  ? "bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white hover:shadow-glow-purple"
-                  : "bg-[#7C3AED] text-white hover:bg-[#6D28D9] hover:shadow-md"
+                  ? "border-[#262626] bg-[#141414] text-white hover:bg-[#1C1C1C] hover:border-[#404040]"
+                  : "border-[#E4E4E7] bg-white text-black hover:bg-[#F4F4F5] hover:border-[#A1A1AA] shadow-sm"
               }`}
+              title="Download Nash Keneth CV"
             >
-              <FileDown className="w-3.5 h-3.5" />
-              <span>Download CV</span>
+              <Download className="w-3.5 h-3.5 flex-shrink-0" />
+              <span><span className="hidden lg:inline">Download </span>CV</span>
             </a>
           </div>
 
-          {/* Mobile Right Actions */}
-          <div className="flex items-center gap-2 md:hidden">
+          {/* Mobile Menu Toggle */}
+          <div className="flex md:hidden items-center gap-1.5 sm:gap-2 flex-shrink-0">
             <ThemeToggle />
-            
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               type="button"
-              aria-label="Toggle navigation menu"
-              className={`p-2.5 rounded-2xl border transition-colors ${
+              className={`p-2 rounded-lg border transition-colors ${
                 isDark
-                  ? "bg-[#131322] border-[#242338] text-white"
-                  : "bg-white border-[#E4E4F2] text-[#0F172A] shadow-sm"
+                  ? "border-[#262626] bg-[#141414] text-white hover:bg-[#1C1C1C]"
+                  : "border-[#E4E4E7] bg-white text-black hover:bg-[#F4F4F5]"
               }`}
+              aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -253,85 +292,53 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown & Backdrop */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <>
-            {/* Backdrop to close menu when tapping outside */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 top-[68px] bg-black/60 backdrop-blur-sm z-40 md:hidden"
-            />
-
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-              className={`md:hidden border-b overflow-y-auto max-h-[calc(100vh-5rem)] relative z-50 ${
-                isDark
-                  ? "bg-[#07070B]/98 border-[#242338] backdrop-blur-2xl shadow-2xl"
-                  : "bg-white/98 border-[#E4E4F2] backdrop-blur-2xl shadow-xl"
-              }`}
-            >
-              <div className="max-w-7xl mx-auto px-5 pt-4 pb-7 space-y-2">
-                {navLinks.map((link) => {
-                  const targetId = link.href.substring(1);
-                  const isActive = activeSection === targetId;
-                  return (
-                    <a
-                      key={link.name}
-                      href={link.href}
-                      onClick={(e) => handleNavClick(e, link.href)}
-                      className={`flex items-center justify-between px-4 py-3 rounded-2xl text-base font-medium transition-all cursor-pointer touch-manipulation select-none active:scale-[0.98] ${
-                        isActive
-                          ? isDark
-                            ? "text-white bg-[#18182B] border-l-4 border-[#8B5CF6]"
-                            : "text-[#7C3AED] bg-violet-50 border-l-4 border-[#7C3AED]"
-                          : isDark
-                          ? "text-[#9E9EB8] hover:text-white hover:bg-[#131322]"
-                          : "text-[#64748B] hover:text-[#0F172A] hover:bg-slate-50"
-                      }`}
-                    >
-                      <span>{link.name}</span>
-                      {isActive && <Starburst className="w-3.5 h-3.5 text-[#8B5CF6]" />}
-                    </a>
-                  );
-                })}
-
-                <div className="pt-4 mt-2 border-t border-dashed border-gray-700/30 dark:border-gray-800 flex items-center justify-between gap-3">
-                  <a
-                    href={socialLinks.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl border text-sm font-medium touch-manipulation cursor-pointer ${
-                      isDark
-                        ? "bg-[#131322] border-[#242338] text-white"
-                        : "bg-slate-50 border-[#E4E4F2] text-[#0F172A]"
-                    }`}
-                  >
-                    <Github className="w-4 h-4" />
-                    <span>GitHub</span>
-                  </a>
-
-                  <a
-                    href={socialLinks.resumePath}
-                    download="Nash_Keneth_Barzo_CV.pdf"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-bold bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white touch-manipulation cursor-pointer"
-                  >
-                    <FileDown className="w-4 h-4" />
-                    <span>Download CV</span>
-                  </a>
-                </div>
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className={`md:hidden border-b w-full overflow-hidden ${
+              isDark ? "bg-[#080808]/98 border-[#1c1c1c]" : "bg-white/98 border-[#E4E4E7]"
+            } px-5 py-4`}
+          >
+            <div className="flex flex-col gap-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`text-sm font-medium py-2.5 px-2 rounded-lg transition-colors min-h-[44px] flex items-center ${
+                    activeSection === link.id
+                      ? isDark ? "text-white font-bold bg-[#141414]" : "text-black font-bold bg-[#F4F4F5]"
+                      : isDark ? "text-[#A1A1AA] hover:text-white hover:bg-[#121212]" : "text-[#71717A] hover:text-black hover:bg-[#FAFAFA]"
+                  }`}
+                >
+                  {link.name}
+                </a>
+              ))}
+              <div className="pt-3 mt-2 border-t border-[#262626] flex items-center justify-between px-2">
+                <a
+                  href={socialLinks.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-mono text-[#A1A1AA] hover:text-white flex items-center gap-1.5 py-2"
+                >
+                  <Github className="w-4 h-4" />
+                  <span>GitHub</span>
+                </a>
+                <a
+                  href={socialLinks.resumePath}
+                  download="Nash_Keneth_Barzo_CV.pdf"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono bg-white text-black font-semibold min-h-[36px]"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download CV</span>
+                </a>
               </div>
-            </motion.div>
-          </>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </header>
